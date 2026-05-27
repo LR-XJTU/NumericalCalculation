@@ -10,13 +10,21 @@ void Eigen_val_vec::init() {
 	fl.init("Eigen_val_vec.txt");
 	m = 0.0;
 	counter = 0;
+#ifdef CHINESE_VERSION
+	cout << "\n请输入矩阵阶数：n = ";
+#else
 	cout << "\nPlease enter the order of the matrix: n = ";
+#endif
 	n = in_int();
 	A.resize(n);
 	for (int i = 0; i < n; i++) A[i].resize(n);
 	z.resize(n);
 	for (int i = 0; i < n; i++) z[i] = 1.0;
+#ifdef CHINESE_VERSION
+	cout << "\n请输入矩阵 A(" << n << "*" << n << "):" << endl;
+#else
 	cout << "\nPlease input the matrix A(" << n << "*" << n << "):" << endl;
+#endif
 	for (int i = 0; i < n; i++) for (int j = 0; j < n; j++) cin >> A[i][j];
 	cout << "\nA (" << n << "*" << n << ") =" << endl;
 	for (int i = 0; i < n; i++) {
@@ -29,10 +37,17 @@ void Eigen_val_vec::init() {
 		for (int j = 0; j < n; j++) fl << A[i][j] << "\t";
 		fl << "\n";
 	}
+#ifdef CHINESE_VERSION
+	cout << "\n设置误差限：" << endl;
+	cout << "  |m_k - m_k-1| <= eps1 , 或 ||z_k - z_k-1|| <= eps2" << endl;
+	cout << "  默认值：eps1 = 1.0e-6, eps2 = 1.0e-6" << endl;
+	cout << "使用默认值？(1 = 是, 0 = 否) ";
+#else
 	cout << "\nSet the error limit:" << endl;
 	cout << "  |m_k - m_k-1| <= eps1 , or ||z_k - z_k-1|| <= eps2" << endl;
 	cout << "  Default values: eps1 = 1.0e-6, eps2 = 1.0e-6" << endl;
 	cout << "Use default values? (1 = Yes, 0 = No) ";
+#endif
 	int flag = in_int();
 	if (flag == 1) {
 		eps1 = 1.0e-6;
@@ -45,7 +60,11 @@ void Eigen_val_vec::init() {
 		cin >> eps2;
 	}
 	else {
+#ifdef CHINESE_VERSION
+		cout << "错误：非法输入。" << endl;
+#else
 		cout << "Error: Illegal input." << endl;
+#endif
 		throw 0;
 	}
 	if (eps1 < 1.0) {
@@ -60,17 +79,29 @@ void Eigen_val_vec::init() {
 
 Power_method::Power_method() {
 	init();
+#ifdef CHINESE_VERSION
+	cout << "\n是否进行原点平移？(1 = 是, 0 = 否) ";
+#else
 	cout << "\nWant to move the origin? (1 = Yes, 0 = No) ";
+#endif
 	int flag = in_int();
 	if (flag == 1) {
+#ifdef CHINESE_VERSION
+		cout << "请输入平移距离：p = ";
+#else
 		cout << "Please input the moving distance: p = ";
+#endif
 		cin >> p;
 	}
 	else if (flag == 0) {
 		p = 0.0;
 	}
 	else {
+#ifdef CHINESE_VERSION
+		cout << "错误：非法输入。" << endl;
+#else
 		cout << "Error: Illegal input." << endl;
+#endif
 		throw 0;
 	}
 }
@@ -84,7 +115,11 @@ void Power_method::calc() {
 		temp = 0.0;
 		for (int i = 0; i < n; i++) if (fabs(y[i]) > fabs(temp)) temp = y[i];
 		if (temp == 0.0) {
+#ifdef CHINESE_VERSION
+			cout << "错误：向量为0。" << endl;
+#else
 			cout << "Error: The vector is 0." << endl;
+#endif
 			throw 0;
 		}
 		for (int i = 0; i < n; i++) y[i] /= temp;
@@ -104,13 +139,28 @@ void Power_method::calc() {
 		counter++;
 	}
 	if (counter == 100000) {
+#ifdef CHINESE_VERSION
+		cout << "警告：迭代次数达到默认最大值100000。" << endl;
+		fl << "\n迭代次数达到默认最大值100000。\n";
+#else
 		cout << "Warning: The iteration times reach the default maximum 100000." << endl;
 		fl << "\nThe iteration times reach the default maximum 100000.\n";
+#endif
 	}
 	m += p;
 }
 
 void Power_method::out_result() {
+#ifdef CHINESE_VERSION
+	cout << "\n由幂法计算。" << endl;
+	fl << "\n由幂法计算。";
+	cout << "\n迭代次数 = " << counter << endl;
+	fl << "\n迭代次数 = " << counter << "\n";
+	cout << "\n按模最大的特征值为" << endl;
+	cout << "lambda = " << m << endl;
+	fl << "\n按模最大的特征值为";
+	fl << "\nlambda = " << m << "\n";
+#else
 	cout << "\nCalculated by power method." << endl;
 	fl << "\nCalculated by power method.";
 	cout << "\nIteration times = " << counter << endl;
@@ -119,13 +169,19 @@ void Power_method::out_result() {
 	cout << "lambda = " << m << endl;
 	fl << "\nThe eigenvalue with the largest absolute value is";
 	fl << "\nlambda = " << m << "\n";
+#endif
 	if (p != 0.0) {
 		cout << "( p = " << p << " )" << endl;
 		fl << "( p = " << p << " )\n";
 	}
+#ifdef CHINESE_VERSION
+	cout << "\n对应的特征向量为" << endl;
+	fl << "\n对应的特征向量为";
+#else
 	cout << "\nThe corresponding eigenvector is" << endl;
-	cout << "xi =" << endl;
 	fl << "\nThe corresponding eigenvector is";
+#endif
+	cout << "xi =" << endl;
 	fl << "\nxi =";
 	for (int i = 0; i < z.size(); i++) {
 		cout << "  " << z[i] << endl;
@@ -136,7 +192,11 @@ void Power_method::out_result() {
 
 Inverse_power::Inverse_power() {
 	init();
+#ifdef CHINESE_VERSION
+	cout << "\n请输入近似的特征值：lambda ~= ";
+#else
 	cout << "\nPlease input the approximate eigenvalue: lambda ~= ";
+#endif
 	cin >> p;
 }
 
@@ -163,7 +223,11 @@ void Inverse_power::calc() {
 		temp = 0.0;
 		for (int i = 0; i < n; i++) if (fabs(y[i]) > fabs(temp)) temp = y[i];
 		if (temp == 0.0) {
+#ifdef CHINESE_VERSION
+			cout << "错误：向量为0。" << endl;
+#else
 			cout << "Error: The vector is 0." << endl;
+#endif
 			throw 0;
 		}
 		for (int i = 0; i < n; i++) y[i] /= temp;
@@ -186,12 +250,33 @@ void Inverse_power::calc() {
 		counter++;
 	}
 	if (counter == 100000) {
+#ifdef CHINESE_VERSION
+		cout << "警告：迭代次数达到默认最大值100000。" << endl;
+		fl << "\n迭代次数达到默认最大值100000。\n";
+#else
 		cout << "Warning: The iteration times reach the default maximum 100000." << endl;
 		fl << "\nThe iteration times reach the default maximum 100000.\n";
+#endif
 	}
 }
 
 void Inverse_power::out_result() {
+#ifdef CHINESE_VERSION
+	cout << "\n由反幂法计算。" << endl;
+	fl << "\n由反幂法计算。";
+	cout << "\n迭代次数 = " << counter << endl;
+	fl << "\n迭代次数 = " << counter << "\n";
+	cout << "\n近似的特征值为" << endl;
+	cout << "lambda ~= " << p << endl;
+	fl << "\n近似的特征值为";
+	fl << "\nlambda ~= " << p << "\n";
+	cout << "\n更精确的特征值为" << endl;
+	cout << "lambda = " << lambda << endl;
+	fl << "\n更精确的特征值为";
+	fl << "\nlambda = " << lambda << "\n";
+	cout << "\n对应的特征向量为" << endl;
+	fl << "\n对应的特征向量为";
+#else
 	cout << "\nCalculated by inverse power method." << endl;
 	fl << "\nCalculated by inverse power method.";
 	cout << "\nIteration times = " << counter << endl;
@@ -205,8 +290,9 @@ void Inverse_power::out_result() {
 	fl << "\nThe more accurate eigenvalue is";
 	fl << "\nlambda = " << lambda << "\n";
 	cout << "\nThe corresponding eigenvector is" << endl;
-	cout << "xi =" << endl;
 	fl << "\nThe corresponding eigenvector is";
+#endif
+	cout << "xi =" << endl;
 	fl << "\nxi =";
 	for (int i = 0; i < z.size(); i++) {
 		cout << "  " << z[i] << endl;

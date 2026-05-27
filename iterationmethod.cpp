@@ -9,15 +9,27 @@ void Iteration_method::init() {
 	fl.init("Iteration_method.txt");
 	cout.setf(ios::left);
 	int nn;
+#ifdef CHINESE_VERSION
+	cout << "\n请输入系数矩阵A的阶数(n*n)：\nn = ";
+#else
 	cout<<"\nPlease input the order of coefficient matrix A(n*n):\nn = ";
+#endif
 	nn = in_int();
 	if(nn<=0)
 	{
+#ifdef CHINESE_VERSION
+		cout << "错误：请输入一个正整数。" << endl;
+#else
 		cout<<"Error: Please enter a positive integer."<<endl;
+#endif
 		throw 0;
 	}
 	A_init(nn);
+#ifdef CHINESE_VERSION
+	cout << "\n是否构造对称三对角矩阵？(1 = 是, 0 = 否)" << endl;
+#else
 	cout << "\nWant to construct a symmetric tridiagonal matrix? (1 = yes, 0 = no)" << endl;
+#endif
 	int temp;
 	temp = in_int();
 	if (temp == 1) {
@@ -126,7 +138,11 @@ void Iteration_method::out_x()
 
 //set the error limit eps
 void Iteration_method::set_eps() {
+#ifdef CHINESE_VERSION
+	cout << "\n请设置误差限 (如 0.001 , 1e-6 ): eps = ";
+#else
 	cout << "\nPlease set the error limit ( e.g. 0.001 , 1e-6 ): eps = ";
+#endif
 	double temp;
 	cin >> temp;
 	eps = temp;
@@ -140,7 +156,11 @@ void Iteration_method::set_eps() {
 
 //set the maximum iteration times
 void Iteration_method::set_max() {
+#ifdef CHINESE_VERSION
+	cout << "\n请设置最大迭代次数：maxcounter = ";
+#else
 	cout << "\nPlease set the maximum permission iterative number: maxcounter = ";
+#endif
 	int t = in_int();
 	maxcounter = t;
 }
@@ -160,25 +180,47 @@ void Iteration_method::out_result() {
 	out_x();
 	if (itcounter < maxcounter) {
 		resize_itrerr();
+#ifdef CHINESE_VERSION
+		cout << "\n迭代次数 = " << itcounter << endl;
+		fl << "\n迭代次数 = " << itcounter << "\n";
+#else
 		cout << "\nIteration times = " << itcounter << endl;
 		fl << "\nIteration times = " << itcounter << "\n";
+#endif
 	}
 	else {
+#ifdef CHINESE_VERSION
+		cout << "\n迭代次数 = " << itcounter << " (已达到最大迭代次数)" <<endl;
+		fl << "\n迭代次数 = " << itcounter << " (已达到最大迭代次数)\n";
+#else
 		cout << "\nIteration times = " << itcounter << " (reach the maximum iteration times)" <<endl;
 		fl << "\nIteration times = " << itcounter << " (reach the maximum iteration times)\n";
+#endif
 	}
+#ifdef CHINESE_VERSION
+	cout << "\n误差限为 eps = " << eps << endl;
+	fl << "\n误差限为 eps = " << eps << "\n";
+	cout << "\n误差表如下：\n\n迭代次数 k\t\t误差" << endl;
+	for (int i = 0; i < itcounter; i++) cout << "\t" << i + 1 << "\t\t\t" << itrerr[i] << endl;
+	fl << "\n误差表如下：\n\n迭代次数 k\t\t误差\n";
+#else
 	cout << "\nThe error limit is eps = " << eps << endl;
 	fl << "\nThe error limit is eps = " << eps << "\n";
 	cout << "\nThe error table is as follow:\n\niteration times k\t\terror" << endl;
 	for (int i = 0; i < itcounter; i++) cout << "\t" << i + 1 << "\t\t\t" << itrerr[i] << endl;
 	fl << "\nThe error table is as follow:\n\niteration times k\t\terror\n";
+#endif
 	for (int i = 0; i < itcounter; i++) fl << "\t" << i + 1 << "\t\t\t" << itrerr[i] << "\n";
 	generate_m();
 }
 
 //generate .m file to get the figure of iteration error in MATLAB
 void Iteration_method::generate_m() {
+#ifdef CHINESE_VERSION
+	cout << "\n是否生成 .m 文件用于在MATLAB中绘制迭代误差曲线？(1 = 是, 0 = 否)" << endl;
+#else
 	cout << "\nWant to generate .m file to get the figure of iteration error in MATLAB? (1 = Yes , 0 = No)" << endl;
+#endif
 	int flag = in_int();
 	if (flag == 1) {
 		filelog gm;
@@ -215,7 +257,11 @@ void Iteration_method::exchange_diag_no_0(int i) {
 			if (A[i][i + temp] != 0.0 || i + temp < 0) break;
 		}
 		if (i + temp < 0) {
+#ifdef CHINESE_VERSION
+			cout << "错误：由于对角线有零元素，无法使用基本迭代法求解该方程组。" << endl;
+#else
 			cout << "Error: Equations cannot be solved by basic iteration methods because of the zero element of the diagonal." << endl;
+#endif
 			throw 0;
 		}
 		else exchange_row(i, i + temp);
@@ -229,7 +275,11 @@ Jacobi::Jacobi() {
 }
 
 void Jacobi::calc() {
+#ifdef CHINESE_VERSION
+	cout << "\n正在用Jacobi迭代法求解 Ax=b ..." << endl;
+#else
 	cout << "\nSolving Ax=b by Jacobi iterative method..." << endl;
+#endif
 	double* x0 = new double[n];
 	double err;
 	for (int i = 0; i < n; i++) {
@@ -254,12 +304,21 @@ void Jacobi::calc() {
 		itcounter++;
 	} while (err > eps && itcounter < maxcounter);
 	delete[]x0;
+#ifdef CHINESE_VERSION
+	cout << "\n求解完成。" << endl;
+#else
 	cout << "\nFinish solving." << endl;
+#endif
 }
 
 void Jacobi::out_result() {
+#ifdef CHINESE_VERSION
+	cout << "\n通过Jacobi迭代法求解。" << endl;
+	fl << "\n通过Jacobi迭代法求解。\n";
+#else
 	cout << "\nSolved by Jacobi iteration method." << endl;
 	fl << "\nSolved by Jacobi iteration method.\n";
+#endif
 	Iteration_method::out_result();
 }
 
@@ -275,7 +334,11 @@ Gauss_Seidel::Gauss_Seidel() {
 }
 
 void Gauss_Seidel::calc() {
+#ifdef CHINESE_VERSION
+	cout << "\n正在用Gauss-Seidel迭代法求解 Ax=b ..." << endl;
+#else
 	cout << "\nSolving Ax=b by Gauss-Samuel iterative method..." << endl;
+#endif
 	double* x0 = new double[n];
 	double err;
 	for (int i = 0; i < n; i++) {
@@ -300,12 +363,21 @@ void Gauss_Seidel::calc() {
 		itcounter++;
 	} while (err > eps && itcounter < maxcounter);
 	delete[]x0;
+#ifdef CHINESE_VERSION
+	cout << "\n求解完成。" << endl;
+#else
 	cout << "\nFinish solving." << endl;
+#endif
 }
 
 void Gauss_Seidel::out_result() {
+#ifdef CHINESE_VERSION
+	cout << "\n通过Gauss-Seidel迭代法求解。" << endl;
+	fl << "\n通过Gauss-Seidel迭代法求解。\n";
+#else
 	cout << "\nSolved by Gauss-Seidel iteration method." << endl;
 	fl << "\nSolved by Gauss-Seidel iteration method.\n";
+#endif
 	Iteration_method::out_result();
 }
 
@@ -322,12 +394,20 @@ SOR::SOR() {
 }
 
 void SOR::in_omega() {
+#ifdef CHINESE_VERSION
+	cout << "\n请输入松弛因子 omega：" << endl;
+#else
 	cout << "\nPlease input omega:" << endl;
+#endif
 	cin >> omega;
 }
 
 void SOR::calc() {
+#ifdef CHINESE_VERSION
+	cout << "\n正在用SOR迭代法求解 Ax=b ..." << endl;
+#else
 	cout << "\nSolving Ax=b by SOR iterative method..." << endl;
+#endif
 	double* x0 = new double[n];
 	double err;
 	for (int i = 0; i < n; i++) {
@@ -352,12 +432,21 @@ void SOR::calc() {
 		itcounter++;
 	} while (err > eps && itcounter < maxcounter);
 	delete[]x0;
+#ifdef CHINESE_VERSION
+	cout << "\n求解完成。" << endl;
+#else
 	cout << "\nFinish solving." << endl;
+#endif
 }
 
 void SOR::out_result() {
+#ifdef CHINESE_VERSION
+	cout << "\n通过SOR迭代法求解。" << endl;
+	fl << "\n通过SOR迭代法求解。\n";
+#else
 	cout << "\nSolved by SOR iteration method." << endl;
 	fl << "\nSolved by SOR iteration method.\n";
+#endif
 	Iteration_method::out_result();
 }
 
@@ -373,10 +462,18 @@ steepest_descent::steepest_descent() {
 }
 
 void steepest_descent::calc() {
+#ifdef CHINESE_VERSION
+	cout << "\n正在用最速下降法求解 Ax=b ..." << endl;
+#else
 	cout << "\nSolving Ax=b by steepest descent method..." << endl;
+#endif
 	if (!check_symmetry())
 	{
+#ifdef CHINESE_VERSION
+		cout << "错误：A不是对称矩阵。" << endl;
+#else
 		cout << "Error: A is not symmetrical." << endl;
+#endif
 		throw 0;
 	}
 	double* x0 = new double[n];
@@ -403,12 +500,21 @@ void steepest_descent::calc() {
 	} while (err > eps && itcounter < maxcounter);
 	delete[]x0;
 	delete[]p;
+#ifdef CHINESE_VERSION
+	cout << "\n求解完成。" << endl;
+#else
 	cout << "\nFinish solving." << endl;
+#endif
 }
 
 void steepest_descent::out_result() {
+#ifdef CHINESE_VERSION
+	cout << "\n通过最速下降法求解。" << endl;
+	fl << "\n通过最速下降法求解。\n";
+#else
 	cout << "\nSolved by steepest descent method." << endl;
 	fl << "\nSolved by steepest descent method.\n";
+#endif
 	Iteration_method::out_result();
 }
 
@@ -437,10 +543,18 @@ conjugate_gradient::conjugate_gradient(double** AA, double* bb, int nn) {
 }
 
 void conjugate_gradient::calc() {
+#ifdef CHINESE_VERSION
+	if (print_state) cout << "\n正在用共轭梯度法求解 Ax=b ..." << endl;
+#else
 	if (print_state) cout << "\nSolving Ax=b by conjugate gradient method..." << endl;
+#endif
 	if (!check_symmetry())
 	{
+#ifdef CHINESE_VERSION
+		cout << "错误：A不是对称矩阵。" << endl;
+#else
 		cout << "Error: A is not symmetrical." << endl;
+#endif
 		throw 0;
 	}
 	double* r0 = new double[n];
@@ -492,12 +606,21 @@ void conjugate_gradient::calc() {
 	delete[]r0;
 	delete[]r;
 	delete[]d;
+#ifdef CHINESE_VERSION
+	if (print_state) cout << "\n求解完成。" << endl;
+#else
 	if (print_state) cout << "\nFinish solving." << endl;
+#endif
 }
 
 void conjugate_gradient::out_result() {
+#ifdef CHINESE_VERSION
+	cout << "\n通过共轭梯度法求解。" << endl;
+	fl << "\n通过共轭梯度法求解。\n";
+#else
 	cout << "\nSolved by conjugate gradient method." << endl;
 	fl << "\nSolved by conjugate gradient method.\n";
+#endif
 	Iteration_method::out_result();
 }
 
@@ -517,12 +640,20 @@ GMRES::GMRES() {
 }
 
 void GMRES::in_m() {
+#ifdef CHINESE_VERSION
+	cout << "\n请输入低维子空间维度 m = ";
+#else
 	cout << "\nPlease input a low dimension m = ";
+#endif
 	cin >> m;
 }
 
 void GMRES::calc() {
+#ifdef CHINESE_VERSION
+	cout << "\n正在用GMRES求解 Ax=b ..." << endl;
+#else
 	cout << "\nSolving Ax=b by GMRES..." << endl;
+#endif
 	double* r0 = new double[n];
 	double** Vm = new double*[n];
 	for(int i=0;i<n;i++) Vm[i] = new double[m+1];
@@ -538,14 +669,14 @@ void GMRES::calc() {
 	}
 	err = vecnorm2(r0,n);
 	while (err > eps && itcounter < maxcounter) {
-		//阿诺尔迪过程 
+		//Arnoldi process
 		for(int i=0;i<n;i++) Vm[i][0] = r0[i]/err;
 		for(int k=0;k<m;k++) {
 			for(int i=0;i<n;i++) Vm[i][m] = 0.0;
 			for(int i=0;i<n;i++) for(int j=0;j<n;j++) Vm[i][m] += A[i][j]*Vm[j][k];
 			for(int i=0;i<=k;i++) {
 				H_trans[k][i] = 0.0;
-				for(int j=0;j<n;j++) H_trans[k][i] += Vm[j][m]*Vm[j][i]; 
+				for(int j=0;j<n;j++) H_trans[k][i] += Vm[j][m]*Vm[j][i];
 			}
 			for(int i=0;i<n;i++) {
 				Vm[i][k+1] = Vm[i][m];
@@ -556,7 +687,7 @@ void GMRES::calc() {
 			if(k==(m-1) && H_trans[m-1][m]==0.0) for(int i=0;i<n;i++) Vm[i][m] = 0.0;
 			else for(int i=0;i<n;i++) Vm[i][k+1] /= H_trans[k][k+1];
 		}
-		//最小二乘问题
+		//Least squares
 		e1[0] = err;
 		for(int i=1;i<=m;i++) e1[i] = 0.0;
 		for(int i=0;i<m;i++) {
@@ -578,7 +709,7 @@ void GMRES::calc() {
 			for(int j=m-1;j>i;j--) e1[i] -= H_trans[j][i]*y[j];
 			y[i] = e1[i]/H_trans[i][i];
 		}
-		//更新x 
+		//Update x
 		for(int i=0;i<n;i++) for(int j=0;j<m;j++) x[i] += Vm[i][j]*y[j];
 		for(int i=0;i<n;i++) {
 			r0[i] = b[i];
@@ -595,12 +726,21 @@ void GMRES::calc() {
 	delete[] H_trans;
 	delete[] e1;
 	delete[] y;
+#ifdef CHINESE_VERSION
+	cout << "\n求解完成。" << endl;
+#else
 	cout << "\nFinish solving." << endl;
+#endif
 }
 
 void GMRES::out_result() {
+#ifdef CHINESE_VERSION
+	cout << "\n通过GMRES求解。" << endl;
+	fl << "\n通过GMRES求解。\n";
+#else
 	cout << "\nSolved by GMRES." << endl;
 	fl << "\nSolved by GMRES.\n";
+#endif
 	Iteration_method::out_result();
 }
 

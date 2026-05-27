@@ -32,7 +32,8 @@ double optimal_approx::inner_product(formula f, formula g, double* x, int m, dou
 	}
 	double r = 0.0;
 	for (int i = 0; i < m; i++) r += w[i] * fy[i] * gy[i];
-	delete [] fy, gy;
+	delete[] fy;
+	delete[] gy;
 	return r;
 }
 
@@ -64,29 +65,49 @@ void optimal_approx::Cheby_poly(double** c, int nnp1) {
 }
 
 sqr_approx::sqr_approx() {
+#ifdef CHINESE_VERSION
+	cout << "\n要逼近连续函数还是列表函数？(1 = 连续, 2 = 列表)" << endl;
+#else
 	cout << "\nWant to approximate a continuous function or a list function? (1 = continuous, 2 = list)" << endl;
+#endif
 	int flag = in_int();
 	if (flag == 1) cont = true;
 	else if (flag == 2) cont = false;
 	else {
+#ifdef CHINESE_VERSION
+		cout << "错误：非法输入。" << endl;
+#else
 		cout << "Error: Illegal input." << endl;
+#endif
 		throw 0;
 	}
 	if (cont) {
 		fx.init();
+#ifdef CHINESE_VERSION
+		cout << "\n请输入区间 [a,b]：" << endl;
+#else
 		cout << "\nPlease input the interval [a,b]:" << endl;
+#endif
 		cout << "a = ";
 		cin >> interval[0];
 		cout << "b = ";
 		cin >> interval[1];
 	}
 	else {
+#ifdef CHINESE_VERSION
+		cout << "\n请输入点的个数：m = ";
+#else
 		cout << "\nPlease enter the number of points: m = ";
+#endif
 		m = in_int();
 		x = new double[m];
 		y = new double[m];
 		wl = new double[m];
+#ifdef CHINESE_VERSION
+		cout << "\n请输入 (x,y)：\nx\ty" << endl;
+#else
 		cout << "\nPlease input (x,y):\nx\ty" << endl;
+#endif
 		for (int i = 0; i < m; i++) {
 			cin >> x[i] >> y[i];
 		}
@@ -94,7 +115,11 @@ sqr_approx::sqr_approx() {
 		interval[0] = x[0];
 		interval[1] = x[m - 1];
 	}
+#ifdef CHINESE_VERSION
+	cout << "\n权重 w 使用默认值 1？(1 = 是, 0 = 否)" << endl;
+#else
 	cout << "\nThe weight w uses the default value 1? (1 = Yes, 0 = No)" << endl;
+#endif
 	int wf = in_int();
 	if (wf == 1) {
 		w_flag = false;
@@ -111,26 +136,48 @@ sqr_approx::sqr_approx() {
 	else if (wf == 0) {
 		w_flag = true;
 		if (cont) {
+#ifdef CHINESE_VERSION
+			cout << "\n请输入权重函数 w：\nw = ";
+#else
 			cout << "\nPlease input weight function w:\nw = ";
+#endif
 			string s;
 			cin >> s;
 			wc.init(s);
 		}
 		else {
+#ifdef CHINESE_VERSION
+			cout << "\n请输入 w_i：(i=0,1,...," << m << ")" << endl;
+#else
 			cout << "\nPlease enter w_i: (i=0,1,...," << m << ")" << endl;
+#endif
 			for (int i = 0; i < m; i++) cin >> wl[i];
 		}
 	}
 	else {
+#ifdef CHINESE_VERSION
+		cout << "错误：非法输入。" << endl;
+#else
 		cout << "Error: Illegal input." << endl;
+#endif
 		throw 0;
 	}
+#ifdef CHINESE_VERSION
+	cout << "\n请选择基函数：" << endl;
+	cout << "1.递推正交多项式" << endl;
+	cout << "2.自定义基函数" << endl;
+#else
 	cout << "\nPlease select the basis functions:" << endl;
 	cout << "1.Recursive orthogonal polynomials" << endl;
 	cout << "2.self-defined basis functions" << endl;
+#endif
 	basis_flag = in_int();
 	if (basis_flag == 1) {
+#ifdef CHINESE_VERSION
+		cout << "\n请输入多项式阶数：n = ";
+#else
 		cout << "\nPlease enter the order of the polynomial: n = ";
+#endif
 		np1 = in_int() + 1;
 		basis = new formula[np1];
 		coef = new double[np1];
@@ -139,7 +186,11 @@ sqr_approx::sqr_approx() {
 		orth_poly(basis, np1);
 	}
 	else if (basis_flag == 2) {
+#ifdef CHINESE_VERSION
+		cout << "\n请输入基函数个数：n = ";
+#else
 		cout << "\nPlease enter the number of basis functions: n = ";
+#endif
 		np1 = in_int();
 		basis = new formula[np1];
 		coef = new double[np1];
@@ -150,14 +201,23 @@ sqr_approx::sqr_approx() {
 			cin >> s;
 			basis[i].init(s);
 		}
+#ifdef CHINESE_VERSION
+		cout << "\n基函数为：" << endl;
+		fl << "\n基函数为：\n";
+#else
 		cout << "\nThe basis functions are:" << endl;
-		for (int i = 0; i < np1; i++) cout << "g" << i << "(x) = " << basis[i].get_fstr() << endl;
 		fl << "\nThe basis functions are:\n";
+#endif
+		for (int i = 0; i < np1; i++) cout << "g" << i << "(x) = " << basis[i].get_fstr() << endl;
 		for (int i = 0; i < np1; i++) fl << "\ng" << i << "(x) = " << basis[i].get_fstr();
 		fl << "\n";
 	}
 	else {
+#ifdef CHINESE_VERSION
+		cout << "错误：非法输入。" << endl;
+#else
 		cout << "Error: Illegal input." << endl;
+#endif
 		throw 0;
 	}
 }
@@ -255,12 +315,20 @@ void sqr_approx::orth_poly(formula* ff, int n) {
 		s = polytostr(c[i], i + 1);
 		ff[i].init(s);
 	}
+#ifdef CHINESE_VERSION
+	cout << "\n基函数为：" << endl;
+#else
 	cout << "\nThe basis functions are:" << endl;
+#endif
 	for (int i = 0; i < n; i++) cout << "g" << i << "(x) = " << ff[i].get_fstr() << endl;
 }
 
 void sqr_approx::calc() {
+#ifdef CHINESE_VERSION
+	cout << "\n正在计算最佳平方逼近函数..." << endl;
+#else
 	cout << "\nCalculating optimal square approximation function..." << endl;
+#endif
 	double* cc = new double[np1];
 	if (basis_flag == 1) {
 		if (cont) {
@@ -327,7 +395,11 @@ void sqr_approx::calc() {
 	}
 	err = sqrt(err);
 	delete [] cc;
+#ifdef CHINESE_VERSION
+	cout << "\n计算完成。" << endl;
+#else
 	cout << "\nFinish calculating." << endl;
+#endif
 }
 
 void sqr_approx::out_result() {
@@ -336,34 +408,64 @@ void sqr_approx::out_result() {
 		fl << "\nf(x) = " << fx.get_fstr() << " , " << interval[0] << " <= x <= " << interval[1] << "\n";
 		cout << "w(x) = " << wc.get_fstr() << endl;
 		fl << "w(x) = " << wc.get_fstr() << "\n";
+#ifdef CHINESE_VERSION
+		fl << "\n基函数为：\n";
+		for (int i = 0; i < np1; i++) fl << "\ng" << i << "(x) = " << basis[i].get_fstr();
+		fl << "\n";
+		cout << "\nf(x) 在 [" << interval[0] << "," << interval[1] << "] 上的最佳平方逼近为\n\np(x) = ";
+		fl << "\nf(x) 在 [" << interval[0] << "," << interval[1] << "] 上的最佳平方逼近为\n\np(x) = ";
+#else
 		fl << "\nThe basis functions are:\n";
 		for (int i = 0; i < np1; i++) fl << "\ng" << i << "(x) = " << basis[i].get_fstr();
 		fl << "\n";
 		cout << "\nThe optimal square approximation of f(x) on [" << interval[0] << "," << interval[1] << "] is\n\np(x) = ";
 		fl << "\nThe optimal square approximation of f(x) on [" << interval[0] << "," << interval[1] << "] is\n\np(x) = ";
+#endif
 	}
 	else {
+#ifdef CHINESE_VERSION
+		cout << "\n样本点和权重系数为：" << endl;
+		fl << "\n样本点和权重系数为：\n";
+#else
 		cout << "\nThe sample points and the weight coefficients are:" << endl;
 		fl << "\nThe sample points and the weight coefficients are:\n";
+#endif
 		for (int i = 0; i < m; i++) {
 			cout << "(" << x[i] << " , " << y[i] << ") , w_" << i + 1 << " = " << wl[i] << endl;
 			fl << "(" << x[i] << " , " << y[i] << ") , w_" << i + 1 << " = " << wl[i] << "\n";
 		}
+#ifdef CHINESE_VERSION
+		fl << "\n基函数为：\n";
+		for (int i = 0; i < np1; i++) fl << "\ng" << i << "(x) = " << basis[i].get_fstr();
+		fl << "\n";
+		cout << "\n样本点的最佳平方逼近为\n\np(x) = ";
+		fl << "\n样本点的最佳平方逼近为\n\np(x) = ";
+#else
 		fl << "\nThe basis functions are:\n";
 		for (int i = 0; i < np1; i++) fl << "\ng" << i << "(x) = " << basis[i].get_fstr();
 		fl << "\n";
 		cout << "\nThe optimal square approximation of the sample points is\n\np(x) = ";
 		fl << "\nThe optimal square approximation of the sample points is\n\np(x) = ";
+#endif
 	}
 	cout << resultstr << endl;
 	fl << resultstr << "\n";
+#ifdef CHINESE_VERSION
+	cout << "\n均方误差 = " << err << endl;
+	fl << "\n均方误差 = " << err << "\n";
+#else
 	cout << "\nThe mean square error = " << err << endl;
 	fl << "\nThe mean square error = " << err << "\n";
+#endif
 	generate_m();
 }
 
 void sqr_approx::generate_m() {
+#ifdef CHINESE_VERSION
+	cout << "\n是否生成 .m 文件用于在MATLAB中绘制最佳逼近函数图像？(1 = 是, 0 = 否)" << endl;
+#else
 	cout << "\nWant to generate .m file to get figure of the optimal approximation function in MATLAB? (1 = Yes , 0 = No)" << endl;
+#endif
 	int flag = in_int();
 	if (flag == 1) {
 		string s;
@@ -440,12 +542,22 @@ void sqr_approx::generate_m() {
 }
 
 uni_approx::uni_approx() {
+#ifdef CHINESE_VERSION
+	cout << "\n请选择近似最佳一致逼近的方法：" << endl;
+	cout << "1.Chebyshev插值多项式" << endl;
+	cout << "2.截断Chebyshev级数法" << endl;
+#else
 	cout << "\nPlease select the method of approximate optimal uniform approximation:" << endl;
 	cout << "1.Chebyshev interpolation polynomials" << endl;
 	cout << "2.Truncated Chebyshev series method" << endl;
+#endif
 	ua_method = in_int();
 	if (ua_method < 1 || ua_method>2) {
+#ifdef CHINESE_VERSION
+		cout << "错误：超出索引范围。" << endl;
+#else
 		cout << "Error: Out of index range." << endl;
+#endif
 		throw 0;
 	}
 	string temp_fx;
@@ -458,12 +570,20 @@ uni_approx::uni_approx() {
 		cin >> temp_fx;
 		fx.init(temp_fx);
 	}
+#ifdef CHINESE_VERSION
+	cout << "\n请输入区间 [a,b]：" << endl;
+#else
 	cout << "\nPlease input the interval [a,b]:" << endl;
+#endif
 	cout << "a = ";
 	cin >> interval[0];
 	cout << "b = ";
 	cin >> interval[1];
+#ifdef CHINESE_VERSION
+	cout << "\n请输入近似最佳一致逼近多项式的阶数：n = ";
+#else
 	cout << "\nPlease enter the order of the polynomial of approximate optimal uniform approximation: n = ";
+#endif
 	np1 = in_int() + 1;
 	coef = new double[np1];
 	for (int i = 0; i < np1; i++) coef[i] = 0.0;
@@ -496,25 +616,49 @@ void uni_approx::calc() {
 void uni_approx::out_result() {
 	cout << "\nf(x) = " << fx.get_fstr() << " , " << interval[0] << " <= x <= " << interval[1] << endl;
 	fl << "\nf(x) = " << fx.get_fstr() << " , " << interval[0] << " <= x <= " << interval[1] << "\n";
+#ifdef CHINESE_VERSION
+	cout << "f(x) 在 [" << interval[0] << "," << interval[1] << "] 上的最佳一致逼近为\n\np(x) = ";
+	fl << "f(x) 在 [" << interval[0] << "," << interval[1] << "] 上的最佳一致逼近为\n\np(x) = ";
+#else
 	cout << "The optimal uniform approximation of f(x) on [" << interval[0] << "," << interval[1] << "] is\n\np(x) = ";
 	fl << "The optimal uniform approximation of f(x) on [" << interval[0] << "," << interval[1] << "] is\n\np(x) = ";
+#endif
 	cout << resultstr << endl;
 	fl << resultstr << "\n";
+#ifdef CHINESE_VERSION
+	cout << "\n由 ";
+	fl << "\n由 ";
+#else
 	cout << "\nSolved by ";
 	fl << "\nSolved by ";
+#endif
 	if (ua_method == 1) {
+#ifdef CHINESE_VERSION
+		cout << "Chebyshev插值多项式计算。" << endl;
+		fl << "Chebyshev插值多项式计算。\n";
+#else
 		cout << "Chebyshev interpolation polynomials." << endl;
 		fl << "Chebyshev interpolation polynomials.\n";
+#endif
 	}
 	else if (ua_method == 2) {
+#ifdef CHINESE_VERSION
+		cout << "截断Chebyshev级数法计算。" << endl;
+		fl << "截断Chebyshev级数法计算。\n";
+#else
 		cout << "truncated Chebyshev series method." << endl;
 		fl << "truncated Chebyshev series method.\n";
+#endif
 	}
 	generate_m();
 }
 
 void uni_approx::generate_m() {
+#ifdef CHINESE_VERSION
+	cout << "\n是否生成 .m 文件用于在MATLAB中绘制最佳逼近函数图像？(1 = 是, 0 = 否)" << endl;
+#else
 	cout << "\nWant to generate .m file to get figure of the optimal approximation function in MATLAB? (1 = Yes , 0 = No)" << endl;
+#endif
 	int flag = in_int();
 	if (flag == 1) {
 		string s;

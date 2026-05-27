@@ -15,7 +15,11 @@ void Interpolation::init() {
 	fl.init("Interpolation.txt");
 	int cc;
 	cout.setf(ios::left);
+#ifdef CHINESE_VERSION
+	cout << "\n输入连续函数还是列表函数？(1 = 连续 , 2 = 列表)" << endl;
+#else
 	cout << "\nWant to input a continuous function or a list funtion? (1 = continuous , 2 = list)" << endl;
+#endif
 	input_fx = false;
 	cc = in_int();
 	if (cc == 1) {
@@ -29,10 +33,18 @@ void Interpolation::input_data() {
 	double temp;
 	if (input_fx) {
 		int tf;
+#ifdef CHINESE_VERSION
+		cout << "\n输入任意x还是均匀采样？(1 = 任意x , 2 = 均匀采样)" << endl;
+#else
 		cout << "\nWant to input arbitrary x or get uniform sampling? (1 = arbitrary x , 2 = uniform sampling)" << endl;
+#endif
 		tf = in_int();
 		if (tf == 1) {
+#ifdef CHINESE_VERSION
+			cout << "\n请输入点 (x,f(x))：" << endl;
+#else
 			cout << "\nPlease input x of the points (x,f(x)):" << endl;
+#endif
 			for (int i = 0; i < np1; i++)
 			{
 				cout << "x = ";
@@ -43,7 +55,11 @@ void Interpolation::input_data() {
 		}
 		else if (tf == 2) {
 			double a, b, h;
+#ifdef CHINESE_VERSION
+			cout << "\n请输入区间 [a , b]:\na = ";
+#else
 			cout << "\nPlease input the interval [a , b]:\na = ";
+#endif
 			cin >> a;
 			cout << "b = ";
 			cin >> b;
@@ -55,7 +71,11 @@ void Interpolation::input_data() {
 		}
 	}
 	else {
+#ifdef CHINESE_VERSION
+		cout << "\n请输入点 (x,y)：" << endl;
+#else
 		cout << "\nPlease input the points (x,y):" << endl;
+#endif
 		cout << "x\ty" << endl;
 		for (int i = 0; i < np1 * 2; i++)
 		{
@@ -64,20 +84,32 @@ void Interpolation::input_data() {
 			else in_y((i - 1) / 2, temp);
 		}
 	}
+#ifdef CHINESE_VERSION
+	cout << "\n输入完成。" << endl;
+#else
 	cout << "\nFinish inputting." << endl;
+#endif
 	sort_x();
 	cout_xy();
 }
 
 void Interpolation::cout_xy() {
+#ifdef CHINESE_VERSION
+	cout << "\n插值点为：" << endl;
+#else
 	cout << "\nThe points are:" << endl;
+#endif
 	for (int i = 0; i < np1; i++) {
 		cout << "(" << x[i] << " , " << y[i] << ")" << "\n";
 	}
 }
 
 void Interpolation::save_xy() {
+#ifdef CHINESE_VERSION
+	fl << "\n插值点为：\n";
+#else
 	fl << "\nThe points are:\n";
+#endif
 	for (int i = 0; i < np1; i++) {
 		fl << "(" << x[i] << " , " << y[i] << ")\n";
 	}
@@ -165,11 +197,19 @@ std::string Interpolation::polytostr(double* p, int l) {
 
 Newton_Ip::Newton_Ip() {
 	init();
+#ifdef CHINESE_VERSION
+	cout << "\n请输入插值点个数：" << endl;
+#else
 	cout << "\nPlease enter the number of points:" << endl;
+#endif
 	int nn = in_int();
 	if (nn <= 0)
 	{
+#ifdef CHINESE_VERSION
+		cout << "错误：请输入一个正整数。" << endl;
+#else
 		cout << "Error: Please enter a positive integer." << endl;
+#endif
 		throw 0;
 	}
 	np1 = nn;
@@ -202,19 +242,31 @@ Newton_Ip::Newton_Ip(double* xx, double* yy, double nnp1) {
 }
 
 void Newton_Ip::cout_polynomial() {
+#ifdef CHINESE_VERSION
+	cout << "\n插值多项式 N = ";
+#else
 	cout << "\nN = ";
+#endif
 	cout_poly(N, np1);
 	cout << endl;
 }
 
 void Newton_Ip::save_polynomial() {
+#ifdef CHINESE_VERSION
+	fl << "\n插值多项式 N = ";
+#else
 	fl << "\nN = ";
+#endif
 	save_poly(N, np1);
 	fl << "\n";
 }
 
 void Newton_Ip::calc() {
+#ifdef CHINESE_VERSION
+	cout << "\n正在计算插值多项式..." << endl;
+#else
 	cout << "\nCalculating the interpolation polynomial..." << endl;
+#endif
 	for (int j = 0; j < np1; j++) {
 		for (int i = j; i < np1; i++) {
 			difference_quotient(i, j);
@@ -226,11 +278,19 @@ void Newton_Ip::calc() {
 	cout_polynomial();
 	int add_p = 1;
 	while (1) {
+#ifdef CHINESE_VERSION
+		cout << "\n是否增加一个点？(1 = 是 , 0 = 否)" << endl;
+#else
 		cout << "\nWant to add a point? (1 = yes , 0 = no)" << endl;
+#endif
 		cin >> add_p;
 		if (!add_p) break;
 		double xx, yy;
+#ifdef CHINESE_VERSION
+		cout << "\n请输入新点：\nx = ";
+#else
 		cout << "\nPlease enter the new point:\nx = ";
+#endif
 		cin >> xx;
 		if (input_fx) yy = fx.f(xx);
 		else {
@@ -242,7 +302,11 @@ void Newton_Ip::calc() {
 		pi_expansion(np1 - 1);
 		cout_polynomial();
 	}
+#ifdef CHINESE_VERSION
+	cout << "\n插值完成。" << endl;
+#else
 	cout << "\nFinish interpolating." << endl;
+#endif
 }
 
 void Newton_Ip::pure_calc() {
@@ -290,15 +354,24 @@ void Newton_Ip::out_result() {
 	sort_x();
 	cout_xy();
 	save_xy();
+#ifdef CHINESE_VERSION
+	cout << "\nNewton插值多项式为" << endl;
+	fl << "\nNewton插值多项式为\n";
+#else
 	cout << "\nThe Newton interpolation function is" << endl;
 	fl << "\nThe Newton interpolation function is\n";
+#endif
 	cout_polynomial();
 	save_polynomial();
 	generate_m();
 }
 
 void Newton_Ip::generate_m() {
+#ifdef CHINESE_VERSION
+	cout << "\n是否生成 .m 文件用于在MATLAB中绘制插值曲线？(1 = 是, 0 = 否)" << endl;
+#else
 	cout << "\nWant to generate .m file to get figure of iteration error in MATLAB? (1 = Yes , 0 = No)" << endl;
+#endif
 	int flag = in_int();
 	if (flag == 1) {
 		filelog gm;
@@ -418,11 +491,19 @@ Newton_Ip::~Newton_Ip() {
 
 Hermite_Ip::Hermite_Ip() :Newton_Ip(true) {
 	init();
+#ifdef CHINESE_VERSION
+	cout << "\n请输入插值点个数（包含重节点）：" << endl;
+#else
 	cout << "\nPlease enter the number of points: (including the multiple nodes)" << endl;
+#endif
 	int nn = in_int();
 	if (nn <= 0)
 	{
+#ifdef CHINESE_VERSION
+		cout << "错误：请输入一个正整数。" << endl;
+#else
 		cout << "Error: Please enter a positive integer." << endl;
+#endif
 		throw 0;
 	}
 	np1 = nn;
@@ -442,8 +523,13 @@ void Hermite_Ip::input_data() {
 	int t;
 	if (input_fx) {
 		DerivExtra Deriv(fx);
+#ifdef CHINESE_VERSION
+		cout << "\n请输入 x 和导数阶数：" << endl;
+		cout << "x\t导数阶数 (0表示函数值)" << endl;
+#else
 		cout << "\nPlease input x and the orders of derivatives:" << endl;
 		cout << "x\torder of derivative (0 represents the function value)" << endl;
+#endif
 		for (int i = 0; i < np1; i++)
 		{
 			cin >> temp;
@@ -460,8 +546,13 @@ void Hermite_Ip::input_data() {
 		}
 	}
 	else {
+#ifdef CHINESE_VERSION
+		cout << "\n请输入点和导数阶数：" << endl;
+		cout << "x\ty\t导数阶数 (0表示函数值)" << endl;
+#else
 		cout << "\nPlease input the points and the orders of derivatives:" << endl;
 		cout << "x\ty\torder of derivative (0 represents the function value)" << endl;
+#endif
 		for (int i = 0; i < np1 * 3; i++)
 		{
 			cin >> temp;
@@ -470,7 +561,11 @@ void Hermite_Ip::input_data() {
 			else in_d(i / 3, (int)temp);
 		}
 	}
+#ifdef CHINESE_VERSION
+	cout << "\n输入完成。" << endl;
+#else
 	cout << "\nFinish inputting." << endl;
+#endif
 	sort_x();
 	cout_xy();
 }
@@ -478,7 +573,11 @@ void Hermite_Ip::input_data() {
 void Hermite_Ip::cout_xy() {
 	int t = 0;
 	double tt = x[0];
+#ifdef CHINESE_VERSION
+	cout << "\n插值点为：" << endl;
+#else
 	cout << "\nThe points are:" << endl;
+#endif
 	for (int i = 0; i < np1; i++) {
 		if (i > 0 && tt == x[i]) t++;
 		else tt = x[i];
@@ -492,7 +591,11 @@ void Hermite_Ip::cout_xy() {
 void Hermite_Ip::save_xy() {
 	int t = 0;
 	double tt = x[0];
+#ifdef CHINESE_VERSION
+	fl << "\n插值点为：\n";
+#else
 	fl << "\nThe points are:\n";
+#endif
 	for (int i = 0; i < np1; i++) {
 		if (i > 0 && tt == x[i]) t++;
 		else tt = x[i];
@@ -571,19 +674,31 @@ void Hermite_Ip::in_d(int i, int t) {
 }
 
 void Hermite_Ip::cout_polynomial() {
+#ifdef CHINESE_VERSION
+	cout << "\n插值多项式 H = ";
+#else
 	cout << "\nH = ";
+#endif
 	cout_poly(N, np1);
 	cout << endl;
 }
 
 void Hermite_Ip::save_polynomial() {
+#ifdef CHINESE_VERSION
+	fl << "\n插值多项式 H = ";
+#else
 	fl << "\nH = ";
+#endif
 	save_poly(N, np1);
 	fl << "\n";
 }
 
 void Hermite_Ip::calc() {
+#ifdef CHINESE_VERSION
+	cout << "\n正在计算插值多项式..." << endl;
+#else
 	cout << "\nCalculating the interpolation polynomial..." << endl;
+#endif
 	int add_p = 1;
 	do {
 		for (int j = 0; j < np1; j++) {
@@ -595,28 +710,49 @@ void Hermite_Ip::calc() {
 			pi_expansion(i);
 		}
 		cout_polynomial();
+#ifdef CHINESE_VERSION
+		cout << "\n是否增加一个点？(1 = 是 , 0 = 否)" << endl;
+#else
 		cout << "\nWant to add a point? (1 = yes , 0 = no)" << endl;
+#endif
 		cin >> add_p;
 		if (!add_p) break;
 		double xx, yy;
 		int dd;
+#ifdef CHINESE_VERSION
+		cout << "\n请输入新点：\nx = ";
+#else
 		cout << "\nPlease enter the new point:\nx = ";
+#endif
 		cin >> xx;
 		cout << "y = ";
 		cin >> yy;
+#ifdef CHINESE_VERSION
+		cout << "导数阶数 = ";
+#else
 		cout << "order of derivative = ";
+#endif
 		cin >> dd;
 		add_point(xx, yy, dd);
 		sort_x();
 	} while (add_p);
+#ifdef CHINESE_VERSION
+	cout << "\n插值完成。" << endl;
+#else
 	cout << "\nFinish interpolating." << endl;
+#endif
 }
 
 void Hermite_Ip::out_result() {
 	cout_xy();
 	save_xy();
+#ifdef CHINESE_VERSION
+	cout << "\nHermite插值多项式为" << endl;
+	fl << "\nHermite插值多项式为\n";
+#else
 	cout << "\nThe Hermite interpolation function is" << endl;
 	fl << "\nThe Hermite interpolation function is\n";
+#endif
 	cout_polynomial();
 	save_polynomial();
 	generate_m();
@@ -668,11 +804,19 @@ Hermite_Ip::~Hermite_Ip() {
 
 cube_spline::cube_spline() {
 	init();
+#ifdef CHINESE_VERSION
+	cout << "\n请输入插值点个数：" << endl;
+#else
 	cout << "\nPlease enter the number of points:" << endl;
+#endif
 	int nn = in_int();
 	if (nn <= 0)
 	{
+#ifdef CHINESE_VERSION
+		cout << "错误：请输入一个正整数。" << endl;
+#else
 		cout << "Error: Please enter a positive integer." << endl;
+#endif
 		throw 0;
 	}
 	np1 = nn;
@@ -685,30 +829,61 @@ cube_spline::cube_spline() {
 }
 
 void cube_spline::input_bd() {
+#ifdef CHINESE_VERSION
+	cout << "\n请选择边界条件类型：" << endl;
+	cout << "1 = 给定区间端点的二阶导数" << endl;
+	cout << "2 = 给定区间端点的一阶导数" << endl;
+	cout << "3 = 周期边界条件" << endl;
+#else
 	cout << "\nPlease select the type of boundary condition:" << endl;
 	cout << "1 = Second derivatives of interval boundary are given." << endl;
 	cout << "2 = First derivatives of interval boundary are given." << endl;
 	cout << "3 = Periodic boundary condition" << endl;
+#endif
 	cin >> bdcd_flag;
 	if (bdcd_flag < 3) {
+#ifdef CHINESE_VERSION
+		cout << "\n请输入边界条件：" << endl;
+#else
 		cout << "\nPlease input the boundary condition:" << endl;
+#endif
 	}
 	if (bdcd_flag == 1) {
+#ifdef CHINESE_VERSION
+		cout << "左端点：f\42(x_0) = ";
+#else
 		cout << "The left end point: f\42(x_0) = ";
+#endif
 		cin >> bd[0];
+#ifdef CHINESE_VERSION
+		cout << "右端点：f\42(x_n) = ";
+#else
 		cout << "The right end point: f\42(x_n) = ";
+#endif
 		cin >> bd[1];
 	}
 	else if (bdcd_flag == 2) {
+#ifdef CHINESE_VERSION
+		cout << "左端点：f\47(x_0) = ";
+#else
 		cout << "The left end point: f\47(x_0) = ";
+#endif
 		cin >> bd[0];
+#ifdef CHINESE_VERSION
+		cout << "右端点：f\47(x_n) = ";
+#else
 		cout << "The right end point: f\47(x_n) = ";
+#endif
 		cin >> bd[1];
 	}
 }
 
 void cube_spline::cout_polynomial() {
+#ifdef CHINESE_VERSION
+	cout << "\n样条插值函数 S = ";
+#else
 	cout << "\nS = ";
+#endif
 	for (int i = 0; i < np1 - 1; i++) {
 		cout << "\t";
 		cout_poly(S[i], 4);
@@ -717,7 +892,11 @@ void cube_spline::cout_polynomial() {
 }
 
 void cube_spline::save_polynomial() {
+#ifdef CHINESE_VERSION
+	fl << "\n样条插值函数 S = ";
+#else
 	fl << "\nS = ";
+#endif
 	for (int i = 0; i < np1 - 1; i++) {
 		fl << "\t";
 		save_poly(S[i], 4);
@@ -726,7 +905,11 @@ void cube_spline::save_polynomial() {
 }
 
 void cube_spline::calc() {
+#ifdef CHINESE_VERSION
+	cout << "\n正在计算插值多项式..." << endl;
+#else
 	cout << "\nCalculating the interpolation polynomial..." << endl;
+#endif
 	double* h = new double[np1 - 1];
 	for (int i = 0; i < np1 - 1; i++) h[i] = x[i + 1] - x[i];
 	double* M_solve, * M, * mu, * lambda, * d;
@@ -820,21 +1003,34 @@ void cube_spline::calc() {
 	delete[] mu;
 	delete[] lambda;
 	delete[] d;
+#ifdef CHINESE_VERSION
+	cout << "\n插值完成。" << endl;
+#else
 	cout << "\nFinish interpolating." << endl;
+#endif
 }
 
 void cube_spline::out_result() {
 	cout_xy();
 	save_xy();
+#ifdef CHINESE_VERSION
+	cout << "\n三次样条插值函数为" << endl;
+	fl << "\n三次样条插值函数为\n";
+#else
 	cout << "\nThe cubic spline interpolation function is" << endl;
 	fl << "\nThe cubic spline interpolation function is\n";
+#endif
 	cout_polynomial();
 	save_polynomial();
 	generate_m();
 }
 
 void cube_spline::generate_m() {
+#ifdef CHINESE_VERSION
+	cout << "\n是否生成 .m 文件用于在MATLAB中绘制插值曲线？(1 = 是, 0 = 否)" << endl;
+#else
 	cout << "\nWant to generate .m file to get the graph of interpolation in MATLAB? (1 = Yes , 0 = No)" << endl;
+#endif
 	int flag = in_int();
 	if (flag == 1) {
 		filelog gm;

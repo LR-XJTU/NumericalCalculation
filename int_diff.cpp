@@ -22,7 +22,11 @@ Int_Diff::Int_Diff(bool no_init) {
 
 //set the error limit eps
 void Int_Diff::set_eps() {
+#ifdef CHINESE_VERSION
+	cout << "\n请设置误差限 (如 0.001 , 1e-6 ): eps = ";
+#else
 	cout << "\nPlease set the error limit ( e.g. 0.001 , 1e-6 ): eps = ";
+#endif
 	double temp;
 	cin >> temp;
 	eps = temp;
@@ -41,13 +45,21 @@ double Int_Diff::get_result() {
 //construction function
 Romberg::Romberg() {
 	double a, b;
+#ifdef CHINESE_VERSION
+	cout << "\n请设置积分区间 [a , b]:\na = ";
+#else
 	cout << "\nPlease set the integral interval [a , b]:\na = ";
+#endif
 	cin >> a;
 	cout << "b = ";
 	cin >> b;
 	interval[0] = a;
 	interval[1] = b;
+#ifdef CHINESE_VERSION
+	cout << "\n在 [" << a << " , " << b << "] 内有未定义的点吗？(例如 f(x)=1/x 在 x=0 处无定义。) (1 = 有, 0 = 无)" << endl;
+#else
 	cout << "\nIs there any undefined point in [" << a << " , " << b << "]? (e.g. f(x)=1/x has no definition at x=0.) (1 = Yes , 0 = No)" << endl;
+#endif
 	int flag = in_int();
 	if (flag == 1) fx.define_xy();
 	set_eps();
@@ -67,7 +79,11 @@ void Romberg::init() {
 
 //Romberg integration
 void Romberg::calc() {
+#ifdef CHINESE_VERSION
+	if (print_state) cout << "\n正在使用Romberg积分法进行计算..." << endl;
+#else
 	if (print_state) cout << "\nUsing Romberg to calculate the integral..." << endl;
+#endif
 
 	double T2k[2], S2k[2], C2k[2], R2k[2];
 	double e;
@@ -119,14 +135,24 @@ void Romberg::calc() {
 	} while (e >= eps);
 	result = R2k[1];
 
+#ifdef CHINESE_VERSION
+	if (print_state) cout << "计算完成。" << endl;
+#else
 	if (print_state) cout << "Finish calculating." << endl;
+#endif
 }
 
 //cout and save the results
 void Romberg::out_result() {
+#ifdef CHINESE_VERSION
+	cout << "\nf(x) 在 [a,b] 上的积分为 \n\nR = " << result << endl;
+	fl << "\nf(x) = " << fx.get_fstr() << "\n";
+	fl << "\nf(x) 在 [" << interval[0] << "," << interval[1] << "] 上的积分等于 \n\nR = " << result << "\n";
+#else
 	cout << "\nThe integral of f(x) on [a,b] is \n\nR = " << result << endl;
 	fl << "\nf(x) = " << fx.get_fstr() << "\n";
 	fl << "\nThe integral of f(x) on [" << interval[0] << "," << interval[1] << "] equals to \n\nR = " << result << "\n";
+#endif
 	std::vector<double>::iterator it;
 	double* e = new double[err.size()];
 	int i = 0;
@@ -134,17 +160,28 @@ void Romberg::out_result() {
 		e[i] = *it;
 		i++;
 	}
+#ifdef CHINESE_VERSION
+	cout << "\n误差表如下：\n\n计算次数 k\t\t误差" << endl;
+	for (i = 0; i < err.size(); i++) cout << "\t" << i + 1 << "\t\t\t" << e[i] << endl;
+	fl << "\n误差限为 eps = " << eps << "\n";
+	fl << "\n误差表如下：\n\n计算次数 k\t\t误差\n";
+#else
 	cout << "\nThe error table is as follow:\n\ncalculation number k\t\terror" << endl;
 	for (i = 0; i < err.size(); i++) cout << "\t" << i + 1 << "\t\t\t" << e[i] << endl;
 	fl << "\nThe error limit is eps = " << eps << "\n";
 	fl << "\nThe error table is as follow:\n\ncalculation number k\t\terror\n";
+#endif
 	for (i = 0; i < err.size(); i++) fl << "\t" << i + 1 << "\t\t\t" << e[i] << "\n";
 	generate_m();
 }
 
 //generate .m file to get the figure of calculation error in MATLAB
 void Int_Diff::generate_m() {
+#ifdef CHINESE_VERSION
+	cout << "\n是否生成 .m 文件用于在MATLAB中绘制误差曲线？(1 = 是, 0 = 否)" << endl;
+#else
 	cout << "\nWant to generate .m file to get the figure of calcultion error in MATLAB? (1 = Yes , 0 = No)" << endl;
+#endif
 	int flag = in_int();
 	if (flag == 1) {
 		filelog gm;
@@ -209,13 +246,25 @@ double Romberg::R_ext(double Cn[2]) {
 DerivExtra::DerivExtra() {
 	int order;
 	double x, h;
+#ifdef CHINESE_VERSION
+	cout << "\n请输入求导阶数：order = ";
+#else
 	cout << "\nPlease enter the order of the derivative: order = ";
+#endif
 	order = in_int();
 	this->order = order;
+#ifdef CHINESE_VERSION
+	cout << "\n请输入 x：\nx = ";
+#else
 	cout << "\nPlease enter x:\nx = ";
+#endif
 	cin >> x;
 	this->x = x;
+#ifdef CHINESE_VERSION
+	cout << "\n请设置初始步长 h：(区间 [x-h,x+h] 不应包含未定义的点)\nh = ";
+#else
 	cout << "\nPlease set the initial step h:(The interval [x-h,x+h] should not contain undefined points)\nh = ";
+#endif
 	cin >> h;
 	this->h = h;
 	set_eps();
@@ -366,7 +415,11 @@ double DerivExtra::orderderiv(int od, double xx) {
 }
 
 void DerivExtra::calc() {
+#ifdef CHINESE_VERSION
+	if (print_state) cout << "\n正在使用外推法计算导数..." << endl;
+#else
 	if (print_state) cout << "\nUsing extrapolation to calculate the derivative..." << endl;
+#endif
 	if (order == 1) {
 		err_flag = true;
 		result = deriv(x);
@@ -375,23 +428,41 @@ void DerivExtra::calc() {
 		err_flag = false;
 		result = orderderiv(order,x);
 	}
+#ifdef CHINESE_VERSION
+	if (print_state) cout << "计算完成。" << endl;
+#else
 	if (print_state) cout << "Finish calculating." << endl;
+#endif
 }
 
 void DerivExtra::out_result() {
 	if (order > 3) {
+#ifdef CHINESE_VERSION
+		cout << "\nf[" << order << "](" << x << ") = " << result << "   ([" << order << "] 表示导数阶数)" << endl;
+		fl << "\nf(x) = " << fx.get_fstr() << "\n";
+		fl << "\nf[" << order << "](" << x << ") = " << result << "   ([" << order << "] 是导数的阶数)\n";
+#else
 		cout << "\nf[" << order << "](" << x << ") = " << result << "   ([" << order << "] is the order of the derivative)" << endl;
 		fl << "\nf(x) = " << fx.get_fstr() << "\n";
 		fl << "\nf[" << order << "](" << x << ") = " << result << "   ([" << order << "] is the order of the derivative)\n";
+#endif
 	}
 	else {
 		cout << "\nf";
 		for (int i = 1; i <= order; i++) cout << "'";
+#ifdef CHINESE_VERSION
 		cout << "(" << x << ") = " << result << endl;
 		fl << "\nf(x) = " << fx.get_fstr() << "\n";
 		fl << "\nf";
 		for (int i = 1; i <= order; i++) fl << "'";
 		fl << "(" << x << ") = " << result << "\n";
+#else
+		cout << "(" << x << ") = " << result << endl;
+		fl << "\nf(x) = " << fx.get_fstr() << "\n";
+		fl << "\nf";
+		for (int i = 1; i <= order; i++) fl << "'";
+		fl << "(" << x << ") = " << result << "\n";
+#endif
 	}
 	std::vector<double>::iterator it;
 	double* e = new double[err.size()];
@@ -400,10 +471,17 @@ void DerivExtra::out_result() {
 		e[i] = *it;
 		i++;
 	}
+#ifdef CHINESE_VERSION
+	cout << "\n误差表如下：\n\n计算次数 k\t\t误差" << endl;
+	for (i = 0; i < err.size(); i++) cout << "\t" << i + 1 << "\t\t\t" << e[i] << endl;
+	fl << "\n误差限为 eps = " << eps << "\n";
+	fl << "\n误差表如下：\n\n计算次数 k\t\t误差\n";
+#else
 	cout << "\nThe error table is as follow:\n\ncalculation number k\t\terror" << endl;
 	for (i = 0; i < err.size(); i++) cout << "\t" << i + 1 << "\t\t\t" << e[i] << endl;
 	fl << "\nThe error limit is eps = " << eps << "\n";
 	fl << "\nThe error table is as follow:\n\ncalculation number k\t\terror\n";
+#endif
 	for (i = 0; i < err.size(); i++) fl << "\t" << i + 1 << "\t\t\t" << e[i] << "\n";
 	generate_m();
 }
