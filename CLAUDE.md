@@ -1,0 +1,84 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## 项目概述
+
+数值计算方法的 C++ 控制台程序，涵盖计算方法课程核心内容：线性方程组（直接法/迭代法）、插值、逼近、数值积分微分、非线性方程（组）、特征值。
+
+## 构建
+
+项目在 Dev-C++ 下开发，使用 g++（TDM-GCC）。命令行为：
+
+```bash
+g++ -std=c++11 -o NumericalCalculation \
+    src/main.cpp \
+    src/common_fd.cpp src/filelog.cpp src/formula.cpp \
+    src/linear_equations.cpp src/directmethod.cpp src/iterationmethod.cpp \
+    src/interpolation.cpp src/optimal_approx.cpp \
+    src/int_diff.cpp src/nonlinear_equations.cpp src/eigen_val_vec.cpp
+```
+
+也可用 `Makefile.win`（Dev-C++ 生成）。
+
+## 编码
+
+**所有 `.cpp` 和 `.h` 文件是 GBK 编码**。Dev-C++ 默认 GBK，不要转换为 UTF-8，否则中文注释和字符串会乱码。如果必须用 iconv 转换，用完后转回 GBK：
+
+```bash
+iconv -f UTF-8 -t GBK file.cpp -o file.cpp
+```
+
+## 双语机制
+
+`src/common_fd.h` 中的 `#define CHINESE_VERSION` 控制全局语言切换：
+
+- **定义** → 中文界面
+- **注释** → 英文界面
+
+所有 12 个 `.cpp` 文件的用户交互文本均通过 `#ifdef CHINESE_VERSION` / `#else` / `#endif` 包裹。修改时注意——只有用户交互文本（`cout << "..."` 和 `fl << "..."` 中的描述文字）需要双语包裹，文件名、数学符号、MATLAB 生成代码、纯变量数据输出不需要。
+
+## 架构
+
+### 类继承体系
+
+所有模块采用**策略模式**：基类定义 `calc()` / `out_result()` 虚函数接口，子类实现具体算法。`main.cpp` 通过 `switch` 创建子类，通过基类指针调用并 `delete`。
+
+```
+Ax_b (linear_equations)
+├── Direct_method (directmethod) — 8种直接法
+│   ├── Gauss, CP_Gauss, Doolittle, Cholesky
+│   ├── Improved_sqrt, Chasing, Givens, Householder
+└── Iteration_method (iterationmethod) — 6种迭代法
+    ├── Jacobi, Gauss_Seidel, SOR, steepest_descent
+    ├── conjugate_gradient, GMRES
+
+Interpolation — Newton_Ip → Hermite_Ip, cube_spline
+
+optimal_approx — sqr_approx, uni_approx
+
+Int_Diff — Romberg, DerivExtra
+
+nl_eq  — eq_Simple → eq_Relaxation, eq_Aitken, eq_Newton, eq_Secant
+nl_eqs — eqs_Simple, eqs_Newton, eqs_Secant, eqs_Broyden
+
+Eigen_val_vec — Power_method, Inverse_power
+```
+
+**重要**：所有基类已有 `virtual ~XXX() = default;`，子类析构函数能正确调用。新增基类时务必加虚析构。
+
+### 核心工具类
+
+- **`formula`** — 数学表达式解析器（逆波兰求值）。流程：`rf_str()` 预处理 → `trans_rpn()` 调度场算法 → `f(x)` 求值。支持隐式乘法、科学计数法、`log` 底数转换。`formulae` 是多变量版本。
+- **`filelog`** — 文件日志，重载 `<<` 输出矩阵/向量，支持 `.txt` 和 `.m`（MATLAB 脚本）。配合 `set_mat_size()` / `set_array_len()` 使用。
+- **`Ax_b`** — 线性方程组基类，封装 `A/b/x` 矩阵/向量、输入/输出、对称性/三对角检测、行交换等。
+
+### 内存管理
+
+项目使用原始 `new[]` / `delete[]`，资源释放依赖各子类的析构函数。由于基类析构已为 virtual，通过基类指针 `delete` 能正确释放。
+
+## 注意事项
+
+- 改了 `src/common_fd.h` 中的宏定义后必须 `make clean && make` 重新编译所有文件，否则可能出现部分文件中文部分英文的混搭
+- 自动生成的输出文件（`Direct_method.txt`、`Iteration_method.m` 等）在项目根目录，不要提交到 git
+- `testdata.txt` 是 4×4 线性方程组的测试数据（A 矩阵 + b 向量），用于快速验证线性方程组求解
