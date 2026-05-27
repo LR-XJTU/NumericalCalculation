@@ -22,6 +22,7 @@ public:
 	void resize_itrerr();
 	virtual void calc() = 0;
 	virtual void out_result();
+	virtual ~Iteration_method() = default;
 	void generate_m();
 	void exchange_diag_no_0(int);
 };

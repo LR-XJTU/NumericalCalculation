@@ -14,6 +14,7 @@ protected:
 	filelog fl;
 public:
 	void init();
+	virtual ~Interpolation() = default;
 	virtual void input_data();
 	virtual void cout_xy();
 	virtual void save_xy();

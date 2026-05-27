@@ -17,6 +17,7 @@ public:
 	void out_x();
 	virtual void calc() = 0;
 	virtual void out_result() = 0;
+	virtual ~Direct_method() = default;
 };
 
 class Gauss :public Direct_method {

@@ -17,6 +17,7 @@ public:
 	Int_Diff();
 	Int_Diff(formula);
 	Int_Diff(bool);
+	virtual ~Int_Diff() = default;
 	void set_eps();
 	void generate_m();
 	double get_result();

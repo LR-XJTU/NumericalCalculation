@@ -25,6 +25,7 @@ protected:
 	filelog fl;
 public:
 	optimal_approx();
+	virtual ~optimal_approx() = default;
 	double inner_product(formula f, formula g, formula w, double a, double b);
 	double inner_product(formula f, formula g, double* x, int m, double *w);
 	double inner_product(formula f, double* y, double* x, int m, double* w);

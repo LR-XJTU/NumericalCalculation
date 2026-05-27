@@ -17,7 +17,7 @@ void formula::init() {
 	trans_rpn(str);
 	matlab_format();
 #ifdef CHINESE_VERSION
-	cout << "\nº¯ÊýÎª f(x) = " << fstr << "  (MATLAB¸ñÊ½)" << endl;
+	cout << "\nï¿½ï¿½ï¿½ï¿½Îª f(x) = " << fstr << "  (MATLABï¿½ï¿½Ê½)" << endl;
 #else
 	cout << "\nThe formula is f(x) = " << fstr << "  (MATLAB format)" << endl;
 #endif
@@ -41,21 +41,21 @@ void formula::init(string fx, string xt) {
 
 void formula::showtips() {
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÊäÈëº¯Êý¡£ÔÊÐíÒÔÏÂÔªËØ£º\n" << endl;
-	cout << "   81 , -3.67 , 9.425E+3 ---- ÊµÊý" << endl;
-	cout << "                  e , pi ---- ³£Êý£º×ÔÈ»¶ÔÊýµ×Êý , Ô²ÖÜÂÊ" << endl;
-	cout << "                       x ---- ±äÁ¿" << endl;
-	cout << "           + , - , * , / ---- ËÄÔòÔËËã" << endl;
-	cout << "                       ^ ---- ÃÝÔËËã" << endl;
-	cout << "                    sqrt ---- Æ½·½¸ù" << endl;
-	cout << "                     exp ---- ÒÔeÎªµ×µÄÖ¸Êýº¯Êý" << endl;
-	cout << "                      ln ---- ×ÔÈ»¶ÔÊýº¯Êý" << endl;
-	cout << "                     log ---- ¶ÔÊýº¯Êý -> Ê¹ÓÃÊ¾Àý: log2(x), log10(x), log3.14(x)" << endl;
-	cout << "         sin , cos , tan ---- Èý½Çº¯Êý (»¡¶ÈÖÆ)" << endl;
-	cout << "arcsin , arccos , arctan ---- ·´Èý½Çº¯Êý (»¡¶ÈÖÆ)" << endl;
-	cout << "                       | ---- ¾ø¶ÔÖµ" << endl;
-	cout << "                     ( ) ---- À¨ºÅ" << endl;
-	cout << "* ×¢Òâ£ºÇëÎðÊ¹ÓÃÖÐÎÄÊäÈë·¨¡£ *" << endl;
+	cout << "\nï¿½ï¿½ï¿½ï¿½ï¿½ëº¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½Ø£ï¿½\n" << endl;
+	cout << "   81 , -3.67 , 9.425E+3 ---- Êµï¿½ï¿½" << endl;
+	cout << "                  e , pi ---- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ , Ô²ï¿½ï¿½ï¿½ï¿½" << endl;
+	cout << "                       x ---- ï¿½ï¿½ï¿½ï¿½" << endl;
+	cout << "           + , - , * , / ---- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+	cout << "                       ^ ---- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+	cout << "                    sqrt ---- Æ½ï¿½ï¿½ï¿½ï¿½" << endl;
+	cout << "                     exp ---- ï¿½ï¿½eÎªï¿½×µï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+	cout << "                      ln ---- ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+	cout << "                     log ---- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -> Ê¹ï¿½ï¿½Ê¾ï¿½ï¿½: log2(x), log10(x), log3.14(x)" << endl;
+	cout << "         sin , cos , tan ---- ï¿½ï¿½ï¿½Çºï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)" << endl;
+	cout << "arcsin , arccos , arctan ---- ï¿½ï¿½ï¿½ï¿½ï¿½Çºï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)" << endl;
+	cout << "                       | ---- ï¿½ï¿½ï¿½ï¿½Öµ" << endl;
+	cout << "                     ( ) ---- ï¿½ï¿½ï¿½ï¿½" << endl;
+	cout << "* ×¢ï¿½â£ºï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë·¨ï¿½ï¿½ *" << endl;
 #else
 	cout << "\nPlease input the function. The following elements are allowed:\n" << endl;
 	cout << "   81 , -3.67 , 9.425E+3 ---- Rational number" << endl;
@@ -77,21 +77,21 @@ void formula::showtips() {
 
 void formula::showtips_xnum() {
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÊäÈëº¯Êý¡£ÔÊÐíÒÔÏÂÔªËØ£º\n" << endl;
-	cout << "   81 , -3.67 , 9.425E+3 ---- ÊµÊý" << endl;
-	cout << "                  e , pi ---- ³£Êý£º×ÔÈ»¶ÔÊýµ×Êý , Ô²ÖÜÂÊ" << endl;
-	cout << "           x1 , x2 , ... ---- ±äÁ¿" << endl;
-	cout << "           + , - , * , / ---- ËÄÔòÔËËã" << endl;
-	cout << "                       ^ ---- ÃÝÔËËã" << endl;
-	cout << "                    sqrt ---- Æ½·½¸ù" << endl;
-	cout << "                     exp ---- ÒÔeÎªµ×µÄÖ¸Êýº¯Êý" << endl;
-	cout << "                      ln ---- ×ÔÈ»¶ÔÊýº¯Êý" << endl;
-	cout << "                     log ---- ¶ÔÊýº¯Êý -> Ê¹ÓÃÊ¾Àý: log2(x), log10(x), log3.14(x)" << endl;
-	cout << "         sin , cos , tan ---- Èý½Çº¯Êý (»¡¶ÈÖÆ)" << endl;
-	cout << "arcsin , arccos , arctan ---- ·´Èý½Çº¯Êý (»¡¶ÈÖÆ)" << endl;
-	cout << "                       | ---- ¾ø¶ÔÖµ" << endl;
-	cout << "                     ( ) ---- À¨ºÅ" << endl;
-	cout << "* ×¢Òâ£ºÇëÎðÊ¹ÓÃÖÐÎÄÊäÈë·¨¡£ *" << endl;
+	cout << "\nï¿½ï¿½ï¿½ï¿½ï¿½ëº¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½Ø£ï¿½\n" << endl;
+	cout << "   81 , -3.67 , 9.425E+3 ---- Êµï¿½ï¿½" << endl;
+	cout << "                  e , pi ---- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ , Ô²ï¿½ï¿½ï¿½ï¿½" << endl;
+	cout << "           x1 , x2 , ... ---- ï¿½ï¿½ï¿½ï¿½" << endl;
+	cout << "           + , - , * , / ---- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+	cout << "                       ^ ---- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+	cout << "                    sqrt ---- Æ½ï¿½ï¿½ï¿½ï¿½" << endl;
+	cout << "                     exp ---- ï¿½ï¿½eÎªï¿½×µï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+	cout << "                      ln ---- ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+	cout << "                     log ---- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -> Ê¹ï¿½ï¿½Ê¾ï¿½ï¿½: log2(x), log10(x), log3.14(x)" << endl;
+	cout << "         sin , cos , tan ---- ï¿½ï¿½ï¿½Çºï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)" << endl;
+	cout << "arcsin , arccos , arctan ---- ï¿½ï¿½ï¿½ï¿½ï¿½Çºï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)" << endl;
+	cout << "                       | ---- ï¿½ï¿½ï¿½ï¿½Öµ" << endl;
+	cout << "                     ( ) ---- ï¿½ï¿½ï¿½ï¿½" << endl;
+	cout << "* ×¢ï¿½â£ºï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë·¨ï¿½ï¿½ *" << endl;
 #else
 	cout << "\nPlease input the function. The following elements are allowed:\n" << endl;
 	cout << "   81 , -3.67 , 9.425E+3 ---- Rational number" << endl;
@@ -122,7 +122,7 @@ void formula::define_xy() {
 	do {
 		double x, y;
 #ifdef CHINESE_VERSION
-		cout << "\nÎª f(x) ¶¨Òåµ¥¸öµã£º" << endl;
+		cout << "\nÎª f(x) ï¿½ï¿½ï¿½åµ¥ï¿½ï¿½ï¿½ã£º" << endl;
 #else
 		cout << "\nDefining a single point for f(x):" << endl;
 #endif
@@ -133,7 +133,7 @@ void formula::define_xy() {
 		dfx.push_back(x);
 		dfy.push_back(y);
 #ifdef CHINESE_VERSION
-		cout << "ÊÇ·ñ¼ÌÐø¶¨Òå£¿(1 = ÊÇ , 0 = ·ñ)" << endl;
+		cout << "ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½å£¿(1 = ï¿½ï¿½ , 0 = ï¿½ï¿½)" << endl;
 #else
 		cout << "Want to continue to define? (1 = Yes , 0 = No)" << endl;
 #endif
@@ -155,7 +155,7 @@ double formula::list_xy(double x) {
 		if (dfx[i] == x) return dfy[i];
 	}
 #ifdef CHINESE_VERSION
-	cout << "\n´íÎó£ºÎ´ÕÒµ½ (x,f(x)) µÄ¶¨Òå¡£" << endl;
+	cout << "\nï¿½ï¿½ï¿½ï¿½Î´ï¿½Òµï¿½ (x,f(x)) ï¿½Ä¶ï¿½ï¿½å¡£" << endl;
 #else
 	cout << "\nError: Fail to find the definition of (x,f(x))." << endl;
 #endif
@@ -196,7 +196,7 @@ vector<double> formula::get_dfx() {
 }
 
 vector<double> formula::get_dfy() {
-	return dfx;
+	return dfy;
 }
 
 //reform the string to facilitate the transformation into RPN
@@ -214,7 +214,7 @@ void formula::rf_str(string& str) {
 				}
 				else {
 #ifdef CHINESE_VERSION
-					cout << "´íÎó£ºf(x) ÖÐ | | µÄÊäÈë²»¹æ·¶¡£" << endl;
+					cout << "ï¿½ï¿½ï¿½ï¿½f(x) ï¿½ï¿½ | | ï¿½ï¿½ï¿½ï¿½ï¿½ë²»ï¿½æ·¶ï¿½ï¿½" << endl;
 #else
 					cout << "Error: Nonstandard input of | | in f(x)." << endl;
 #endif
@@ -233,7 +233,7 @@ void formula::rf_str(string& str) {
 					}
 					else {
 #ifdef CHINESE_VERSION
-						cout << "´íÎó£ºf(x) ÖÐ | | µÄÊäÈë²»¹æ·¶¡£" << endl;
+						cout << "ï¿½ï¿½ï¿½ï¿½f(x) ï¿½ï¿½ | | ï¿½ï¿½ï¿½ï¿½ï¿½ë²»ï¿½æ·¶ï¿½ï¿½" << endl;
 #else
 						cout << "Error: Nonstandard input of | | in f(x)." << endl;
 #endif
@@ -245,7 +245,7 @@ void formula::rf_str(string& str) {
 	}
 	if (c_al != c_ar) {
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£ºf(x) ÖÐ | | µÄÊäÈë²»¹æ·¶¡£" << endl;
+		cout << "ï¿½ï¿½ï¿½ï¿½f(x) ï¿½ï¿½ | | ï¿½ï¿½ï¿½ï¿½ï¿½ë²»ï¿½æ·¶ï¿½ï¿½" << endl;
 #else
 		cout << "Error: Nonstandard input of | | in f(x)." << endl;
 #endif
@@ -263,7 +263,7 @@ void formula::rf_str(string& str) {
 	}
 	if (c_l < c_r) {
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£ºf(x) ÖÐÀ¨ºÅÊäÈë²»¹æ·¶¡£ÓÐ " << c_r << " ¸ö ) µ«ÓÐ " << c_l << " ¸ö (¡£" << endl;
+		cout << "ï¿½ï¿½ï¿½ï¿½f(x) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë²»ï¿½æ·¶ï¿½ï¿½ï¿½ï¿½ " << c_r << " ï¿½ï¿½ ) ï¿½ï¿½ï¿½ï¿½ " << c_l << " ï¿½ï¿½ (ï¿½ï¿½" << endl;
 #else
 		cout << "Error: Nonstandard input of brackets in f(x). There're "<<c_r<<" ) but "<<c_l<<" (." << endl;
 #endif
@@ -302,7 +302,7 @@ void formula::rf_str(string& str) {
 					if (str.at(i) == '+' || str.at(i) == '-') i++;
 					else {
 #ifdef CHINESE_VERSION
-						cout << "´íÎó£º¿ÆÑ§¼ÆÊý·¨ÊäÈë²»¹æ·¶¡£" << endl;
+						cout << "ï¿½ï¿½ï¿½ó£º¿ï¿½Ñ§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë²»ï¿½æ·¶ï¿½ï¿½" << endl;
 #else
 						cout << "Error: Nonstandard input of scientific notation." << endl;
 #endif
@@ -657,7 +657,7 @@ void formula::check_brackets(std::string &str, size_t anchor, int length) {
 		size_t temp_p = anchor + length + 1;
 		if (temp_p >= str.size()) {
 #ifdef CHINESE_VERSION
-			cout << "´íÎó£ºº¯Êý±í´ïÊ½ÊäÈë²»¹æ·¶¡£" << endl;
+			cout << "ï¿½ï¿½ï¿½ó£ººï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ë²»ï¿½æ·¶ï¿½ï¿½" << endl;
 #else
 			cout << "Error: The input of formula is not standard." << endl;
 #endif
@@ -726,7 +726,7 @@ double formula::f(double x) {
 				}
 				else {
 #ifdef CHINESE_VERSION
-					cout << "´íÎó£º¼ÆËãÖÐÓöµ½³ýÒÔÁãµÄ²Ù×÷¡£" << endl;
+					cout << "ï¿½ï¿½ï¿½ó£º¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
 #else
 					cout << "Error: The calculation meets the operation of division by zero." << endl;
 #endif
@@ -765,7 +765,7 @@ double formula::f(double x) {
 				}
 				else {
 #ifdef CHINESE_VERSION
-					cout << "´íÎó£º¼ÆËãÖÐÓöµ½¸ºÊý¿ªÆ½·½¸ùµÄ²Ù×÷¡£" << endl;
+					cout << "ï¿½ï¿½ï¿½ó£º¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
 #else
 					cout << "Error: The calculation meets the operation of square root of a negative number." << endl;
 #endif
@@ -793,7 +793,7 @@ double formula::f(double x) {
 				}
 				else {
 #ifdef CHINESE_VERSION
-					cout << "´íÎó£º¼ÆËãÖÐÓöµ½¶ÔÁã»ò¸ºÊýÈ¡¶ÔÊýµÄ²Ù×÷¡£" << endl;
+					cout << "ï¿½ï¿½ï¿½ó£º¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
 #else
 					cout << "Error: The calculation meets the operation of logarithm of zero or a negative number." << endl;
 #endif
@@ -835,7 +835,7 @@ double formula::f(double x) {
 				}
 				else {
 #ifdef CHINESE_VERSION
-					cout << "´íÎó£º¼ÆËãÖÐÓöµ½¶Ô¾ø¶ÔÖµ´óÓÚ1µÄÊýÈ¡·´ÕýÏÒµÄ²Ù×÷¡£" << endl;
+					cout << "ï¿½ï¿½ï¿½ó£º¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¾ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ÒµÄ²ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
 #else
 					cout << "Error: The calculation meets the operation of arcsin of a number whose absolute value is greater than 1." << endl;
 #endif
@@ -856,7 +856,7 @@ double formula::f(double x) {
 				}
 				else {
 #ifdef CHINESE_VERSION
-					cout << "´íÎó£º¼ÆËãÖÐÓöµ½¶Ô¾ø¶ÔÖµ´óÓÚ1µÄÊýÈ¡·´ÓàÏÒµÄ²Ù×÷¡£" << endl;
+					cout << "ï¿½ï¿½ï¿½ó£º¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¾ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ÒµÄ²ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
 #else
 					cout << "Error: The calculation meets the operation of arccos of a number whose absolute value is greater than 1." << endl;
 #endif
@@ -941,7 +941,7 @@ double formula::f_xnum(vector<double> x) {
 				}
 				else {
 #ifdef CHINESE_VERSION
-					cout << "´íÎó£º¼ÆËãÖÐÓöµ½³ýÒÔÁãµÄ²Ù×÷¡£" << endl;
+					cout << "ï¿½ï¿½ï¿½ó£º¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
 #else
 					cout << "Error: The calculation meets the operation of division by zero." << endl;
 #endif
@@ -980,7 +980,7 @@ double formula::f_xnum(vector<double> x) {
 				}
 				else {
 #ifdef CHINESE_VERSION
-					cout << "´íÎó£º¼ÆËãÖÐÓöµ½¸ºÊý¿ªÆ½·½¸ùµÄ²Ù×÷¡£" << endl;
+					cout << "ï¿½ï¿½ï¿½ó£º¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
 #else
 					cout << "Error: The calculation meets the operation of square root of a negative number." << endl;
 #endif
@@ -1008,7 +1008,7 @@ double formula::f_xnum(vector<double> x) {
 				}
 				else {
 #ifdef CHINESE_VERSION
-					cout << "´íÎó£º¼ÆËãÖÐÓöµ½¶ÔÁã»ò¸ºÊýÈ¡¶ÔÊýµÄ²Ù×÷¡£" << endl;
+					cout << "ï¿½ï¿½ï¿½ó£º¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
 #else
 					cout << "Error: The calculation meets the operation of logarithm of zero or a negative number." << endl;
 #endif
@@ -1050,7 +1050,7 @@ double formula::f_xnum(vector<double> x) {
 				}
 				else {
 #ifdef CHINESE_VERSION
-					cout << "´íÎó£º¼ÆËãÖÐÓöµ½¶Ô¾ø¶ÔÖµ´óÓÚ1µÄÊýÈ¡·´ÕýÏÒµÄ²Ù×÷¡£" << endl;
+					cout << "ï¿½ï¿½ï¿½ó£º¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¾ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ÒµÄ²ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
 #else
 					cout << "Error: The calculation meets the operation of arcsin of a number whose absolute value is greater than 1." << endl;
 #endif
@@ -1071,7 +1071,7 @@ double formula::f_xnum(vector<double> x) {
 				}
 				else {
 #ifdef CHINESE_VERSION
-					cout << "´íÎó£º¼ÆËãÖÐÓöµ½¶Ô¾ø¶ÔÖµ´óÓÚ1µÄÊýÈ¡·´ÓàÏÒµÄ²Ù×÷¡£" << endl;
+					cout << "ï¿½ï¿½ï¿½ó£º¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¾ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ÒµÄ²ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
 #else
 					cout << "Error: The calculation meets the operation of arccos of a number whose absolute value is greater than 1." << endl;
 #endif
@@ -1107,7 +1107,7 @@ void formula::check_stack(std::stack<double> temp, int num) {
 	for (int i = 0; i < num; i++) {
 		if (temp.empty()) {
 #ifdef CHINESE_VERSION
-			cout << "´íÎó£ºº¯Êý±í´ïÊ½ÊäÈë²»¹æ·¶µ¼ÖÂÕ»´íÎó¡£" << endl;
+			cout << "ï¿½ï¿½ï¿½ó£ººï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ë²»ï¿½æ·¶ï¿½ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½" << endl;
 #else
 			cout << "Error: Nonstandard input of formula causes the stack error." << endl;
 #endif
@@ -1130,7 +1130,7 @@ void formula::skipbracket(string str, int &pos) {
 	}
 	if (pos == str.size()) {
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£ºÎÞ·¨Ìø¹ýÀ¨ºÅ¡£" << endl;
+		cout << "ï¿½ï¿½ï¿½ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¡ï¿½" << endl;
 #else
 		cout << "Error: Fail to skip the brackets." << endl;
 #endif
@@ -1235,7 +1235,7 @@ void formulae::recog_xnum() {
 			num.erase();
 			if (anchor + k >= str.size()) {
 #ifdef CHINESE_VERSION
-				cout << "´íÎó£ºxi µÄ·Ç·¨ÊäÈë" << endl;
+				cout << "ï¿½ï¿½ï¿½ï¿½xi ï¿½Ä·Ç·ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
 #else
 				cout << "Error: Illegal input of xi" << endl;
 #endif
@@ -1252,7 +1252,7 @@ void formulae::recog_xnum() {
 			}
 			if (k == 1) {
 #ifdef CHINESE_VERSION
-				cout << "´íÎó£ºxi µÄ·Ç·¨ÊäÈë" << endl;
+				cout << "ï¿½ï¿½ï¿½ï¿½xi ï¿½Ä·Ç·ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
 #else
 				cout << "Error: Illegal input of xi" << endl;
 #endif

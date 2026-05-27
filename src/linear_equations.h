@@ -13,6 +13,7 @@ protected:
 	bool init_flag = false;
 public:
 	void delete_Ax_b();
+	virtual ~Ax_b() = default;
 	void A_init(int mn);
 	void A_init(int mm, int nn);
 	void enter_Ab();

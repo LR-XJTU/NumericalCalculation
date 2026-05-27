@@ -16,7 +16,7 @@ void Interpolation::init() {
 	int cc;
 	cout.setf(ios::left);
 #ifdef CHINESE_VERSION
-	cout << "\nÊäÈëÁ¬Ðøº¯Êý»¹ÊÇÁÐ±íº¯Êý£¿(1 = Á¬Ðø , 2 = ÁÐ±í)" << endl;
+	cout << "\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(1 = ï¿½ï¿½ï¿½ï¿½ , 2 = ï¿½Ð±ï¿½)" << endl;
 #else
 	cout << "\nWant to input a continuous function or a list funtion? (1 = continuous , 2 = list)" << endl;
 #endif
@@ -34,14 +34,14 @@ void Interpolation::input_data() {
 	if (input_fx) {
 		int tf;
 #ifdef CHINESE_VERSION
-		cout << "\nÊäÈëÈÎÒâx»¹ÊÇ¾ùÔÈ²ÉÑù£¿(1 = ÈÎÒâx , 2 = ¾ùÔÈ²ÉÑù)" << endl;
+		cout << "\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½Ç¾ï¿½ï¿½È²ï¿½ï¿½ï¿½ï¿½ï¿½(1 = ï¿½ï¿½ï¿½ï¿½x , 2 = ï¿½ï¿½ï¿½È²ï¿½ï¿½ï¿½)" << endl;
 #else
 		cout << "\nWant to input arbitrary x or get uniform sampling? (1 = arbitrary x , 2 = uniform sampling)" << endl;
 #endif
 		tf = in_int();
 		if (tf == 1) {
 #ifdef CHINESE_VERSION
-			cout << "\nÇëÊäÈëµã (x,f(x))£º" << endl;
+			cout << "\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (x,f(x))ï¿½ï¿½" << endl;
 #else
 			cout << "\nPlease input x of the points (x,f(x)):" << endl;
 #endif
@@ -56,7 +56,7 @@ void Interpolation::input_data() {
 		else if (tf == 2) {
 			double a, b, h;
 #ifdef CHINESE_VERSION
-			cout << "\nÇëÊäÈëÇø¼ä [a , b]:\na = ";
+			cout << "\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ [a , b]:\na = ";
 #else
 			cout << "\nPlease input the interval [a , b]:\na = ";
 #endif
@@ -72,7 +72,7 @@ void Interpolation::input_data() {
 	}
 	else {
 #ifdef CHINESE_VERSION
-		cout << "\nÇëÊäÈëµã (x,y)£º" << endl;
+		cout << "\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (x,y)ï¿½ï¿½" << endl;
 #else
 		cout << "\nPlease input the points (x,y):" << endl;
 #endif
@@ -85,7 +85,7 @@ void Interpolation::input_data() {
 		}
 	}
 #ifdef CHINESE_VERSION
-	cout << "\nÊäÈëÍê³É¡£" << endl;
+	cout << "\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¡ï¿½" << endl;
 #else
 	cout << "\nFinish inputting." << endl;
 #endif
@@ -95,7 +95,7 @@ void Interpolation::input_data() {
 
 void Interpolation::cout_xy() {
 #ifdef CHINESE_VERSION
-	cout << "\n²åÖµµãÎª£º" << endl;
+	cout << "\nï¿½ï¿½Öµï¿½ï¿½Îªï¿½ï¿½" << endl;
 #else
 	cout << "\nThe points are:" << endl;
 #endif
@@ -106,7 +106,7 @@ void Interpolation::cout_xy() {
 
 void Interpolation::save_xy() {
 #ifdef CHINESE_VERSION
-	fl << "\n²åÖµµãÎª£º\n";
+	fl << "\nï¿½ï¿½Öµï¿½ï¿½Îªï¿½ï¿½\n";
 #else
 	fl << "\nThe points are:\n";
 #endif
@@ -198,7 +198,7 @@ std::string Interpolation::polytostr(double* p, int l) {
 Newton_Ip::Newton_Ip() {
 	init();
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÊäÈë²åÖµµã¸öÊý£º" << endl;
+	cout << "\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
 #else
 	cout << "\nPlease enter the number of points:" << endl;
 #endif
@@ -206,7 +206,7 @@ Newton_Ip::Newton_Ip() {
 	if (nn <= 0)
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£ºÇëÊäÈëÒ»¸öÕýÕûÊý¡£" << endl;
+		cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
 #else
 		cout << "Error: Please enter a positive integer." << endl;
 #endif
@@ -243,7 +243,7 @@ Newton_Ip::Newton_Ip(double* xx, double* yy, double nnp1) {
 
 void Newton_Ip::cout_polynomial() {
 #ifdef CHINESE_VERSION
-	cout << "\n²åÖµ¶àÏîÊ½ N = ";
+	cout << "\nï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Ê½ N = ";
 #else
 	cout << "\nN = ";
 #endif
@@ -253,7 +253,7 @@ void Newton_Ip::cout_polynomial() {
 
 void Newton_Ip::save_polynomial() {
 #ifdef CHINESE_VERSION
-	fl << "\n²åÖµ¶àÏîÊ½ N = ";
+	fl << "\nï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Ê½ N = ";
 #else
 	fl << "\nN = ";
 #endif
@@ -263,7 +263,7 @@ void Newton_Ip::save_polynomial() {
 
 void Newton_Ip::calc() {
 #ifdef CHINESE_VERSION
-	cout << "\nÕýÔÚ¼ÆËã²åÖµ¶àÏîÊ½..." << endl;
+	cout << "\nï¿½ï¿½ï¿½Ú¼ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Ê½..." << endl;
 #else
 	cout << "\nCalculating the interpolation polynomial..." << endl;
 #endif
@@ -279,7 +279,7 @@ void Newton_Ip::calc() {
 	int add_p = 1;
 	while (1) {
 #ifdef CHINESE_VERSION
-		cout << "\nÊÇ·ñÔö¼ÓÒ»¸öµã£¿(1 = ÊÇ , 0 = ·ñ)" << endl;
+		cout << "\nï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ã£¿(1 = ï¿½ï¿½ , 0 = ï¿½ï¿½)" << endl;
 #else
 		cout << "\nWant to add a point? (1 = yes , 0 = no)" << endl;
 #endif
@@ -287,7 +287,7 @@ void Newton_Ip::calc() {
 		if (!add_p) break;
 		double xx, yy;
 #ifdef CHINESE_VERSION
-		cout << "\nÇëÊäÈëÐÂµã£º\nx = ";
+		cout << "\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âµã£º\nx = ";
 #else
 		cout << "\nPlease enter the new point:\nx = ";
 #endif
@@ -303,7 +303,7 @@ void Newton_Ip::calc() {
 		cout_polynomial();
 	}
 #ifdef CHINESE_VERSION
-	cout << "\n²åÖµÍê³É¡£" << endl;
+	cout << "\nï¿½ï¿½Öµï¿½ï¿½É¡ï¿½" << endl;
 #else
 	cout << "\nFinish interpolating." << endl;
 #endif
@@ -355,8 +355,8 @@ void Newton_Ip::out_result() {
 	cout_xy();
 	save_xy();
 #ifdef CHINESE_VERSION
-	cout << "\nNewton²åÖµ¶àÏîÊ½Îª" << endl;
-	fl << "\nNewton²åÖµ¶àÏîÊ½Îª\n";
+	cout << "\nNewtonï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Ê½Îª" << endl;
+	fl << "\nNewtonï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Ê½Îª\n";
 #else
 	cout << "\nThe Newton interpolation function is" << endl;
 	fl << "\nThe Newton interpolation function is\n";
@@ -368,7 +368,7 @@ void Newton_Ip::out_result() {
 
 void Newton_Ip::generate_m() {
 #ifdef CHINESE_VERSION
-	cout << "\nÊÇ·ñÉú³É .m ÎÄ¼þÓÃÓÚÔÚMATLABÖÐ»æÖÆ²åÖµÇúÏß£¿(1 = ÊÇ, 0 = ·ñ)" << endl;
+	cout << "\nï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ .m ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½MATLABï¿½Ð»ï¿½ï¿½Æ²ï¿½Öµï¿½ï¿½ï¿½ß£ï¿½(1 = ï¿½ï¿½, 0 = ï¿½ï¿½)" << endl;
 #else
 	cout << "\nWant to generate .m file to get figure of iteration error in MATLAB? (1 = Yes , 0 = No)" << endl;
 #endif
@@ -492,7 +492,7 @@ Newton_Ip::~Newton_Ip() {
 Hermite_Ip::Hermite_Ip() :Newton_Ip(true) {
 	init();
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÊäÈë²åÖµµã¸öÊý£¨°üº¬ÖØ½Úµã£©£º" << endl;
+	cout << "\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø½Úµã£©ï¿½ï¿½" << endl;
 #else
 	cout << "\nPlease enter the number of points: (including the multiple nodes)" << endl;
 #endif
@@ -500,7 +500,7 @@ Hermite_Ip::Hermite_Ip() :Newton_Ip(true) {
 	if (nn <= 0)
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£ºÇëÊäÈëÒ»¸öÕýÕûÊý¡£" << endl;
+		cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
 #else
 		cout << "Error: Please enter a positive integer." << endl;
 #endif
@@ -524,8 +524,8 @@ void Hermite_Ip::input_data() {
 	if (input_fx) {
 		DerivExtra Deriv(fx);
 #ifdef CHINESE_VERSION
-		cout << "\nÇëÊäÈë x ºÍµ¼Êý½×Êý£º" << endl;
-		cout << "x\tµ¼Êý½×Êý (0±íÊ¾º¯ÊýÖµ)" << endl;
+		cout << "\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ x ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+		cout << "x\tï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (0ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Öµ)" << endl;
 #else
 		cout << "\nPlease input x and the orders of derivatives:" << endl;
 		cout << "x\torder of derivative (0 represents the function value)" << endl;
@@ -547,8 +547,8 @@ void Hermite_Ip::input_data() {
 	}
 	else {
 #ifdef CHINESE_VERSION
-		cout << "\nÇëÊäÈëµãºÍµ¼Êý½×Êý£º" << endl;
-		cout << "x\ty\tµ¼Êý½×Êý (0±íÊ¾º¯ÊýÖµ)" << endl;
+		cout << "\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
+		cout << "x\ty\tï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (0ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Öµ)" << endl;
 #else
 		cout << "\nPlease input the points and the orders of derivatives:" << endl;
 		cout << "x\ty\torder of derivative (0 represents the function value)" << endl;
@@ -562,7 +562,7 @@ void Hermite_Ip::input_data() {
 		}
 	}
 #ifdef CHINESE_VERSION
-	cout << "\nÊäÈëÍê³É¡£" << endl;
+	cout << "\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¡ï¿½" << endl;
 #else
 	cout << "\nFinish inputting." << endl;
 #endif
@@ -574,7 +574,7 @@ void Hermite_Ip::cout_xy() {
 	int t = 0;
 	double tt = x[0];
 #ifdef CHINESE_VERSION
-	cout << "\n²åÖµµãÎª£º" << endl;
+	cout << "\nï¿½ï¿½Öµï¿½ï¿½Îªï¿½ï¿½" << endl;
 #else
 	cout << "\nThe points are:" << endl;
 #endif
@@ -592,7 +592,7 @@ void Hermite_Ip::save_xy() {
 	int t = 0;
 	double tt = x[0];
 #ifdef CHINESE_VERSION
-	fl << "\n²åÖµµãÎª£º\n";
+	fl << "\nï¿½ï¿½Öµï¿½ï¿½Îªï¿½ï¿½\n";
 #else
 	fl << "\nThe points are:\n";
 #endif
@@ -675,7 +675,7 @@ void Hermite_Ip::in_d(int i, int t) {
 
 void Hermite_Ip::cout_polynomial() {
 #ifdef CHINESE_VERSION
-	cout << "\n²åÖµ¶àÏîÊ½ H = ";
+	cout << "\nï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Ê½ H = ";
 #else
 	cout << "\nH = ";
 #endif
@@ -685,7 +685,7 @@ void Hermite_Ip::cout_polynomial() {
 
 void Hermite_Ip::save_polynomial() {
 #ifdef CHINESE_VERSION
-	fl << "\n²åÖµ¶àÏîÊ½ H = ";
+	fl << "\nï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Ê½ H = ";
 #else
 	fl << "\nH = ";
 #endif
@@ -695,7 +695,7 @@ void Hermite_Ip::save_polynomial() {
 
 void Hermite_Ip::calc() {
 #ifdef CHINESE_VERSION
-	cout << "\nÕýÔÚ¼ÆËã²åÖµ¶àÏîÊ½..." << endl;
+	cout << "\nï¿½ï¿½ï¿½Ú¼ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Ê½..." << endl;
 #else
 	cout << "\nCalculating the interpolation polynomial..." << endl;
 #endif
@@ -711,7 +711,7 @@ void Hermite_Ip::calc() {
 		}
 		cout_polynomial();
 #ifdef CHINESE_VERSION
-		cout << "\nÊÇ·ñÔö¼ÓÒ»¸öµã£¿(1 = ÊÇ , 0 = ·ñ)" << endl;
+		cout << "\nï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ã£¿(1 = ï¿½ï¿½ , 0 = ï¿½ï¿½)" << endl;
 #else
 		cout << "\nWant to add a point? (1 = yes , 0 = no)" << endl;
 #endif
@@ -720,7 +720,7 @@ void Hermite_Ip::calc() {
 		double xx, yy;
 		int dd;
 #ifdef CHINESE_VERSION
-		cout << "\nÇëÊäÈëÐÂµã£º\nx = ";
+		cout << "\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âµã£º\nx = ";
 #else
 		cout << "\nPlease enter the new point:\nx = ";
 #endif
@@ -728,7 +728,7 @@ void Hermite_Ip::calc() {
 		cout << "y = ";
 		cin >> yy;
 #ifdef CHINESE_VERSION
-		cout << "µ¼Êý½×Êý = ";
+		cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = ";
 #else
 		cout << "order of derivative = ";
 #endif
@@ -737,7 +737,7 @@ void Hermite_Ip::calc() {
 		sort_x();
 	} while (add_p);
 #ifdef CHINESE_VERSION
-	cout << "\n²åÖµÍê³É¡£" << endl;
+	cout << "\nï¿½ï¿½Öµï¿½ï¿½É¡ï¿½" << endl;
 #else
 	cout << "\nFinish interpolating." << endl;
 #endif
@@ -747,8 +747,8 @@ void Hermite_Ip::out_result() {
 	cout_xy();
 	save_xy();
 #ifdef CHINESE_VERSION
-	cout << "\nHermite²åÖµ¶àÏîÊ½Îª" << endl;
-	fl << "\nHermite²åÖµ¶àÏîÊ½Îª\n";
+	cout << "\nHermiteï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Ê½Îª" << endl;
+	fl << "\nHermiteï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Ê½Îª\n";
 #else
 	cout << "\nThe Hermite interpolation function is" << endl;
 	fl << "\nThe Hermite interpolation function is\n";
@@ -805,7 +805,7 @@ Hermite_Ip::~Hermite_Ip() {
 cube_spline::cube_spline() {
 	init();
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÊäÈë²åÖµµã¸öÊý£º" << endl;
+	cout << "\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
 #else
 	cout << "\nPlease enter the number of points:" << endl;
 #endif
@@ -813,7 +813,7 @@ cube_spline::cube_spline() {
 	if (nn <= 0)
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£ºÇëÊäÈëÒ»¸öÕýÕûÊý¡£" << endl;
+		cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
 #else
 		cout << "Error: Please enter a positive integer." << endl;
 #endif
@@ -830,10 +830,10 @@ cube_spline::cube_spline() {
 
 void cube_spline::input_bd() {
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÑ¡Ôñ±ß½çÌõ¼þÀàÐÍ£º" << endl;
-	cout << "1 = ¸ø¶¨Çø¼ä¶ËµãµÄ¶þ½×µ¼Êý" << endl;
-	cout << "2 = ¸ø¶¨Çø¼ä¶ËµãµÄÒ»½×µ¼Êý" << endl;
-	cout << "3 = ÖÜÆÚ±ß½çÌõ¼þ" << endl;
+	cout << "\nï¿½ï¿½Ñ¡ï¿½ï¿½ß½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½" << endl;
+	cout << "1 = ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½Ä¶ï¿½ï¿½×µï¿½ï¿½ï¿½" << endl;
+	cout << "2 = ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½Ò»ï¿½×µï¿½ï¿½ï¿½" << endl;
+	cout << "3 = ï¿½ï¿½ï¿½Ú±ß½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
 #else
 	cout << "\nPlease select the type of boundary condition:" << endl;
 	cout << "1 = Second derivatives of interval boundary are given." << endl;
@@ -843,20 +843,20 @@ void cube_spline::input_bd() {
 	cin >> bdcd_flag;
 	if (bdcd_flag < 3) {
 #ifdef CHINESE_VERSION
-		cout << "\nÇëÊäÈë±ß½çÌõ¼þ£º" << endl;
+		cout << "\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << endl;
 #else
 		cout << "\nPlease input the boundary condition:" << endl;
 #endif
 	}
 	if (bdcd_flag == 1) {
 #ifdef CHINESE_VERSION
-		cout << "×ó¶Ëµã£ºf\42(x_0) = ";
+		cout << "ï¿½ï¿½Ëµã£ºf\42(x_0) = ";
 #else
 		cout << "The left end point: f\42(x_0) = ";
 #endif
 		cin >> bd[0];
 #ifdef CHINESE_VERSION
-		cout << "ÓÒ¶Ëµã£ºf\42(x_n) = ";
+		cout << "ï¿½Ò¶Ëµã£ºf\42(x_n) = ";
 #else
 		cout << "The right end point: f\42(x_n) = ";
 #endif
@@ -864,13 +864,13 @@ void cube_spline::input_bd() {
 	}
 	else if (bdcd_flag == 2) {
 #ifdef CHINESE_VERSION
-		cout << "×ó¶Ëµã£ºf\47(x_0) = ";
+		cout << "ï¿½ï¿½Ëµã£ºf\47(x_0) = ";
 #else
 		cout << "The left end point: f\47(x_0) = ";
 #endif
 		cin >> bd[0];
 #ifdef CHINESE_VERSION
-		cout << "ÓÒ¶Ëµã£ºf\47(x_n) = ";
+		cout << "ï¿½Ò¶Ëµã£ºf\47(x_n) = ";
 #else
 		cout << "The right end point: f\47(x_n) = ";
 #endif
@@ -880,7 +880,7 @@ void cube_spline::input_bd() {
 
 void cube_spline::cout_polynomial() {
 #ifdef CHINESE_VERSION
-	cout << "\nÑùÌõ²åÖµº¯Êý S = ";
+	cout << "\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ S = ";
 #else
 	cout << "\nS = ";
 #endif
@@ -893,7 +893,7 @@ void cube_spline::cout_polynomial() {
 
 void cube_spline::save_polynomial() {
 #ifdef CHINESE_VERSION
-	fl << "\nÑùÌõ²åÖµº¯Êý S = ";
+	fl << "\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ S = ";
 #else
 	fl << "\nS = ";
 #endif
@@ -906,7 +906,7 @@ void cube_spline::save_polynomial() {
 
 void cube_spline::calc() {
 #ifdef CHINESE_VERSION
-	cout << "\nÕýÔÚ¼ÆËã²åÖµ¶àÏîÊ½..." << endl;
+	cout << "\nï¿½ï¿½ï¿½Ú¼ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Ê½..." << endl;
 #else
 	cout << "\nCalculating the interpolation polynomial..." << endl;
 #endif
@@ -1004,7 +1004,7 @@ void cube_spline::calc() {
 	delete[] lambda;
 	delete[] d;
 #ifdef CHINESE_VERSION
-	cout << "\n²åÖµÍê³É¡£" << endl;
+	cout << "\nï¿½ï¿½Öµï¿½ï¿½É¡ï¿½" << endl;
 #else
 	cout << "\nFinish interpolating." << endl;
 #endif
@@ -1014,8 +1014,8 @@ void cube_spline::out_result() {
 	cout_xy();
 	save_xy();
 #ifdef CHINESE_VERSION
-	cout << "\nÈý´ÎÑùÌõ²åÖµº¯ÊýÎª" << endl;
-	fl << "\nÈý´ÎÑùÌõ²åÖµº¯ÊýÎª\n";
+	cout << "\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Îª" << endl;
+	fl << "\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Îª\n";
 #else
 	cout << "\nThe cubic spline interpolation function is" << endl;
 	fl << "\nThe cubic spline interpolation function is\n";
@@ -1027,7 +1027,7 @@ void cube_spline::out_result() {
 
 void cube_spline::generate_m() {
 #ifdef CHINESE_VERSION
-	cout << "\nÊÇ·ñÉú³É .m ÎÄ¼þÓÃÓÚÔÚMATLABÖÐ»æÖÆ²åÖµÇúÏß£¿(1 = ÊÇ, 0 = ·ñ)" << endl;
+	cout << "\nï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ .m ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½MATLABï¿½Ð»ï¿½ï¿½Æ²ï¿½Öµï¿½ï¿½ï¿½ß£ï¿½(1 = ï¿½ï¿½, 0 = ï¿½ï¿½)" << endl;
 #else
 	cout << "\nWant to generate .m file to get the graph of interpolation in MATLAB? (1 = Yes , 0 = No)" << endl;
 #endif
@@ -1081,7 +1081,6 @@ void cube_spline::generate_m() {
 }
 
 cube_spline::~cube_spline() {
-	init();
 	delete[] x;
 	delete[] y;
 	for (int i = 0; i < np1 - 1; i++) delete[] S[i];
