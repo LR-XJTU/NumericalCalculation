@@ -8,26 +8,25 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 构建
 
-项目在 Dev-C++ 下开发，使用 g++（TDM-GCC）。命令行为：
+使用 TDM-GCC 4.9.2（随 Dev-C++ 安装在 `D:/Dev-Cpp/MinGW64/`），不在 PATH 中，且该版本不会自动搜索 include 目录。
+
+编译时使用以下命令（`$MINGW` 指向 MinGW64 安装根目录）：
 
 ```bash
-g++ -std=c++11 -o NumericalCalculation \
-    src/main.cpp \
-    src/common_fd.cpp src/filelog.cpp src/formula.cpp \
-    src/linear_equations.cpp src/directmethod.cpp src/iterationmethod.cpp \
-    src/interpolation.cpp src/optimal_approx.cpp \
-    src/int_diff.cpp src/nonlinear_equations.cpp src/eigen_val_vec.cpp
+MINGW="D:/Dev-Cpp/MinGW64"
+$MINGW/bin/g++.exe -std=c++11 -o NumericalCalculation src/*.cpp \
+    -I$MINGW/include \
+    -I$MINGW/x86_64-w64-mingw32/include \
+    -I$MINGW/lib/gcc/x86_64-w64-mingw32/4.9.2/include \
+    -I$MINGW/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++ \
+    && rm -f src/*.o
 ```
-
-也可用 `Makefile.win`（Dev-C++ 生成）。
 
 ## 编码
 
-**所有 `.cpp` 和 `.h` 文件是 GBK 编码**。Dev-C++ 默认 GBK，不要转换为 UTF-8，否则中文注释和字符串会乱码。如果必须用 iconv 转换，用完后转回 GBK：
+**所有 `.cpp` 和 `.h` 文件是 UTF-8 编码**。Dev-C++ 5.11 编辑器不支持 UTF-8，中文在 Dev-C++ 中显示为乱码属正常现象——**编辑请用 Cursor 或 VS Code，Dev-C++ 仅用于编译**。
 
-```bash
-iconv -f UTF-8 -t GBK file.cpp -o file.cpp
-```
+编译时 `-finput-charset=UTF-8` 可加可不加（不用 `-fexec-charset` 时 g++ 直接透传字节，不影响结果）。`main.cpp` 启动时通过 `system("chcp 65001 > nul")` 将控制台切换为 UTF-8。
 
 ## 双语机制
 
@@ -37,6 +36,15 @@ iconv -f UTF-8 -t GBK file.cpp -o file.cpp
 - **注释** → 英文界面
 
 所有 12 个 `.cpp` 文件的用户交互文本均通过 `#ifdef CHINESE_VERSION` / `#else` / `#endif` 包裹。修改时注意——只有用户交互文本（`cout << "..."` 和 `fl << "..."` 中的描述文字）需要双语包裹，文件名、数学符号、MATLAB 生成代码、纯变量数据输出不需要。
+
+## Web 可视化
+
+`src/common_fd.h` 中的 `#define WEB_VISUALIZATION` 控制可视化输出格式：
+
+- **定义** → 生成 `.html` 文件（Plotly.js，浏览器打开）
+- **注释** → 生成 `.m` 文件（MATLAB 脚本）
+
+与 `CHINESE_VERSION` 同理，切换后必须 `make clean && make`。覆盖模块：迭代法、插值（牛顿/样条）、数值积分、最佳逼近（平方/一致）。
 
 ## 架构
 
@@ -69,8 +77,8 @@ Eigen_val_vec — Power_method, Inverse_power
 
 ### 核心工具类
 
-- **`formula`** — 数学表达式解析器（逆波兰求值）。流程：`rf_str()` 预处理 → `trans_rpn()` 调度场算法 → `f(x)` 求值。支持隐式乘法、科学计数法、`log` 底数转换。`formulae` 是多变量版本。
-- **`filelog`** — 文件日志，重载 `<<` 输出矩阵/向量，支持 `.txt` 和 `.m`（MATLAB 脚本）。配合 `set_mat_size()` / `set_array_len()` 使用。
+- **`formula`** — 数学表达式解析器（逆波兰求值）。流程：`rf_str()` 预处理 → `trans_rpn()` 调度场算法 → `f(x)` 求值。支持隐式乘法、科学计数法（仅大写 `E`，小写 `e` 是自然对数底数）、`log` 底数转换。`formulae` 是多变量版本，变量名为 `x1, x2, ...`。
+- **`filelog`** — 文件日志，重载 `<<` 输出矩阵/向量，支持 `.txt`、`.m`（MATLAB 脚本）、`.html`（Web 可视化）。配合 `set_mat_size()` / `set_array_len()` 使用。
 - **`Ax_b`** — 线性方程组基类，封装 `A/b/x` 矩阵/向量、输入/输出、对称性/三对角检测、行交换等。
 
 ### 内存管理
@@ -79,6 +87,7 @@ Eigen_val_vec — Power_method, Inverse_power
 
 ## 注意事项
 
-- 改了 `src/common_fd.h` 中的宏定义后必须 `make clean && make` 重新编译所有文件，否则可能出现部分文件中文部分英文的混搭
-- 自动生成的输出文件（`Direct_method.txt`、`Iteration_method.m` 等）在项目根目录，不要提交到 git
+- 改了 `src/common_fd.h` 中的宏定义后必须重新编译所有文件
+- 自动生成的输出文件（`.txt`、`.m`、`.html`）在项目根目录，已在 `.gitignore` 中
 - `testdata.txt` 是 4×4 线性方程组的测试数据（A 矩阵 + b 向量），用于快速验证线性方程组求解
+- 构建 `resultstr`（用于 `formula` 解析的表达式字符串）时，`stringstream` 需加 `uppercase`，确保科学计数法输出大写 `E`

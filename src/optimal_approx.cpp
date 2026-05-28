@@ -268,7 +268,7 @@ string optimal_approx::polytostr(double* p, int l) {
 		else if (p[i] < 0.0) ts += "-";
 		if (fabs(p[i]) != 1.0 || i == l - 1) {
 			stringstream ss;
-			ss << setprecision(15) << fabs(p[i]);
+			ss << uppercase << setprecision(15) << fabs(p[i]);
 			ts += ss.str();
 		}
 		if (fabs(p[i]) != 1.0 && i < l - 1) ts += "*";
@@ -365,13 +365,13 @@ void sqr_approx::calc() {
 		delete[] b;
 		for (int i = 0; i < np1; i++) coef[i] = cc[i];
 		stringstream ss1;
-		ss1 << setprecision(15) << coef[0];
+		ss1 << uppercase << setprecision(15) << coef[0];
 		resultstr = ss1.str();
 		resultstr += "*" + basis[0].get_fstr();
 		for (int i = 1; i < np1; i++) {
 			resultstr += (coef[i] >= 0) ? "+" : "-";
 			stringstream ss2;
-			ss2 << setprecision(15) << fabs(coef[i]);
+			ss2 << uppercase << setprecision(15) << fabs(coef[i]);
 			resultstr += ss2.str() + "*" + basis[i].get_fstr();
 		}
 	}
@@ -403,6 +403,7 @@ void sqr_approx::calc() {
 }
 
 void sqr_approx::out_result() {
+	cout << uppercase;
 	if (cont) {
 		cout << "\nf(x) = " << fx.get_fstr() << " , " << interval[0] << " <= x <= " << interval[1] << endl;
 		fl << "\nf(x) = " << fx.get_fstr() << " , " << interval[0] << " <= x <= " << interval[1] << "\n";
@@ -635,8 +636,8 @@ uni_approx::uni_approx() {
 		a1 = (interval[1] - interval[0]) / 2.0;
 		a2 = (interval[0] + interval[1]) / 2.0;
 		stringstream ss1, ss2;
-		ss1 << setprecision(15) << a1;
-		ss2 << setprecision(15) << fabs(a2);
+		ss1 << uppercase << setprecision(15) << a1;
+		ss2 << uppercase << setprecision(15) << fabs(a2);
 		string s = "(" + ss1.str() + "x"; //x=f(t)
 		s += (a2 >= 0) ? "+" : "-";
 		s += ss2.str() + ")";

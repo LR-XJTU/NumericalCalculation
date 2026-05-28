@@ -42,7 +42,7 @@ void formula::init(string fx, string xt) {
 void formula::showtips() {
 #ifdef CHINESE_VERSION
 	cout << "\n请输入函数。允许以下元素：\n" << endl;
-	cout << "   81 , -3.67 , 9.425E+3 ---- 实数" << endl;
+	cout << "   81 , -3.67 , 9.425E+3 ---- 实数（科学计数法请用大写E表示）" << endl;
 	cout << "                  e , pi ---- 常数：自然对数底数 , 圆周率" << endl;
 	cout << "                       x ---- 变量" << endl;
 	cout << "           + , - , * , / ---- 四则运算" << endl;
@@ -58,7 +58,7 @@ void formula::showtips() {
 	cout << "* 注意：请勿使用中文输入法。 *" << endl;
 #else
 	cout << "\nPlease input the function. The following elements are allowed:\n" << endl;
-	cout << "   81 , -3.67 , 9.425E+3 ---- Rational number" << endl;
+	cout << "   81 , -3.67 , 9.425E+3 ---- Rational number (Use uppercase E for scientific notation)" << endl;
 	cout << "                  e , pi ---- Constant: natural logarithm , circumference ratio" << endl;
 	cout << "                       x ---- variable" << endl;
 	cout << "           + , - , * , / ---- Four basic operations" << endl;
@@ -78,7 +78,7 @@ void formula::showtips() {
 void formula::showtips_xnum() {
 #ifdef CHINESE_VERSION
 	cout << "\n请输入函数。允许以下元素：\n" << endl;
-	cout << "   81 , -3.67 , 9.425E+3 ---- 实数" << endl;
+	cout << "   81 , -3.67 , 9.425E+3 ---- 实数（科学计数法请用大写E表示）" << endl;
 	cout << "                  e , pi ---- 常数：自然对数底数 , 圆周率" << endl;
 	cout << "           x1 , x2 , ... ---- 变量" << endl;
 	cout << "           + , - , * , / ---- 四则运算" << endl;
@@ -94,7 +94,7 @@ void formula::showtips_xnum() {
 	cout << "* 注意：请勿使用中文输入法。 *" << endl;
 #else
 	cout << "\nPlease input the function. The following elements are allowed:\n" << endl;
-	cout << "   81 , -3.67 , 9.425E+3 ---- Rational number" << endl;
+	cout << "   81 , -3.67 , 9.425E+3 ---- Rational number (Use uppercase E for scientific notation)" << endl;
 	cout << "                  e , pi ---- Constant: natural logarithm , circumference ratio" << endl;
 	cout << "           x1 , x2 , ... ---- variables" << endl;
 	cout << "           + , - , * , / ---- Four basic operations" << endl;

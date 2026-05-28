@@ -179,7 +179,7 @@ std::string Interpolation::polytostr(double* p, int l) {
 		else if (p[i] < 0.0) ts += "-";
 		if (fabs(p[i]) != 1.0 || i == l - 1) {
 			stringstream ss;
-			ss << setprecision(15) << fabs(p[i]);
+			ss << uppercase << setprecision(15) << fabs(p[i]);
 			ts += ss.str();
 		}
 		if (fabs(p[i]) != 1.0 && i < l - 1) ts += ".*";
@@ -330,7 +330,7 @@ std::string Newton_Ip::polytostr_nodot(double* p, int l) {
 		else if (p[i] < 0.0) ts += "-";
 		if (fabs(p[i]) != 1.0 || i == l - 1) {
 			stringstream ss;
-			ss << setprecision(15) << fabs(p[i]);
+			ss << uppercase << setprecision(15) << fabs(p[i]);
 			ts += ss.str();
 		}
 		if (fabs(p[i]) != 1.0 && i < l - 1) ts += "*";

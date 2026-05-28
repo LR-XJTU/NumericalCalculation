@@ -1,0 +1,9 @@
+*.o
+*.txt
+*.m
+*.html
+Makefile.win
+*.dev
+*.exe
+*.layout
+.gitignore

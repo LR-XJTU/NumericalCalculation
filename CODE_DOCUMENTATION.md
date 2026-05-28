@@ -24,7 +24,7 @@
 
 ## 1. 项目概述
 
-本项目是一套**数值计算方法**的 C++ 控制台程序，涵盖了大学《计算方法》课程的核心内容。程序提供交互式菜单，支持中英文双语界面，允许用户输入数据并选择不同的数值算法进行求解，最终将结果输出到屏幕和控制台，并可生成 MATLAB `.m` 脚本用于可视化。
+本项目是一套**数值计算方法**的 C++ 控制台程序，涵盖了大学《计算方法》课程的核心内容。程序提供交互式菜单，支持中英文双语界面，允许用户输入数据并选择不同的数值算法进行求解，最终将结果输出到屏幕和控制台，并可输出 MATLAB `.m` 脚本或 Plotly.js `.html` 网页用于可视化。
 
 ### 功能总览
 
@@ -49,7 +49,7 @@
 NumericalCalculation/
 ├── main.cpp                  # 主入口，菜单调度
 ├── common_fd.h / .cpp        # 公共工具函数（数学、字符串、矩阵/向量范数）
-├── filelog.h / .cpp          # 文件日志输出（支持 .txt 和 .m 格式）
+├── filelog.h / .cpp          # 文件日志输出（支持 .txt / .m / .html 格式）
 ├── formula.h / .cpp          # 表达式解析器 & 科学计算器
 ├── linear_equations.h / .cpp # 线性方程组基类 Ax_b
 ├── directmethod.h / .cpp     # 直接法（8种）
@@ -106,7 +106,7 @@ NumericalCalculation/
 
 **文件**: `filelog.h`, `filelog.cpp`
 
-封装文件输出操作，支持 `.txt`（普通文本）和 `.m`（MATLAB 脚本）两种格式。
+封装文件输出操作，支持 `.txt`（普通文本）、`.m`（MATLAB 脚本）和 `.html`（Plotly.js 可视化网页）三种格式。
 
 **关键特性**：
 - 自动检测文件是否存在，询问覆盖或追加
@@ -360,32 +360,31 @@ T_1 → T_2 → S_1 → T_4 → S_2 → C_1 → T_8 → S_4 → C_2 → R_1 → 
 
 ### 环境要求
 
-- **编译器**：支持 C++11 的 GCC 或 MSVC
-- **原开发环境**：Dev-C++ (使用 TDM-GCC)
-- **操作系统**：Windows（可移植到 Linux，需调整 Makefile）
+- **编译器**：支持 C++11 的 g++（开发环境为 TDM-GCC 4.9.2）
+- **编码**：所有源文件为 UTF-8
+- **操作系统**：Windows
 
 ### 编译方式
 
-**方式一：Dev-C++ （原始方式）**
-
-直接打开 `Numerical_Calculation_v4.dev` 项目文件编译。
-
-**方式二：命令行 (g++)**
+若 g++ 已在 PATH 中：
 
 ```bash
-g++ -std=c++11 -o NumericalCalculation \
-    main.cpp \
-    common_fd.cpp \
-    filelog.cpp \
-    formula.cpp \
-    linear_equations.cpp \
-    directmethod.cpp \
-    iterationmethod.cpp \
-    interpolation.cpp \
-    optimal_approx.cpp \
-    int_diff.cpp \
-    nonlinear_equations.cpp \
-    eigen_val_vec.cpp
+g++ -std=c++11 -o NumericalCalculation src/*.cpp && rm -f src/*.o
+```
+
+若不在 PATH 中，设置 `MINGW` 变量指向 MinGW 安装目录后编译：
+
+```bash
+MINGW="/path/to/MinGW64"
+$MINGW/bin/g++.exe -std=c++11 -o NumericalCalculation src/*.cpp \
+    -I$MINGW/include \
+    -I$MINGW/x86_64-w64-mingw32/include \
+    -I$MINGW/lib/gcc/x86_64-w64-mingw32/4.9.2/include \
+    -I$MINGW/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++ \
+    && rm -f src/*.o
+```
+
+> **注意**：部分旧版 g++（如 TDM-GCC 4.9.2）不会自动搜索 include 目录，必须通过 `-I` 显式指定。
 ```
 
 **方式三：使用 Makefile**
@@ -532,12 +531,12 @@ A =                      b =
 |------|---------|
 | `Direct_method.txt` | 直接法求解结果 |
 | `Iteration_method.txt` | 迭代法求解结果 |
-| `Iteration_method.m` | 迭代误差收敛曲线（MATLAB） |
+| `Iteration_method.m/.html` | 迭代误差收敛曲线 |
 | `Interpolation.txt` | 插值结果 |
-| `Interpolation.m` | 插值函数图像（MATLAB） |
+| `Interpolation.m/.html` | 插值函数图像 |
 | `Optimal_approx.txt` | 逼近结果 |
-| `Optimal_approx.m` | 逼近函数图像（MATLAB） |
+| `Optimal_approx.m/.html` | 逼近函数图像 |
 | `Int_Diff.txt` | 积分/微分结果 |
-| `Integration.m` | 误差收敛曲线（MATLAB） |
+| `Integration.m/.html` | 误差收敛曲线 |
 | `Nonlinear_equations.txt` | 非线性方程求解结果 |
 | `Eigen_val_vec.txt` | 特征值/特征向量结果 |
