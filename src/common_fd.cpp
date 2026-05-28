@@ -34,7 +34,7 @@ int in_int() {
 		if (s[i] - '0' < 0 || s[i] - '9' > 0)
 		{
 #ifdef CHINESE_VERSION
-			cout << "´íÎó£ºÊäÈëµÄ²»ÊÇÕûÊý" << endl;
+			cout << "é”™è¯¯ï¼šè¾“å…¥çš„ä¸æ˜¯æ•´æ•°" << endl;
 #else
 			cout << "Error: The input is not a integer." << endl;
 #endif
@@ -56,7 +56,7 @@ double calc_fac(double k) {
 	int x = (int)k;
 	if ((k - x) != 0.0) {
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£ºÊäÈëµÄ²»ÊÇÕûÊý£¬ÎÞ·¨½×³Ë" << endl;
+		cout << "é”™è¯¯ï¼šè¾“å…¥çš„ä¸æ˜¯æ•´æ•°ï¼Œæ— æ³•é˜¶ä¹˜" << endl;
 #else
 		cout << "Error: The input is not a integer for factorial." << endl;
 #endif
@@ -127,7 +127,7 @@ vector<vector<double>> mat_inverse(vector<vector<double>> A0) {
 	for (int i = 0; i < n; i++) {
 		if (A0[i].size() != n) {
 #ifdef CHINESE_VERSION
-			cout << "´íÎó£º¾ØÕó²»ÊÇ·½Õó£¬ÎÞ·¨ÇóÄæ" << endl;
+			cout << "é”™è¯¯ï¼šçŸ©é˜µä¸æ˜¯æ–¹é˜µï¼Œæ— æ³•æ±‚é€†" << endl;
 #else
 			cout << "Error: The matrix calculated for inverse matrix is not square." << endl;
 #endif
@@ -167,7 +167,7 @@ vector<vector<double>> mat_multi(vector<vector<double>> A, vector<vector<double>
 	for (int i = 0; i < m1; i++) {
 		if (A[i].size() != n1) {
 #ifdef CHINESE_VERSION
-			cout << "´íÎó£º¾ØÕó½×Êý²»Ò»ÖÂ" << endl;
+			cout << "é”™è¯¯ï¼šçŸ©é˜µé˜¶æ•°ä¸ä¸€è‡´" << endl;
 #else
 			cout << "Error: The order of matrix is inconsistent" << endl;
 #endif
@@ -177,7 +177,7 @@ vector<vector<double>> mat_multi(vector<vector<double>> A, vector<vector<double>
 	for (int i = 0; i < m2; i++) {
 		if (B[i].size() != n2) {
 #ifdef CHINESE_VERSION
-			cout << "´íÎó£º¾ØÕó½×Êý²»Ò»ÖÂ" << endl;
+			cout << "é”™è¯¯ï¼šçŸ©é˜µé˜¶æ•°ä¸ä¸€è‡´" << endl;
 #else
 			cout << "Error: The order of matrix is inconsistent" << endl;
 #endif
@@ -186,7 +186,7 @@ vector<vector<double>> mat_multi(vector<vector<double>> A, vector<vector<double>
 	}
 	if (n1 != m2) {
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£º¾ØÕó½×Êý²»¶ÔÓ¦£¬ÎÞ·¨Ïà³Ë" << endl;
+		cout << "é”™è¯¯ï¼šçŸ©é˜µé˜¶æ•°ä¸å¯¹åº”ï¼Œæ— æ³•ç›¸ä¹˜" << endl;
 #else
 		cout << "Error: Wrong order of matrix multiplication." << endl;
 #endif
@@ -204,7 +204,7 @@ vector<double> mat_multi_vec(vector<vector<double>> A, vector<double> a) {
 	n = A[0].size();
 	for (int i = 0; i < m; i++) if (A[i].size() != n) {
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£º¾ØÕó½×Êý²»Ò»ÖÂ" << endl;
+		cout << "é”™è¯¯ï¼šçŸ©é˜µé˜¶æ•°ä¸ä¸€è‡´" << endl;
 #else
 		cout << "Error: The order of matrix is inconsistent" << endl;
 #endif
@@ -212,7 +212,7 @@ vector<double> mat_multi_vec(vector<vector<double>> A, vector<double> a) {
 	}
 	if (a.size() != n) {
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£º¾ØÕóÓëÏòÁ¿½×Êý²»¶ÔÓ¦£¬ÎÞ·¨Ïà³Ë" << endl;
+		cout << "é”™è¯¯ï¼šçŸ©é˜µä¸Žå‘é‡é˜¶æ•°ä¸å¯¹åº”ï¼Œæ— æ³•ç›¸ä¹˜" << endl;
 #else
 		cout << "Error: Incosistent order between the matrix and the vector." << endl;
 #endif

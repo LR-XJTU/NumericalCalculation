@@ -8,7 +8,7 @@
 class filelog {
 private:
 	const char* filename;
-	enum file_type { FILE_TXT, FILE_M };
+	enum file_type { FILE_TXT, FILE_M, FILE_HTML };
 	file_type filetype;
 	std::fstream* flog;
 	int m, n;

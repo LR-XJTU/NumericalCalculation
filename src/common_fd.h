@@ -5,6 +5,7 @@
 #define cube(x) ((x)*(x)*(x))
 
 #define CHINESE_VERSION
+#define WEB_VISUALIZATION
 
 #include <sstream>
 #include <vector>

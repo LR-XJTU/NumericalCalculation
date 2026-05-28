@@ -17,7 +17,7 @@ void formula::init() {
 	trans_rpn(str);
 	matlab_format();
 #ifdef CHINESE_VERSION
-	cout << "\n����Ϊ f(x) = " << fstr << "  (MATLAB��ʽ)" << endl;
+	cout << "\n函数为 f(x) = " << fstr << "  (MATLAB格式)" << endl;
 #else
 	cout << "\nThe formula is f(x) = " << fstr << "  (MATLAB format)" << endl;
 #endif
@@ -41,21 +41,21 @@ void formula::init(string fx, string xt) {
 
 void formula::showtips() {
 #ifdef CHINESE_VERSION
-	cout << "\n�����뺯������������Ԫ�أ�\n" << endl;
-	cout << "   81 , -3.67 , 9.425E+3 ---- ʵ��" << endl;
-	cout << "                  e , pi ---- ��������Ȼ�������� , Բ����" << endl;
-	cout << "                       x ---- ����" << endl;
-	cout << "           + , - , * , / ---- ��������" << endl;
-	cout << "                       ^ ---- ������" << endl;
-	cout << "                    sqrt ---- ƽ����" << endl;
-	cout << "                     exp ---- ��eΪ�׵�ָ������" << endl;
-	cout << "                      ln ---- ��Ȼ��������" << endl;
-	cout << "                     log ---- �������� -> ʹ��ʾ��: log2(x), log10(x), log3.14(x)" << endl;
-	cout << "         sin , cos , tan ---- ���Ǻ��� (������)" << endl;
-	cout << "arcsin , arccos , arctan ---- �����Ǻ��� (������)" << endl;
-	cout << "                       | ---- ����ֵ" << endl;
-	cout << "                     ( ) ---- ����" << endl;
-	cout << "* ע�⣺����ʹ���������뷨�� *" << endl;
+	cout << "\n请输入函数。允许以下元素：\n" << endl;
+	cout << "   81 , -3.67 , 9.425E+3 ---- 实数" << endl;
+	cout << "                  e , pi ---- 常数：自然对数底数 , 圆周率" << endl;
+	cout << "                       x ---- 变量" << endl;
+	cout << "           + , - , * , / ---- 四则运算" << endl;
+	cout << "                       ^ ---- 幂运算" << endl;
+	cout << "                    sqrt ---- 平方根" << endl;
+	cout << "                     exp ---- 以e为底的指数函数" << endl;
+	cout << "                      ln ---- 自然对数函数" << endl;
+	cout << "                     log ---- 对数函数 -> 使用示例: log2(x), log10(x), log3.14(x)" << endl;
+	cout << "         sin , cos , tan ---- 三角函数 (弧度制)" << endl;
+	cout << "arcsin , arccos , arctan ---- 反三角函数 (弧度制)" << endl;
+	cout << "                       | ---- 绝对值" << endl;
+	cout << "                     ( ) ---- 括号" << endl;
+	cout << "* 注意：请勿使用中文输入法。 *" << endl;
 #else
 	cout << "\nPlease input the function. The following elements are allowed:\n" << endl;
 	cout << "   81 , -3.67 , 9.425E+3 ---- Rational number" << endl;
@@ -77,21 +77,21 @@ void formula::showtips() {
 
 void formula::showtips_xnum() {
 #ifdef CHINESE_VERSION
-	cout << "\n�����뺯������������Ԫ�أ�\n" << endl;
-	cout << "   81 , -3.67 , 9.425E+3 ---- ʵ��" << endl;
-	cout << "                  e , pi ---- ��������Ȼ�������� , Բ����" << endl;
-	cout << "           x1 , x2 , ... ---- ����" << endl;
-	cout << "           + , - , * , / ---- ��������" << endl;
-	cout << "                       ^ ---- ������" << endl;
-	cout << "                    sqrt ---- ƽ����" << endl;
-	cout << "                     exp ---- ��eΪ�׵�ָ������" << endl;
-	cout << "                      ln ---- ��Ȼ��������" << endl;
-	cout << "                     log ---- �������� -> ʹ��ʾ��: log2(x), log10(x), log3.14(x)" << endl;
-	cout << "         sin , cos , tan ---- ���Ǻ��� (������)" << endl;
-	cout << "arcsin , arccos , arctan ---- �����Ǻ��� (������)" << endl;
-	cout << "                       | ---- ����ֵ" << endl;
-	cout << "                     ( ) ---- ����" << endl;
-	cout << "* ע�⣺����ʹ���������뷨�� *" << endl;
+	cout << "\n请输入函数。允许以下元素：\n" << endl;
+	cout << "   81 , -3.67 , 9.425E+3 ---- 实数" << endl;
+	cout << "                  e , pi ---- 常数：自然对数底数 , 圆周率" << endl;
+	cout << "           x1 , x2 , ... ---- 变量" << endl;
+	cout << "           + , - , * , / ---- 四则运算" << endl;
+	cout << "                       ^ ---- 幂运算" << endl;
+	cout << "                    sqrt ---- 平方根" << endl;
+	cout << "                     exp ---- 以e为底的指数函数" << endl;
+	cout << "                      ln ---- 自然对数函数" << endl;
+	cout << "                     log ---- 对数函数 -> 使用示例: log2(x), log10(x), log3.14(x)" << endl;
+	cout << "         sin , cos , tan ---- 三角函数 (弧度制)" << endl;
+	cout << "arcsin , arccos , arctan ---- 反三角函数 (弧度制)" << endl;
+	cout << "                       | ---- 绝对值" << endl;
+	cout << "                     ( ) ---- 括号" << endl;
+	cout << "* 注意：请勿使用中文输入法。 *" << endl;
 #else
 	cout << "\nPlease input the function. The following elements are allowed:\n" << endl;
 	cout << "   81 , -3.67 , 9.425E+3 ---- Rational number" << endl;
@@ -122,7 +122,7 @@ void formula::define_xy() {
 	do {
 		double x, y;
 #ifdef CHINESE_VERSION
-		cout << "\nΪ f(x) ���嵥���㣺" << endl;
+		cout << "\n为 f(x) 定义单个点：" << endl;
 #else
 		cout << "\nDefining a single point for f(x):" << endl;
 #endif
@@ -133,7 +133,7 @@ void formula::define_xy() {
 		dfx.push_back(x);
 		dfy.push_back(y);
 #ifdef CHINESE_VERSION
-		cout << "�Ƿ�������壿(1 = �� , 0 = ��)" << endl;
+		cout << "是否继续定义？(1 = 是 , 0 = 否)" << endl;
 #else
 		cout << "Want to continue to define? (1 = Yes , 0 = No)" << endl;
 #endif
@@ -155,7 +155,7 @@ double formula::list_xy(double x) {
 		if (dfx[i] == x) return dfy[i];
 	}
 #ifdef CHINESE_VERSION
-	cout << "\n����δ�ҵ� (x,f(x)) �Ķ��塣" << endl;
+	cout << "\n错误：未找到 (x,f(x)) 的定义。" << endl;
 #else
 	cout << "\nError: Fail to find the definition of (x,f(x))." << endl;
 #endif
@@ -214,7 +214,7 @@ void formula::rf_str(string& str) {
 				}
 				else {
 #ifdef CHINESE_VERSION
-					cout << "����f(x) �� | | �����벻�淶��" << endl;
+					cout << "错误：f(x) 中 | | 的输入不规范。" << endl;
 #else
 					cout << "Error: Nonstandard input of | | in f(x)." << endl;
 #endif
@@ -233,7 +233,7 @@ void formula::rf_str(string& str) {
 					}
 					else {
 #ifdef CHINESE_VERSION
-						cout << "����f(x) �� | | �����벻�淶��" << endl;
+						cout << "错误：f(x) 中 | | 的输入不规范。" << endl;
 #else
 						cout << "Error: Nonstandard input of | | in f(x)." << endl;
 #endif
@@ -245,7 +245,7 @@ void formula::rf_str(string& str) {
 	}
 	if (c_al != c_ar) {
 #ifdef CHINESE_VERSION
-		cout << "����f(x) �� | | �����벻�淶��" << endl;
+		cout << "错误：f(x) 中 | | 的输入不规范。" << endl;
 #else
 		cout << "Error: Nonstandard input of | | in f(x)." << endl;
 #endif
@@ -263,7 +263,7 @@ void formula::rf_str(string& str) {
 	}
 	if (c_l < c_r) {
 #ifdef CHINESE_VERSION
-		cout << "����f(x) ���������벻�淶���� " << c_r << " �� ) ���� " << c_l << " �� (��" << endl;
+		cout << "错误：f(x) 中括号输入不规范。有 " << c_r << " 个 ) 但有 " << c_l << " 个 (。" << endl;
 #else
 		cout << "Error: Nonstandard input of brackets in f(x). There're "<<c_r<<" ) but "<<c_l<<" (." << endl;
 #endif
@@ -302,7 +302,7 @@ void formula::rf_str(string& str) {
 					if (str.at(i) == '+' || str.at(i) == '-') i++;
 					else {
 #ifdef CHINESE_VERSION
-						cout << "���󣺿�ѧ���������벻�淶��" << endl;
+						cout << "错误：科学计数法输入不规范。" << endl;
 #else
 						cout << "Error: Nonstandard input of scientific notation." << endl;
 #endif
@@ -657,7 +657,7 @@ void formula::check_brackets(std::string &str, size_t anchor, int length) {
 		size_t temp_p = anchor + length + 1;
 		if (temp_p >= str.size()) {
 #ifdef CHINESE_VERSION
-			cout << "���󣺺�������ʽ���벻�淶��" << endl;
+			cout << "错误：函数表达式输入不规范。" << endl;
 #else
 			cout << "Error: The input of formula is not standard." << endl;
 #endif
@@ -726,7 +726,7 @@ double formula::f(double x) {
 				}
 				else {
 #ifdef CHINESE_VERSION
-					cout << "���󣺼���������������Ĳ�����" << endl;
+					cout << "错误：计算中遇到除以零的操作。" << endl;
 #else
 					cout << "Error: The calculation meets the operation of division by zero." << endl;
 #endif
@@ -765,7 +765,7 @@ double formula::f(double x) {
 				}
 				else {
 #ifdef CHINESE_VERSION
-					cout << "���󣺼���������������ƽ�����Ĳ�����" << endl;
+					cout << "错误：计算中遇到负数开平方根的操作。" << endl;
 #else
 					cout << "Error: The calculation meets the operation of square root of a negative number." << endl;
 #endif
@@ -793,7 +793,7 @@ double formula::f(double x) {
 				}
 				else {
 #ifdef CHINESE_VERSION
-					cout << "���󣺼����������������ȡ�����Ĳ�����" << endl;
+					cout << "错误：计算中遇到对零或负数取对数的操作。" << endl;
 #else
 					cout << "Error: The calculation meets the operation of logarithm of zero or a negative number." << endl;
 #endif
@@ -835,7 +835,7 @@ double formula::f(double x) {
 				}
 				else {
 #ifdef CHINESE_VERSION
-					cout << "���󣺼����������Ծ���ֵ����1����ȡ�����ҵĲ�����" << endl;
+					cout << "错误：计算中遇到对绝对值大于1的数取反正弦的操作。" << endl;
 #else
 					cout << "Error: The calculation meets the operation of arcsin of a number whose absolute value is greater than 1." << endl;
 #endif
@@ -856,7 +856,7 @@ double formula::f(double x) {
 				}
 				else {
 #ifdef CHINESE_VERSION
-					cout << "���󣺼����������Ծ���ֵ����1����ȡ�����ҵĲ�����" << endl;
+					cout << "错误：计算中遇到对绝对值大于1的数取反余弦的操作。" << endl;
 #else
 					cout << "Error: The calculation meets the operation of arccos of a number whose absolute value is greater than 1." << endl;
 #endif
@@ -941,7 +941,7 @@ double formula::f_xnum(vector<double> x) {
 				}
 				else {
 #ifdef CHINESE_VERSION
-					cout << "���󣺼���������������Ĳ�����" << endl;
+					cout << "错误：计算中遇到除以零的操作。" << endl;
 #else
 					cout << "Error: The calculation meets the operation of division by zero." << endl;
 #endif
@@ -980,7 +980,7 @@ double formula::f_xnum(vector<double> x) {
 				}
 				else {
 #ifdef CHINESE_VERSION
-					cout << "���󣺼���������������ƽ�����Ĳ�����" << endl;
+					cout << "错误：计算中遇到负数开平方根的操作。" << endl;
 #else
 					cout << "Error: The calculation meets the operation of square root of a negative number." << endl;
 #endif
@@ -1008,7 +1008,7 @@ double formula::f_xnum(vector<double> x) {
 				}
 				else {
 #ifdef CHINESE_VERSION
-					cout << "���󣺼����������������ȡ�����Ĳ�����" << endl;
+					cout << "错误：计算中遇到对零或负数取对数的操作。" << endl;
 #else
 					cout << "Error: The calculation meets the operation of logarithm of zero or a negative number." << endl;
 #endif
@@ -1050,7 +1050,7 @@ double formula::f_xnum(vector<double> x) {
 				}
 				else {
 #ifdef CHINESE_VERSION
-					cout << "���󣺼����������Ծ���ֵ����1����ȡ�����ҵĲ�����" << endl;
+					cout << "错误：计算中遇到对绝对值大于1的数取反正弦的操作。" << endl;
 #else
 					cout << "Error: The calculation meets the operation of arcsin of a number whose absolute value is greater than 1." << endl;
 #endif
@@ -1071,7 +1071,7 @@ double formula::f_xnum(vector<double> x) {
 				}
 				else {
 #ifdef CHINESE_VERSION
-					cout << "���󣺼����������Ծ���ֵ����1����ȡ�����ҵĲ�����" << endl;
+					cout << "错误：计算中遇到对绝对值大于1的数取反余弦的操作。" << endl;
 #else
 					cout << "Error: The calculation meets the operation of arccos of a number whose absolute value is greater than 1." << endl;
 #endif
@@ -1107,7 +1107,7 @@ void formula::check_stack(std::stack<double> temp, int num) {
 	for (int i = 0; i < num; i++) {
 		if (temp.empty()) {
 #ifdef CHINESE_VERSION
-			cout << "���󣺺�������ʽ���벻�淶����ջ����" << endl;
+			cout << "错误：函数表达式输入不规范导致栈错误。" << endl;
 #else
 			cout << "Error: Nonstandard input of formula causes the stack error." << endl;
 #endif
@@ -1130,7 +1130,7 @@ void formula::skipbracket(string str, int &pos) {
 	}
 	if (pos == str.size()) {
 #ifdef CHINESE_VERSION
-		cout << "�����޷��������š�" << endl;
+		cout << "错误：无法跳过括号。" << endl;
 #else
 		cout << "Error: Fail to skip the brackets." << endl;
 #endif
@@ -1235,7 +1235,7 @@ void formulae::recog_xnum() {
 			num.erase();
 			if (anchor + k >= str.size()) {
 #ifdef CHINESE_VERSION
-				cout << "����xi �ķǷ�����" << endl;
+				cout << "错误：xi 的非法输入" << endl;
 #else
 				cout << "Error: Illegal input of xi" << endl;
 #endif
@@ -1252,7 +1252,7 @@ void formulae::recog_xnum() {
 			}
 			if (k == 1) {
 #ifdef CHINESE_VERSION
-				cout << "����xi �ķǷ�����" << endl;
+				cout << "错误：xi 的非法输入" << endl;
 #else
 				cout << "Error: Illegal input of xi" << endl;
 #endif

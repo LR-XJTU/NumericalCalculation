@@ -10,7 +10,7 @@ void Iteration_method::init() {
 	cout.setf(ios::left);
 	int nn;
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÊäÈëÏµÊý¾ØÕóAµÄ½×Êý(n*n)£º\nn = ";
+	cout << "\nè¯·è¾“å…¥ç³»æ•°çŸ©é˜µAçš„é˜¶æ•°(n*n)ï¼š\nn = ";
 #else
 	cout<<"\nPlease input the order of coefficient matrix A(n*n):\nn = ";
 #endif
@@ -18,7 +18,7 @@ void Iteration_method::init() {
 	if(nn<=0)
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£ºÇëÊäÈëÒ»¸öÕýÕûÊý¡£" << endl;
+		cout << "é”™è¯¯ï¼šè¯·è¾“å…¥ä¸€ä¸ªæ­£æ•´æ•°ã€‚" << endl;
 #else
 		cout<<"Error: Please enter a positive integer."<<endl;
 #endif
@@ -26,7 +26,7 @@ void Iteration_method::init() {
 	}
 	A_init(nn);
 #ifdef CHINESE_VERSION
-	cout << "\nÊÇ·ñ¹¹Ôì¶Ô³ÆÈý¶Ô½Ç¾ØÕó£¿(1 = ÊÇ, 0 = ·ñ)" << endl;
+	cout << "\næ˜¯å¦æž„é€ å¯¹ç§°ä¸‰å¯¹è§’çŸ©é˜µï¼Ÿ(1 = æ˜¯, 0 = å¦)" << endl;
 #else
 	cout << "\nWant to construct a symmetric tridiagonal matrix? (1 = yes, 0 = no)" << endl;
 #endif
@@ -139,7 +139,7 @@ void Iteration_method::out_x()
 //set the error limit eps
 void Iteration_method::set_eps() {
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÉèÖÃÎó²îÏÞ (Èç 0.001 , 1e-6 ): eps = ";
+	cout << "\nè¯·è®¾ç½®è¯¯å·®é™ (å¦‚ 0.001 , 1e-6 ): eps = ";
 #else
 	cout << "\nPlease set the error limit ( e.g. 0.001 , 1e-6 ): eps = ";
 #endif
@@ -157,7 +157,7 @@ void Iteration_method::set_eps() {
 //set the maximum iteration times
 void Iteration_method::set_max() {
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÉèÖÃ×î´óµü´ú´ÎÊý£ºmaxcounter = ";
+	cout << "\nè¯·è®¾ç½®æœ€å¤§è¿­ä»£æ¬¡æ•°ï¼šmaxcounter = ";
 #else
 	cout << "\nPlease set the maximum permission iterative number: maxcounter = ";
 #endif
@@ -181,8 +181,8 @@ void Iteration_method::out_result() {
 	if (itcounter < maxcounter) {
 		resize_itrerr();
 #ifdef CHINESE_VERSION
-		cout << "\nµü´ú´ÎÊý = " << itcounter << endl;
-		fl << "\nµü´ú´ÎÊý = " << itcounter << "\n";
+		cout << "\nè¿­ä»£æ¬¡æ•° = " << itcounter << endl;
+		fl << "\nè¿­ä»£æ¬¡æ•° = " << itcounter << "\n";
 #else
 		cout << "\nIteration times = " << itcounter << endl;
 		fl << "\nIteration times = " << itcounter << "\n";
@@ -190,19 +190,19 @@ void Iteration_method::out_result() {
 	}
 	else {
 #ifdef CHINESE_VERSION
-		cout << "\nµü´ú´ÎÊý = " << itcounter << " (ÒÑ´ïµ½×î´óµü´ú´ÎÊý)" <<endl;
-		fl << "\nµü´ú´ÎÊý = " << itcounter << " (ÒÑ´ïµ½×î´óµü´ú´ÎÊý)\n";
+		cout << "\nè¿­ä»£æ¬¡æ•° = " << itcounter << " (å·²è¾¾åˆ°æœ€å¤§è¿­ä»£æ¬¡æ•°)" <<endl;
+		fl << "\nè¿­ä»£æ¬¡æ•° = " << itcounter << " (å·²è¾¾åˆ°æœ€å¤§è¿­ä»£æ¬¡æ•°)\n";
 #else
 		cout << "\nIteration times = " << itcounter << " (reach the maximum iteration times)" <<endl;
 		fl << "\nIteration times = " << itcounter << " (reach the maximum iteration times)\n";
 #endif
 	}
 #ifdef CHINESE_VERSION
-	cout << "\nÎó²îÏÞÎª eps = " << eps << endl;
-	fl << "\nÎó²îÏÞÎª eps = " << eps << "\n";
-	cout << "\nÎó²î±íÈçÏÂ£º\n\nµü´ú´ÎÊý k\t\tÎó²î" << endl;
+	cout << "\nè¯¯å·®é™ä¸º eps = " << eps << endl;
+	fl << "\nè¯¯å·®é™ä¸º eps = " << eps << "\n";
+	cout << "\nè¯¯å·®è¡¨å¦‚ä¸‹ï¼š\n\nè¿­ä»£æ¬¡æ•° k\t\tè¯¯å·®" << endl;
 	for (int i = 0; i < itcounter; i++) cout << "\t" << i + 1 << "\t\t\t" << itrerr[i] << endl;
-	fl << "\nÎó²î±íÈçÏÂ£º\n\nµü´ú´ÎÊý k\t\tÎó²î\n";
+	fl << "\nè¯¯å·®è¡¨å¦‚ä¸‹ï¼š\n\nè¿­ä»£æ¬¡æ•° k\t\tè¯¯å·®\n";
 #else
 	cout << "\nThe error limit is eps = " << eps << endl;
 	fl << "\nThe error limit is eps = " << eps << "\n";
@@ -216,8 +216,32 @@ void Iteration_method::out_result() {
 
 //generate .m file to get the figure of iteration error in MATLAB
 void Iteration_method::generate_m() {
+#ifdef WEB_VISUALIZATION
+	filelog gm;
+	gm.init("Iteration_method.html");
+	gm << "<!DOCTYPE html>" << "\n";
+	gm << "<html><head>" << "\n";
+	gm << "<meta charset='UTF-8'>" << "\n";
+	gm << "<title>Iteration Error</title>" << "\n";
+	gm << "<script src='https://cdn.plot.ly/plotly-3.0.0.min.js'></script>" << "\n";
+	gm << "</head><body>" << "\n";
+	gm << "<div id='plot' style='width:100%;height:100vh;'></div>" << "\n";
+	gm << "<script>" << "\n";
+		gm << "var x=[";
+		for (int i = 0; i < itcounter; i++) gm << (i + 1) << ((i < itcounter - 1) ? "," : "");
+		gm << "];" << "\n";
+		gm << "var y=[";
+		for (int i = 0; i < itcounter; i++) gm << log(itrerr[i]) << ((i < itcounter - 1) ? "," : "");
+		gm << "];" << "\n";
+		gm << "Plotly.newPlot(" << "\n";
+			gm << "'plot'," << "\n";
+			gm << "[{x:x,y:y,mode:'lines+markers',name:'log(error)'}]," << "\n";
+			gm << "{title:'Iteration Error Curve',xaxis:{title:'Iteration times'},yaxis:{title:'Logarithm of error'}});" << "\n";
+	gm << "</script>" << "\n";
+	gm << "</body></html>" << "\n";
+#else
 #ifdef CHINESE_VERSION
-	cout << "\nÊÇ·ñÉú³É .m ÎÄ¼þÓÃÓÚÔÚMATLABÖÐ»æÖÆµü´úÎó²îÇúÏß£¿(1 = ÊÇ, 0 = ·ñ)" << endl;
+	cout << "\næ˜¯å¦ç”Ÿæˆ .m æ–‡ä»¶ç”¨äºŽåœ¨MATLABä¸­ç»˜åˆ¶è¿­ä»£è¯¯å·®æ›²çº¿ï¼Ÿ(1 = æ˜¯, 0 = å¦)" << endl;
 #else
 	cout << "\nWant to generate .m file to get the figure of iteration error in MATLAB? (1 = Yes , 0 = No)" << endl;
 #endif
@@ -236,6 +260,8 @@ void Iteration_method::generate_m() {
 		gm << "ylabel('Logarithm of error');\n";
 		gm << "title('The curve of error varying with iteration times');\n";
 	}
+
+#endif
 }
 
 void Iteration_method::exchange_diag_no_0(int i) {
@@ -258,7 +284,7 @@ void Iteration_method::exchange_diag_no_0(int i) {
 		}
 		if (i + temp < 0) {
 #ifdef CHINESE_VERSION
-			cout << "´íÎó£ºÓÉÓÚ¶Ô½ÇÏßÓÐÁãÔªËØ£¬ÎÞ·¨Ê¹ÓÃ»ù±¾µü´ú·¨Çó½â¸Ã·½³Ì×é¡£" << endl;
+			cout << "é”™è¯¯ï¼šç”±äºŽå¯¹è§’çº¿æœ‰é›¶å…ƒç´ ï¼Œæ— æ³•ä½¿ç”¨åŸºæœ¬è¿­ä»£æ³•æ±‚è§£è¯¥æ–¹ç¨‹ç»„ã€‚" << endl;
 #else
 			cout << "Error: Equations cannot be solved by basic iteration methods because of the zero element of the diagonal." << endl;
 #endif
@@ -276,7 +302,7 @@ Jacobi::Jacobi() {
 
 void Jacobi::calc() {
 #ifdef CHINESE_VERSION
-	cout << "\nÕýÔÚÓÃJacobiµü´ú·¨Çó½â Ax=b ..." << endl;
+	cout << "\næ­£åœ¨ç”¨Jacobiè¿­ä»£æ³•æ±‚è§£ Ax=b ..." << endl;
 #else
 	cout << "\nSolving Ax=b by Jacobi iterative method..." << endl;
 #endif
@@ -305,7 +331,7 @@ void Jacobi::calc() {
 	} while (err > eps && itcounter < maxcounter);
 	delete[]x0;
 #ifdef CHINESE_VERSION
-	cout << "\nÇó½âÍê³É¡£" << endl;
+	cout << "\næ±‚è§£å®Œæˆã€‚" << endl;
 #else
 	cout << "\nFinish solving." << endl;
 #endif
@@ -313,8 +339,8 @@ void Jacobi::calc() {
 
 void Jacobi::out_result() {
 #ifdef CHINESE_VERSION
-	cout << "\nÍ¨¹ýJacobiµü´ú·¨Çó½â¡£" << endl;
-	fl << "\nÍ¨¹ýJacobiµü´ú·¨Çó½â¡£\n";
+	cout << "\né€šè¿‡Jacobiè¿­ä»£æ³•æ±‚è§£ã€‚" << endl;
+	fl << "\né€šè¿‡Jacobiè¿­ä»£æ³•æ±‚è§£ã€‚\n";
 #else
 	cout << "\nSolved by Jacobi iteration method." << endl;
 	fl << "\nSolved by Jacobi iteration method.\n";
@@ -335,7 +361,7 @@ Gauss_Seidel::Gauss_Seidel() {
 
 void Gauss_Seidel::calc() {
 #ifdef CHINESE_VERSION
-	cout << "\nÕýÔÚÓÃGauss-Seidelµü´ú·¨Çó½â Ax=b ..." << endl;
+	cout << "\næ­£åœ¨ç”¨Gauss-Seidelè¿­ä»£æ³•æ±‚è§£ Ax=b ..." << endl;
 #else
 	cout << "\nSolving Ax=b by Gauss-Samuel iterative method..." << endl;
 #endif
@@ -364,7 +390,7 @@ void Gauss_Seidel::calc() {
 	} while (err > eps && itcounter < maxcounter);
 	delete[]x0;
 #ifdef CHINESE_VERSION
-	cout << "\nÇó½âÍê³É¡£" << endl;
+	cout << "\næ±‚è§£å®Œæˆã€‚" << endl;
 #else
 	cout << "\nFinish solving." << endl;
 #endif
@@ -372,8 +398,8 @@ void Gauss_Seidel::calc() {
 
 void Gauss_Seidel::out_result() {
 #ifdef CHINESE_VERSION
-	cout << "\nÍ¨¹ýGauss-Seidelµü´ú·¨Çó½â¡£" << endl;
-	fl << "\nÍ¨¹ýGauss-Seidelµü´ú·¨Çó½â¡£\n";
+	cout << "\né€šè¿‡Gauss-Seidelè¿­ä»£æ³•æ±‚è§£ã€‚" << endl;
+	fl << "\né€šè¿‡Gauss-Seidelè¿­ä»£æ³•æ±‚è§£ã€‚\n";
 #else
 	cout << "\nSolved by Gauss-Seidel iteration method." << endl;
 	fl << "\nSolved by Gauss-Seidel iteration method.\n";
@@ -395,7 +421,7 @@ SOR::SOR() {
 
 void SOR::in_omega() {
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÊäÈëËÉ³ÚÒò×Ó omega£º" << endl;
+	cout << "\nè¯·è¾“å…¥æ¾å¼›å› å­ omegaï¼š" << endl;
 #else
 	cout << "\nPlease input omega:" << endl;
 #endif
@@ -404,7 +430,7 @@ void SOR::in_omega() {
 
 void SOR::calc() {
 #ifdef CHINESE_VERSION
-	cout << "\nÕýÔÚÓÃSORµü´ú·¨Çó½â Ax=b ..." << endl;
+	cout << "\næ­£åœ¨ç”¨SORè¿­ä»£æ³•æ±‚è§£ Ax=b ..." << endl;
 #else
 	cout << "\nSolving Ax=b by SOR iterative method..." << endl;
 #endif
@@ -433,7 +459,7 @@ void SOR::calc() {
 	} while (err > eps && itcounter < maxcounter);
 	delete[]x0;
 #ifdef CHINESE_VERSION
-	cout << "\nÇó½âÍê³É¡£" << endl;
+	cout << "\næ±‚è§£å®Œæˆã€‚" << endl;
 #else
 	cout << "\nFinish solving." << endl;
 #endif
@@ -441,8 +467,8 @@ void SOR::calc() {
 
 void SOR::out_result() {
 #ifdef CHINESE_VERSION
-	cout << "\nÍ¨¹ýSORµü´ú·¨Çó½â¡£" << endl;
-	fl << "\nÍ¨¹ýSORµü´ú·¨Çó½â¡£\n";
+	cout << "\né€šè¿‡SORè¿­ä»£æ³•æ±‚è§£ã€‚" << endl;
+	fl << "\né€šè¿‡SORè¿­ä»£æ³•æ±‚è§£ã€‚\n";
 #else
 	cout << "\nSolved by SOR iteration method." << endl;
 	fl << "\nSolved by SOR iteration method.\n";
@@ -463,14 +489,14 @@ steepest_descent::steepest_descent() {
 
 void steepest_descent::calc() {
 #ifdef CHINESE_VERSION
-	cout << "\nÕýÔÚÓÃ×îËÙÏÂ½µ·¨Çó½â Ax=b ..." << endl;
+	cout << "\næ­£åœ¨ç”¨æœ€é€Ÿä¸‹é™æ³•æ±‚è§£ Ax=b ..." << endl;
 #else
 	cout << "\nSolving Ax=b by steepest descent method..." << endl;
 #endif
 	if (!check_symmetry())
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£ºA²»ÊÇ¶Ô³Æ¾ØÕó¡£" << endl;
+		cout << "é”™è¯¯ï¼šAä¸æ˜¯å¯¹ç§°çŸ©é˜µã€‚" << endl;
 #else
 		cout << "Error: A is not symmetrical." << endl;
 #endif
@@ -501,7 +527,7 @@ void steepest_descent::calc() {
 	delete[]x0;
 	delete[]p;
 #ifdef CHINESE_VERSION
-	cout << "\nÇó½âÍê³É¡£" << endl;
+	cout << "\næ±‚è§£å®Œæˆã€‚" << endl;
 #else
 	cout << "\nFinish solving." << endl;
 #endif
@@ -509,8 +535,8 @@ void steepest_descent::calc() {
 
 void steepest_descent::out_result() {
 #ifdef CHINESE_VERSION
-	cout << "\nÍ¨¹ý×îËÙÏÂ½µ·¨Çó½â¡£" << endl;
-	fl << "\nÍ¨¹ý×îËÙÏÂ½µ·¨Çó½â¡£\n";
+	cout << "\né€šè¿‡æœ€é€Ÿä¸‹é™æ³•æ±‚è§£ã€‚" << endl;
+	fl << "\né€šè¿‡æœ€é€Ÿä¸‹é™æ³•æ±‚è§£ã€‚\n";
 #else
 	cout << "\nSolved by steepest descent method." << endl;
 	fl << "\nSolved by steepest descent method.\n";
@@ -544,14 +570,14 @@ conjugate_gradient::conjugate_gradient(double** AA, double* bb, int nn) {
 
 void conjugate_gradient::calc() {
 #ifdef CHINESE_VERSION
-	if (print_state) cout << "\nÕýÔÚÓÃ¹²éîÌÝ¶È·¨Çó½â Ax=b ..." << endl;
+	if (print_state) cout << "\næ­£åœ¨ç”¨å…±è½­æ¢¯åº¦æ³•æ±‚è§£ Ax=b ..." << endl;
 #else
 	if (print_state) cout << "\nSolving Ax=b by conjugate gradient method..." << endl;
 #endif
 	if (!check_symmetry())
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£ºA²»ÊÇ¶Ô³Æ¾ØÕó¡£" << endl;
+		cout << "é”™è¯¯ï¼šAä¸æ˜¯å¯¹ç§°çŸ©é˜µã€‚" << endl;
 #else
 		cout << "Error: A is not symmetrical." << endl;
 #endif
@@ -607,7 +633,7 @@ void conjugate_gradient::calc() {
 	delete[]r;
 	delete[]d;
 #ifdef CHINESE_VERSION
-	if (print_state) cout << "\nÇó½âÍê³É¡£" << endl;
+	if (print_state) cout << "\næ±‚è§£å®Œæˆã€‚" << endl;
 #else
 	if (print_state) cout << "\nFinish solving." << endl;
 #endif
@@ -615,8 +641,8 @@ void conjugate_gradient::calc() {
 
 void conjugate_gradient::out_result() {
 #ifdef CHINESE_VERSION
-	cout << "\nÍ¨¹ý¹²éîÌÝ¶È·¨Çó½â¡£" << endl;
-	fl << "\nÍ¨¹ý¹²éîÌÝ¶È·¨Çó½â¡£\n";
+	cout << "\né€šè¿‡å…±è½­æ¢¯åº¦æ³•æ±‚è§£ã€‚" << endl;
+	fl << "\né€šè¿‡å…±è½­æ¢¯åº¦æ³•æ±‚è§£ã€‚\n";
 #else
 	cout << "\nSolved by conjugate gradient method." << endl;
 	fl << "\nSolved by conjugate gradient method.\n";
@@ -641,7 +667,7 @@ GMRES::GMRES() {
 
 void GMRES::in_m() {
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÊäÈëµÍÎ¬×Ó¿Õ¼äÎ¬¶È m = ";
+	cout << "\nè¯·è¾“å…¥ä½Žç»´å­ç©ºé—´ç»´åº¦ m = ";
 #else
 	cout << "\nPlease input a low dimension m = ";
 #endif
@@ -650,7 +676,7 @@ void GMRES::in_m() {
 
 void GMRES::calc() {
 #ifdef CHINESE_VERSION
-	cout << "\nÕýÔÚÓÃGMRESÇó½â Ax=b ..." << endl;
+	cout << "\næ­£åœ¨ç”¨GMRESæ±‚è§£ Ax=b ..." << endl;
 #else
 	cout << "\nSolving Ax=b by GMRES..." << endl;
 #endif
@@ -727,7 +753,7 @@ void GMRES::calc() {
 	delete[] e1;
 	delete[] y;
 #ifdef CHINESE_VERSION
-	cout << "\nÇó½âÍê³É¡£" << endl;
+	cout << "\næ±‚è§£å®Œæˆã€‚" << endl;
 #else
 	cout << "\nFinish solving." << endl;
 #endif
@@ -735,8 +761,8 @@ void GMRES::calc() {
 
 void GMRES::out_result() {
 #ifdef CHINESE_VERSION
-	cout << "\nÍ¨¹ýGMRESÇó½â¡£" << endl;
-	fl << "\nÍ¨¹ýGMRESÇó½â¡£\n";
+	cout << "\né€šè¿‡GMRESæ±‚è§£ã€‚" << endl;
+	fl << "\né€šè¿‡GMRESæ±‚è§£ã€‚\n";
 #else
 	cout << "\nSolved by GMRES." << endl;
 	fl << "\nSolved by GMRES.\n";

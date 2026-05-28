@@ -23,7 +23,7 @@ Int_Diff::Int_Diff(bool no_init) {
 //set the error limit eps
 void Int_Diff::set_eps() {
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÉèÖÃÎó²îÏÞ (Èç 0.001 , 1e-6 ): eps = ";
+	cout << "\nè¯·è®¾ç½®è¯¯å·®é™ (å¦‚ 0.001 , 1e-6 ): eps = ";
 #else
 	cout << "\nPlease set the error limit ( e.g. 0.001 , 1e-6 ): eps = ";
 #endif
@@ -46,7 +46,7 @@ double Int_Diff::get_result() {
 Romberg::Romberg() {
 	double a, b;
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÉèÖÃ»ý·ÖÇø¼ä [a , b]:\na = ";
+	cout << "\nè¯·è®¾ç½®ç§¯åˆ†åŒºé—´ [a , b]:\na = ";
 #else
 	cout << "\nPlease set the integral interval [a , b]:\na = ";
 #endif
@@ -56,7 +56,7 @@ Romberg::Romberg() {
 	interval[0] = a;
 	interval[1] = b;
 #ifdef CHINESE_VERSION
-	cout << "\nÔÚ [" << a << " , " << b << "] ÄÚÓÐÎ´¶¨ÒåµÄµãÂð£¿(ÀýÈç f(x)=1/x ÔÚ x=0 ´¦ÎÞ¶¨Òå¡£) (1 = ÓÐ, 0 = ÎÞ)" << endl;
+	cout << "\nåœ¨ [" << a << " , " << b << "] å†…æœ‰æœªå®šä¹‰çš„ç‚¹å—ï¼Ÿ(ä¾‹å¦‚ f(x)=1/x åœ¨ x=0 å¤„æ— å®šä¹‰ã€‚) (1 = æœ‰, 0 = æ— )" << endl;
 #else
 	cout << "\nIs there any undefined point in [" << a << " , " << b << "]? (e.g. f(x)=1/x has no definition at x=0.) (1 = Yes , 0 = No)" << endl;
 #endif
@@ -80,7 +80,7 @@ void Romberg::init() {
 //Romberg integration
 void Romberg::calc() {
 #ifdef CHINESE_VERSION
-	if (print_state) cout << "\nÕýÔÚÊ¹ÓÃRomberg»ý·Ö·¨½øÐÐ¼ÆËã..." << endl;
+	if (print_state) cout << "\næ­£åœ¨ä½¿ç”¨Rombergç§¯åˆ†æ³•è¿›è¡Œè®¡ç®—..." << endl;
 #else
 	if (print_state) cout << "\nUsing Romberg to calculate the integral..." << endl;
 #endif
@@ -136,7 +136,7 @@ void Romberg::calc() {
 	result = R2k[1];
 
 #ifdef CHINESE_VERSION
-	if (print_state) cout << "¼ÆËãÍê³É¡£" << endl;
+	if (print_state) cout << "è®¡ç®—å®Œæˆã€‚" << endl;
 #else
 	if (print_state) cout << "Finish calculating." << endl;
 #endif
@@ -145,9 +145,9 @@ void Romberg::calc() {
 //cout and save the results
 void Romberg::out_result() {
 #ifdef CHINESE_VERSION
-	cout << "\nf(x) ÔÚ [a,b] ÉÏµÄ»ý·ÖÎª \n\nR = " << result << endl;
+	cout << "\nf(x) åœ¨ [a,b] ä¸Šçš„ç§¯åˆ†ä¸º \n\nR = " << result << endl;
 	fl << "\nf(x) = " << fx.get_fstr() << "\n";
-	fl << "\nf(x) ÔÚ [" << interval[0] << "," << interval[1] << "] ÉÏµÄ»ý·ÖµÈÓÚ \n\nR = " << result << "\n";
+	fl << "\nf(x) åœ¨ [" << interval[0] << "," << interval[1] << "] ä¸Šçš„ç§¯åˆ†ç­‰äºŽ \n\nR = " << result << "\n";
 #else
 	cout << "\nThe integral of f(x) on [a,b] is \n\nR = " << result << endl;
 	fl << "\nf(x) = " << fx.get_fstr() << "\n";
@@ -161,10 +161,10 @@ void Romberg::out_result() {
 		i++;
 	}
 #ifdef CHINESE_VERSION
-	cout << "\nÎó²î±íÈçÏÂ£º\n\n¼ÆËã´ÎÊý k\t\tÎó²î" << endl;
+	cout << "\nè¯¯å·®è¡¨å¦‚ä¸‹ï¼š\n\nè®¡ç®—æ¬¡æ•° k\t\tè¯¯å·®" << endl;
 	for (i = 0; i < err.size(); i++) cout << "\t" << i + 1 << "\t\t\t" << e[i] << endl;
-	fl << "\nÎó²îÏÞÎª eps = " << eps << "\n";
-	fl << "\nÎó²î±íÈçÏÂ£º\n\n¼ÆËã´ÎÊý k\t\tÎó²î\n";
+	fl << "\nè¯¯å·®é™ä¸º eps = " << eps << "\n";
+	fl << "\nè¯¯å·®è¡¨å¦‚ä¸‹ï¼š\n\nè®¡ç®—æ¬¡æ•° k\t\tè¯¯å·®\n";
 #else
 	cout << "\nThe error table is as follow:\n\ncalculation number k\t\terror" << endl;
 	for (i = 0; i < err.size(); i++) cout << "\t" << i + 1 << "\t\t\t" << e[i] << endl;
@@ -177,8 +177,33 @@ void Romberg::out_result() {
 
 //generate .m file to get the figure of calculation error in MATLAB
 void Int_Diff::generate_m() {
+#ifdef WEB_VISUALIZATION
+	filelog gm;
+	gm.init("Integration.html");
+	gm << "<!DOCTYPE html>" << "\n";
+	gm << "<html><head>" << "\n";
+	gm << "<meta charset='UTF-8'>" << "\n";
+	gm << "<title>Integration Error</title>" << "\n";
+	gm << "<script src='https://cdn.plot.ly/plotly-3.0.0.min.js'></script>" << "\n";
+	gm << "</head><body>" << "\n";
+	gm << "<div id='plot' style='width:100%;height:100vh;'></div>" << "\n";
+	gm << "<script>" << "\n";
+		int n=(int)err.size();
+		gm << "var x=[";
+		for(int i=0;i<n;i++) gm << (i+1) << ((i<n-1)?",":"");
+		gm << "];" << "\n";
+		gm << "var y=[";
+		for(int i=0;i<n;i++) gm << log2(err[i]) << ((i<n-1)?",":"");
+		gm << "];" << "\n";
+		gm << "Plotly.newPlot(" << "\n";
+			gm << "'plot'," << "\n";
+			gm << "[{x:x,y:y,mode:'lines+markers',name:'log2(error)'}]," << "\n";
+			gm << "{title:'Integration Error Curve',xaxis:{title:'Calculating times'},yaxis:{title:'Log2 of error'}});" << "\n";
+	gm << "</script>" << "\n";
+	gm << "</body></html>" << "\n";
+#else
 #ifdef CHINESE_VERSION
-	cout << "\nÊÇ·ñÉú³É .m ÎÄ¼þÓÃÓÚÔÚMATLABÖÐ»æÖÆÎó²îÇúÏß£¿(1 = ÊÇ, 0 = ·ñ)" << endl;
+	cout << "\næ˜¯å¦ç”Ÿæˆ .m æ–‡ä»¶ç”¨äºŽåœ¨MATLABä¸­ç»˜åˆ¶è¯¯å·®æ›²çº¿ï¼Ÿ(1 = æ˜¯, 0 = å¦)" << endl;
 #else
 	cout << "\nWant to generate .m file to get the figure of calcultion error in MATLAB? (1 = Yes , 0 = No)" << endl;
 #endif
@@ -197,6 +222,8 @@ void Int_Diff::generate_m() {
 		gm << "ylabel('Logarithm of error');\n";
 		gm << "title('The curve of error varying with calculating times');\n";
 	}
+
+#endif
 }
 
 //trapezoidal formula
@@ -247,21 +274,21 @@ DerivExtra::DerivExtra() {
 	int order;
 	double x, h;
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÊäÈëÇóµ¼½×Êý£ºorder = ";
+	cout << "\nè¯·è¾“å…¥æ±‚å¯¼é˜¶æ•°ï¼šorder = ";
 #else
 	cout << "\nPlease enter the order of the derivative: order = ";
 #endif
 	order = in_int();
 	this->order = order;
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÊäÈë x£º\nx = ";
+	cout << "\nè¯·è¾“å…¥ xï¼š\nx = ";
 #else
 	cout << "\nPlease enter x:\nx = ";
 #endif
 	cin >> x;
 	this->x = x;
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÉèÖÃ³õÊ¼²½³¤ h£º(Çø¼ä [x-h,x+h] ²»Ó¦°üº¬Î´¶¨ÒåµÄµã)\nh = ";
+	cout << "\nè¯·è®¾ç½®åˆå§‹æ­¥é•¿ hï¼š(åŒºé—´ [x-h,x+h] ä¸åº”åŒ…å«æœªå®šä¹‰çš„ç‚¹)\nh = ";
 #else
 	cout << "\nPlease set the initial step h:(The interval [x-h,x+h] should not contain undefined points)\nh = ";
 #endif
@@ -416,7 +443,7 @@ double DerivExtra::orderderiv(int od, double xx) {
 
 void DerivExtra::calc() {
 #ifdef CHINESE_VERSION
-	if (print_state) cout << "\nÕýÔÚÊ¹ÓÃÍâÍÆ·¨¼ÆËãµ¼Êý..." << endl;
+	if (print_state) cout << "\næ­£åœ¨ä½¿ç”¨å¤–æŽ¨æ³•è®¡ç®—å¯¼æ•°..." << endl;
 #else
 	if (print_state) cout << "\nUsing extrapolation to calculate the derivative..." << endl;
 #endif
@@ -429,7 +456,7 @@ void DerivExtra::calc() {
 		result = orderderiv(order,x);
 	}
 #ifdef CHINESE_VERSION
-	if (print_state) cout << "¼ÆËãÍê³É¡£" << endl;
+	if (print_state) cout << "è®¡ç®—å®Œæˆã€‚" << endl;
 #else
 	if (print_state) cout << "Finish calculating." << endl;
 #endif
@@ -438,9 +465,9 @@ void DerivExtra::calc() {
 void DerivExtra::out_result() {
 	if (order > 3) {
 #ifdef CHINESE_VERSION
-		cout << "\nf[" << order << "](" << x << ") = " << result << "   ([" << order << "] ±íÊ¾µ¼Êý½×Êý)" << endl;
+		cout << "\nf[" << order << "](" << x << ") = " << result << "   ([" << order << "] è¡¨ç¤ºå¯¼æ•°é˜¶æ•°)" << endl;
 		fl << "\nf(x) = " << fx.get_fstr() << "\n";
-		fl << "\nf[" << order << "](" << x << ") = " << result << "   ([" << order << "] ÊÇµ¼ÊýµÄ½×Êý)\n";
+		fl << "\nf[" << order << "](" << x << ") = " << result << "   ([" << order << "] æ˜¯å¯¼æ•°çš„é˜¶æ•°)\n";
 #else
 		cout << "\nf[" << order << "](" << x << ") = " << result << "   ([" << order << "] is the order of the derivative)" << endl;
 		fl << "\nf(x) = " << fx.get_fstr() << "\n";
@@ -472,10 +499,10 @@ void DerivExtra::out_result() {
 		i++;
 	}
 #ifdef CHINESE_VERSION
-	cout << "\nÎó²î±íÈçÏÂ£º\n\n¼ÆËã´ÎÊý k\t\tÎó²î" << endl;
+	cout << "\nè¯¯å·®è¡¨å¦‚ä¸‹ï¼š\n\nè®¡ç®—æ¬¡æ•° k\t\tè¯¯å·®" << endl;
 	for (i = 0; i < err.size(); i++) cout << "\t" << i + 1 << "\t\t\t" << e[i] << endl;
-	fl << "\nÎó²îÏÞÎª eps = " << eps << "\n";
-	fl << "\nÎó²î±íÈçÏÂ£º\n\n¼ÆËã´ÎÊý k\t\tÎó²î\n";
+	fl << "\nè¯¯å·®é™ä¸º eps = " << eps << "\n";
+	fl << "\nè¯¯å·®è¡¨å¦‚ä¸‹ï¼š\n\nè®¡ç®—æ¬¡æ•° k\t\tè¯¯å·®\n";
 #else
 	cout << "\nThe error table is as follow:\n\ncalculation number k\t\terror" << endl;
 	for (i = 0; i < err.size(); i++) cout << "\t" << i + 1 << "\t\t\t" << e[i] << endl;

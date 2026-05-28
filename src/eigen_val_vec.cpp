@@ -11,7 +11,7 @@ void Eigen_val_vec::init() {
 	m = 0.0;
 	counter = 0;
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÊäÈë¾ØÕó½×Êý£ºn = ";
+	cout << "\nè¯·è¾“å…¥çŸ©é˜µé˜¶æ•°ï¼šn = ";
 #else
 	cout << "\nPlease enter the order of the matrix: n = ";
 #endif
@@ -21,7 +21,7 @@ void Eigen_val_vec::init() {
 	z.resize(n);
 	for (int i = 0; i < n; i++) z[i] = 1.0;
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÊäÈë¾ØÕó A(" << n << "*" << n << "):" << endl;
+	cout << "\nè¯·è¾“å…¥çŸ©é˜µ A(" << n << "*" << n << "):" << endl;
 #else
 	cout << "\nPlease input the matrix A(" << n << "*" << n << "):" << endl;
 #endif
@@ -38,10 +38,10 @@ void Eigen_val_vec::init() {
 		fl << "\n";
 	}
 #ifdef CHINESE_VERSION
-	cout << "\nÉèÖÃÎó²îÏÞ£º" << endl;
-	cout << "  |m_k - m_k-1| <= eps1 , »ò ||z_k - z_k-1|| <= eps2" << endl;
-	cout << "  Ä¬ÈÏÖµ£ºeps1 = 1.0e-6, eps2 = 1.0e-6" << endl;
-	cout << "Ê¹ÓÃÄ¬ÈÏÖµ£¿(1 = ÊÇ, 0 = ·ñ) ";
+	cout << "\nè®¾ç½®è¯¯å·®é™ï¼š" << endl;
+	cout << "  |m_k - m_k-1| <= eps1 , æˆ– ||z_k - z_k-1|| <= eps2" << endl;
+	cout << "  é»˜è®¤å€¼ï¼šeps1 = 1.0e-6, eps2 = 1.0e-6" << endl;
+	cout << "ä½¿ç”¨é»˜è®¤å€¼ï¼Ÿ(1 = æ˜¯, 0 = å¦) ";
 #else
 	cout << "\nSet the error limit:" << endl;
 	cout << "  |m_k - m_k-1| <= eps1 , or ||z_k - z_k-1|| <= eps2" << endl;
@@ -61,7 +61,7 @@ void Eigen_val_vec::init() {
 	}
 	else {
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£º·Ç·¨ÊäÈë¡£" << endl;
+		cout << "é”™è¯¯ï¼šéžæ³•è¾“å…¥ã€‚" << endl;
 #else
 		cout << "Error: Illegal input." << endl;
 #endif
@@ -80,14 +80,14 @@ void Eigen_val_vec::init() {
 Power_method::Power_method() {
 	init();
 #ifdef CHINESE_VERSION
-	cout << "\nÊÇ·ñ½øÐÐÔ­µãÆ½ÒÆ£¿(1 = ÊÇ, 0 = ·ñ) ";
+	cout << "\næ˜¯å¦è¿›è¡ŒåŽŸç‚¹å¹³ç§»ï¼Ÿ(1 = æ˜¯, 0 = å¦) ";
 #else
 	cout << "\nWant to move the origin? (1 = Yes, 0 = No) ";
 #endif
 	int flag = in_int();
 	if (flag == 1) {
 #ifdef CHINESE_VERSION
-		cout << "ÇëÊäÈëÆ½ÒÆ¾àÀë£ºp = ";
+		cout << "è¯·è¾“å…¥å¹³ç§»è·ç¦»ï¼šp = ";
 #else
 		cout << "Please input the moving distance: p = ";
 #endif
@@ -98,7 +98,7 @@ Power_method::Power_method() {
 	}
 	else {
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£º·Ç·¨ÊäÈë¡£" << endl;
+		cout << "é”™è¯¯ï¼šéžæ³•è¾“å…¥ã€‚" << endl;
 #else
 		cout << "Error: Illegal input." << endl;
 #endif
@@ -116,7 +116,7 @@ void Power_method::calc() {
 		for (int i = 0; i < n; i++) if (fabs(y[i]) > fabs(temp)) temp = y[i];
 		if (temp == 0.0) {
 #ifdef CHINESE_VERSION
-			cout << "´íÎó£ºÏòÁ¿Îª0¡£" << endl;
+			cout << "é”™è¯¯ï¼šå‘é‡ä¸º0ã€‚" << endl;
 #else
 			cout << "Error: The vector is 0." << endl;
 #endif
@@ -140,8 +140,8 @@ void Power_method::calc() {
 	}
 	if (counter == 100000) {
 #ifdef CHINESE_VERSION
-		cout << "¾¯¸æ£ºµü´ú´ÎÊý´ïµ½Ä¬ÈÏ×î´óÖµ100000¡£" << endl;
-		fl << "\nµü´ú´ÎÊý´ïµ½Ä¬ÈÏ×î´óÖµ100000¡£\n";
+		cout << "è­¦å‘Šï¼šè¿­ä»£æ¬¡æ•°è¾¾åˆ°é»˜è®¤æœ€å¤§å€¼100000ã€‚" << endl;
+		fl << "\nè¿­ä»£æ¬¡æ•°è¾¾åˆ°é»˜è®¤æœ€å¤§å€¼100000ã€‚\n";
 #else
 		cout << "Warning: The iteration times reach the default maximum 100000." << endl;
 		fl << "\nThe iteration times reach the default maximum 100000.\n";
@@ -152,13 +152,13 @@ void Power_method::calc() {
 
 void Power_method::out_result() {
 #ifdef CHINESE_VERSION
-	cout << "\nÓÉÃÝ·¨¼ÆËã¡£" << endl;
-	fl << "\nÓÉÃÝ·¨¼ÆËã¡£";
-	cout << "\nµü´ú´ÎÊý = " << counter << endl;
-	fl << "\nµü´ú´ÎÊý = " << counter << "\n";
-	cout << "\n°´Ä£×î´óµÄÌØÕ÷ÖµÎª" << endl;
+	cout << "\nç”±å¹‚æ³•è®¡ç®—ã€‚" << endl;
+	fl << "\nç”±å¹‚æ³•è®¡ç®—ã€‚";
+	cout << "\nè¿­ä»£æ¬¡æ•° = " << counter << endl;
+	fl << "\nè¿­ä»£æ¬¡æ•° = " << counter << "\n";
+	cout << "\næŒ‰æ¨¡æœ€å¤§çš„ç‰¹å¾å€¼ä¸º" << endl;
 	cout << "lambda = " << m << endl;
-	fl << "\n°´Ä£×î´óµÄÌØÕ÷ÖµÎª";
+	fl << "\næŒ‰æ¨¡æœ€å¤§çš„ç‰¹å¾å€¼ä¸º";
 	fl << "\nlambda = " << m << "\n";
 #else
 	cout << "\nCalculated by power method." << endl;
@@ -175,8 +175,8 @@ void Power_method::out_result() {
 		fl << "( p = " << p << " )\n";
 	}
 #ifdef CHINESE_VERSION
-	cout << "\n¶ÔÓ¦µÄÌØÕ÷ÏòÁ¿Îª" << endl;
-	fl << "\n¶ÔÓ¦µÄÌØÕ÷ÏòÁ¿Îª";
+	cout << "\nå¯¹åº”çš„ç‰¹å¾å‘é‡ä¸º" << endl;
+	fl << "\nå¯¹åº”çš„ç‰¹å¾å‘é‡ä¸º";
 #else
 	cout << "\nThe corresponding eigenvector is" << endl;
 	fl << "\nThe corresponding eigenvector is";
@@ -193,7 +193,7 @@ void Power_method::out_result() {
 Inverse_power::Inverse_power() {
 	init();
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÊäÈë½üËÆµÄÌØÕ÷Öµ£ºlambda ~= ";
+	cout << "\nè¯·è¾“å…¥è¿‘ä¼¼çš„ç‰¹å¾å€¼ï¼šlambda ~= ";
 #else
 	cout << "\nPlease input the approximate eigenvalue: lambda ~= ";
 #endif
@@ -224,7 +224,7 @@ void Inverse_power::calc() {
 		for (int i = 0; i < n; i++) if (fabs(y[i]) > fabs(temp)) temp = y[i];
 		if (temp == 0.0) {
 #ifdef CHINESE_VERSION
-			cout << "´íÎó£ºÏòÁ¿Îª0¡£" << endl;
+			cout << "é”™è¯¯ï¼šå‘é‡ä¸º0ã€‚" << endl;
 #else
 			cout << "Error: The vector is 0." << endl;
 #endif
@@ -251,8 +251,8 @@ void Inverse_power::calc() {
 	}
 	if (counter == 100000) {
 #ifdef CHINESE_VERSION
-		cout << "¾¯¸æ£ºµü´ú´ÎÊý´ïµ½Ä¬ÈÏ×î´óÖµ100000¡£" << endl;
-		fl << "\nµü´ú´ÎÊý´ïµ½Ä¬ÈÏ×î´óÖµ100000¡£\n";
+		cout << "è­¦å‘Šï¼šè¿­ä»£æ¬¡æ•°è¾¾åˆ°é»˜è®¤æœ€å¤§å€¼100000ã€‚" << endl;
+		fl << "\nè¿­ä»£æ¬¡æ•°è¾¾åˆ°é»˜è®¤æœ€å¤§å€¼100000ã€‚\n";
 #else
 		cout << "Warning: The iteration times reach the default maximum 100000." << endl;
 		fl << "\nThe iteration times reach the default maximum 100000.\n";
@@ -262,20 +262,20 @@ void Inverse_power::calc() {
 
 void Inverse_power::out_result() {
 #ifdef CHINESE_VERSION
-	cout << "\nÓÉ·´ÃÝ·¨¼ÆËã¡£" << endl;
-	fl << "\nÓÉ·´ÃÝ·¨¼ÆËã¡£";
-	cout << "\nµü´ú´ÎÊý = " << counter << endl;
-	fl << "\nµü´ú´ÎÊý = " << counter << "\n";
-	cout << "\n½üËÆµÄÌØÕ÷ÖµÎª" << endl;
+	cout << "\nç”±åå¹‚æ³•è®¡ç®—ã€‚" << endl;
+	fl << "\nç”±åå¹‚æ³•è®¡ç®—ã€‚";
+	cout << "\nè¿­ä»£æ¬¡æ•° = " << counter << endl;
+	fl << "\nè¿­ä»£æ¬¡æ•° = " << counter << "\n";
+	cout << "\nè¿‘ä¼¼çš„ç‰¹å¾å€¼ä¸º" << endl;
 	cout << "lambda ~= " << p << endl;
-	fl << "\n½üËÆµÄÌØÕ÷ÖµÎª";
+	fl << "\nè¿‘ä¼¼çš„ç‰¹å¾å€¼ä¸º";
 	fl << "\nlambda ~= " << p << "\n";
-	cout << "\n¸ü¾«È·µÄÌØÕ÷ÖµÎª" << endl;
+	cout << "\næ›´ç²¾ç¡®çš„ç‰¹å¾å€¼ä¸º" << endl;
 	cout << "lambda = " << lambda << endl;
-	fl << "\n¸ü¾«È·µÄÌØÕ÷ÖµÎª";
+	fl << "\næ›´ç²¾ç¡®çš„ç‰¹å¾å€¼ä¸º";
 	fl << "\nlambda = " << lambda << "\n";
-	cout << "\n¶ÔÓ¦µÄÌØÕ÷ÏòÁ¿Îª" << endl;
-	fl << "\n¶ÔÓ¦µÄÌØÕ÷ÏòÁ¿Îª";
+	cout << "\nå¯¹åº”çš„ç‰¹å¾å‘é‡ä¸º" << endl;
+	fl << "\nå¯¹åº”çš„ç‰¹å¾å‘é‡ä¸º";
 #else
 	cout << "\nCalculated by inverse power method." << endl;
 	fl << "\nCalculated by inverse power method.";

@@ -13,7 +13,7 @@ nl_eq::nl_eq() {
 
 void nl_eq::input_fx() {
 #ifdef CHINESE_VERSION
-	cout << "\n·ÇÏßÐÔ·½³Ì£ºf(x) = 0" << endl;
+	cout << "\néžçº¿æ€§æ–¹ç¨‹ï¼šf(x) = 0" << endl;
 #else
 	cout << "\nNonlinear equation: f(x) = 0" << endl;
 #endif
@@ -23,8 +23,8 @@ void nl_eq::input_fx() {
 	cin >> s;
 	fx.init(s);
 #ifdef CHINESE_VERSION
-	cout << "\n·½³ÌÎª " << fx.get_fstr() << " = 0 (MATLAB¸ñÊ½)" << endl;
-	fl << "\n·½³ÌÎª " << fx.get_fstr() << " = 0 (MATLAB¸ñÊ½)\n";
+	cout << "\næ–¹ç¨‹ä¸º " << fx.get_fstr() << " = 0 (MATLABæ ¼å¼)" << endl;
+	fl << "\næ–¹ç¨‹ä¸º " << fx.get_fstr() << " = 0 (MATLABæ ¼å¼)\n";
 #else
 	cout << "\nThe equation is " << fx.get_fstr() << " = 0 (MATLAB format)" << endl;
 	fl << "\nThe equation is " << fx.get_fstr() << " = 0 (MATLAB format)\n";
@@ -33,7 +33,7 @@ void nl_eq::input_fx() {
 
 void nl_eq::input_x() {
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÊäÈë³õÖµ x0 »òÇø¼ä [a,b]£º(1 = x0, 2 = [a,b]) ";
+	cout << "\nè¯·è¾“å…¥åˆå€¼ x0 æˆ–åŒºé—´ [a,b]ï¼š(1 = x0, 2 = [a,b]) ";
 #else
 	cout << "\nPlease enter the initial value x0 or an interval [a,b]: (1 = x0, 2 = [a,b]) ";
 #endif
@@ -58,7 +58,7 @@ void nl_eq::input_x() {
 	}
 	else {
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£º·Ç·¨ÊäÈë¡£" << endl;
+		cout << "é”™è¯¯ï¼šéžæ³•è¾“å…¥ã€‚" << endl;
 #else
 		cout << "Error: Illegal input." << endl;
 #endif
@@ -68,10 +68,10 @@ void nl_eq::input_x() {
 
 void nl_eq::input_max_eps() {
 #ifdef CHINESE_VERSION
-	cout << "\nÉèÖÃÎó²îÏÞºÍ×î´óµü´ú´ÎÊý£º" << endl;
-	cout << "  |f(x_k+1)| < eps1 , »ò |x_k+1 - x_k| < eps2" << endl;
-	cout << "  Ä¬ÈÏÖµ£ºeps1 = 1.0e-6, eps2 = 1.0e-6, ×î´óµü´ú´ÎÊý = 10000" << endl;
-	cout << "Ê¹ÓÃÄ¬ÈÏÖµ£¿(1 = ÊÇ, 0 = ·ñ) ";
+	cout << "\nè®¾ç½®è¯¯å·®é™å’Œæœ€å¤§è¿­ä»£æ¬¡æ•°ï¼š" << endl;
+	cout << "  |f(x_k+1)| < eps1 , æˆ– |x_k+1 - x_k| < eps2" << endl;
+	cout << "  é»˜è®¤å€¼ï¼šeps1 = 1.0e-6, eps2 = 1.0e-6, æœ€å¤§è¿­ä»£æ¬¡æ•° = 10000" << endl;
+	cout << "ä½¿ç”¨é»˜è®¤å€¼ï¼Ÿ(1 = æ˜¯, 0 = å¦) ";
 #else
 	cout << "\nSet the errors and the maximum iteration times:" << endl;
 	cout << "  |f(x_k+1)| < eps1 , or |x_k+1 - x_k| < eps2" << endl;
@@ -90,7 +90,7 @@ void nl_eq::input_max_eps() {
 		cout << "eps2 = ";
 		cin >> eps2;
 #ifdef CHINESE_VERSION
-		cout << "×î´óµü´ú´ÎÊý = ";
+		cout << "æœ€å¤§è¿­ä»£æ¬¡æ•° = ";
 #else
 		cout << "maximum iteration times = ";
 #endif
@@ -98,7 +98,7 @@ void nl_eq::input_max_eps() {
 	}
 	else {
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£º·Ç·¨ÊäÈë¡£" << endl;
+		cout << "é”™è¯¯ï¼šéžæ³•è¾“å…¥ã€‚" << endl;
 #else
 		cout << "Error: Illegal input." << endl;
 #endif
@@ -118,7 +118,7 @@ void nl_eq::input_max_eps() {
 void nl_eq::isolation() {
 	double xk = interval[0], h = 0.01 * (interval[1] - interval[0]);
 #ifdef CHINESE_VERSION
-	cout << "\n×¢Òâ£ºÁ½¸öÏàÁÚ¸ùµÄ¾àÀëÓ¦´óÓÚ " << h << "£¬·ñÔò¿ÉÄÜ¼ì²â²»µ½¡£" << endl;
+	cout << "\næ³¨æ„ï¼šä¸¤ä¸ªç›¸é‚»æ ¹çš„è·ç¦»åº”å¤§äºŽ " << h << "ï¼Œå¦åˆ™å¯èƒ½æ£€æµ‹ä¸åˆ°ã€‚" << endl;
 #else
 	cout << "\nNote: The distance of two adjacent roots should be above " << h << ", otherwise one of them may not be detected." << endl;
 #endif
@@ -134,7 +134,7 @@ void nl_eq::isolation() {
 		t1 = t2;
 	}
 #ifdef CHINESE_VERSION
-	cout << "ÔÚÇø¼äÉÏÕÒµ½ " << x.size() << " ¸ö¸ù¡£" << endl;
+	cout << "åœ¨åŒºé—´ä¸Šæ‰¾åˆ° " << x.size() << " ä¸ªæ ¹ã€‚" << endl;
 #else
 	cout << "Found " << x.size() << " roots on the interval." << endl;
 #endif
@@ -154,7 +154,7 @@ double nl_eq::bisection(double a, double b) {
 		if (ft * fa < 0) b = t;
 		else if (ft * fb < 0) a = t;
 #ifdef CHINESE_VERSION
-		else cout << "\n¾¯¸æ£º¶þ·Ö·¨³öÏÖÒì³££¬Çø¼äÄÚ¿ÉÄÜÎÞ¸ù»òÓÐ¶à¸ö¸ù¡£" << endl;
+		else cout << "\nè­¦å‘Šï¼šäºŒåˆ†æ³•å‡ºçŽ°å¼‚å¸¸ï¼ŒåŒºé—´å†…å¯èƒ½æ— æ ¹æˆ–æœ‰å¤šä¸ªæ ¹ã€‚" << endl;
 #else
 		else cout << "\nWarning: An exception happened in bisection method. There may exist no root or more than one root in the interval." << endl;
 #endif
@@ -171,7 +171,7 @@ eq_Simple::eq_Simple() {
 
 void eq_Simple::input_fx() {
 #ifdef CHINESE_VERSION
-	cout << "\n·ÇÏßÐÔ·½³ÌµÄµÈ¼Û±ä»»£ºx = g(x)" << endl;
+	cout << "\néžçº¿æ€§æ–¹ç¨‹çš„ç­‰ä»·å˜æ¢ï¼šx = g(x)" << endl;
 #else
 	cout << "\nEquivalent transformation of nonlinear equation: x = g(x)" << endl;
 #endif
@@ -180,8 +180,8 @@ void eq_Simple::input_fx() {
 	cin >> str;
 	fx.init(str);
 #ifdef CHINESE_VERSION
-	cout << "\nµÈ¼Û±ä»»Îª x = " << fx.get_fstr() << " (MATLAB¸ñÊ½)" << endl;
-	fl << "\nµÈ¼Û±ä»»Îª x = " << fx.get_fstr() << " (MATLAB¸ñÊ½)\n";
+	cout << "\nç­‰ä»·å˜æ¢ä¸º x = " << fx.get_fstr() << " (MATLABæ ¼å¼)" << endl;
+	fl << "\nç­‰ä»·å˜æ¢ä¸º x = " << fx.get_fstr() << " (MATLABæ ¼å¼)\n";
 #else
 	cout << "\nThe equivalent transformation is x = " << fx.get_fstr() << " (MATLAB format)" << endl;
 	fl << "\nThe equivalent transformation is x = " << fx.get_fstr() << " (MATLAB format)\n";
@@ -190,7 +190,7 @@ void eq_Simple::input_fx() {
 
 void eq_Simple::input_x() {
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÊäÈë³õÖµ x0 »òÇø¼ä [a,b]£º(1 = x0 , 2 = [a,b]) ";
+	cout << "\nè¯·è¾“å…¥åˆå€¼ x0 æˆ–åŒºé—´ [a,b]ï¼š(1 = x0 , 2 = [a,b]) ";
 #else
 	cout << "\nPlease enter the initial value x0 or an interval [a,b]: (1 = x0 , 2 = [a,b]) ";
 #endif
@@ -218,7 +218,7 @@ void eq_Simple::input_x() {
 	}
 	else {
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£º·Ç·¨ÊäÈë¡£" << endl;
+		cout << "é”™è¯¯ï¼šéžæ³•è¾“å…¥ã€‚" << endl;
 #else
 		cout << "Error: Illegal input." << endl;
 #endif
@@ -239,7 +239,7 @@ void eq_Simple::calc() {
 		}
 		if (counter == maxcounter)
 #ifdef CHINESE_VERSION
-		cout << "\n¾¯¸æ£º¼ÆËã x = " << x[i] << " Ê±´ïµ½×î´óµü´ú´ÎÊý" << endl;
+		cout << "\nè­¦å‘Šï¼šè®¡ç®— x = " << x[i] << " æ—¶è¾¾åˆ°æœ€å¤§è¿­ä»£æ¬¡æ•°" << endl;
 #else
 		cout << "\nWarning: Reach the maximum iteration number when calculate x = " << x[i] << endl;
 #endif
@@ -248,16 +248,16 @@ void eq_Simple::calc() {
 
 void eq_Simple::out_result() {
 #ifdef CHINESE_VERSION
-	cout << "\nÓÉ¼òµ¥µü´ú·¨¼ÆËã¡£" << endl;
-	fl << "\nÓÉ¼òµ¥µü´ú·¨¼ÆËã¡£";
+	cout << "\nç”±ç®€å•è¿­ä»£æ³•è®¡ç®—ã€‚" << endl;
+	fl << "\nç”±ç®€å•è¿­ä»£æ³•è®¡ç®—ã€‚";
 #else
 	cout << "\nCalculated by simple iteration method." << endl;
 	fl << "\nCalculated by simple iteration method.";
 #endif
 	if (count_flag) {
 #ifdef CHINESE_VERSION
-		cout << "µü´ú´ÎÊý = " << counter << endl;
-		fl << "\nµü´ú´ÎÊý = " << counter << "\n";
+		cout << "è¿­ä»£æ¬¡æ•° = " << counter << endl;
+		fl << "\nè¿­ä»£æ¬¡æ•° = " << counter << "\n";
 #else
 		cout << "Iteration times = " << counter << endl;
 		fl << "\nIteration times = " << counter << "\n";
@@ -290,7 +290,7 @@ void eq_Newton::calc() {
 		}
 		if (counter == maxcounter)
 #ifdef CHINESE_VERSION
-		cout << "\n¾¯¸æ£º¼ÆËã x = " << x[i] << " Ê±´ïµ½×î´óµü´ú´ÎÊý" << endl;
+		cout << "\nè­¦å‘Šï¼šè®¡ç®— x = " << x[i] << " æ—¶è¾¾åˆ°æœ€å¤§è¿­ä»£æ¬¡æ•°" << endl;
 #else
 		cout << "\nWarning: Reach the maximum iteration number when calculate x = " << x[i] << endl;
 #endif
@@ -299,16 +299,16 @@ void eq_Newton::calc() {
 
 void eq_Newton::out_result() {
 #ifdef CHINESE_VERSION
-	cout << "\nÓÉNewton·¨¼ÆËã¡£" << endl;
-	fl << "\nÓÉNewton·¨¼ÆËã¡£";
+	cout << "\nç”±Newtonæ³•è®¡ç®—ã€‚" << endl;
+	fl << "\nç”±Newtonæ³•è®¡ç®—ã€‚";
 #else
 	cout << "\nCalculated by Newton method." << endl;
 	fl << "\nCalculated by Newton method.";
 #endif
 	if (count_flag) {
 #ifdef CHINESE_VERSION
-		cout << "µü´ú´ÎÊý = " << counter << endl;
-		fl << "\nµü´ú´ÎÊý = " << counter << "\n";
+		cout << "è¿­ä»£æ¬¡æ•° = " << counter << endl;
+		fl << "\nè¿­ä»£æ¬¡æ•° = " << counter << "\n";
 #else
 		cout << "Iteration times = " << counter << endl;
 		fl << "\nIteration times = " << counter << "\n";
@@ -329,7 +329,7 @@ eq_Secant::eq_Secant() {
 
 void eq_Secant::input_x() {
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÊäÈë³õÖµ»òÇø¼ä [a,b]£º(1 = ³õÖµ , 2 = [a,b]) ";
+	cout << "\nè¯·è¾“å…¥åˆå€¼æˆ–åŒºé—´ [a,b]ï¼š(1 = åˆå€¼ , 2 = [a,b]) ";
 #else
 	cout << "\nPlease enter the initial value or an interval [a,b]: (1 = initial value , 2 = [a,b]) ";
 #endif
@@ -359,7 +359,7 @@ void eq_Secant::input_x() {
 	}
 	else {
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£º·Ç·¨ÊäÈë¡£" << endl;
+		cout << "é”™è¯¯ï¼šéžæ³•è¾“å…¥ã€‚" << endl;
 #else
 		cout << "Error: Illegal input." << endl;
 #endif
@@ -389,7 +389,7 @@ void eq_Secant::calc() {
 		}
 		if (counter == maxcounter)
 #ifdef CHINESE_VERSION
-		cout << "\n¾¯¸æ£º¼ÆËã x = " << x[i] << " Ê±´ïµ½×î´óµü´ú´ÎÊý" << endl;
+		cout << "\nè­¦å‘Šï¼šè®¡ç®— x = " << x[i] << " æ—¶è¾¾åˆ°æœ€å¤§è¿­ä»£æ¬¡æ•°" << endl;
 #else
 		cout << "\nWarning: Reach the maximum iteration number when calculate x = " << x[i] << endl;
 #endif
@@ -398,16 +398,16 @@ void eq_Secant::calc() {
 
 void eq_Secant::out_result() {
 #ifdef CHINESE_VERSION
-	cout << "\nÓÉÏÒ¸î·¨¼ÆËã¡£" << endl;
-	fl << "\nÓÉÏÒ¸î·¨¼ÆËã¡£";
+	cout << "\nç”±å¼¦å‰²æ³•è®¡ç®—ã€‚" << endl;
+	fl << "\nç”±å¼¦å‰²æ³•è®¡ç®—ã€‚";
 #else
 	cout << "\nCalculated by Secant method." << endl;
 	fl << "\nCalculated by Secant method.";
 #endif
 	if (count_flag) {
 #ifdef CHINESE_VERSION
-		cout << "µü´ú´ÎÊý = " << counter << endl;
-		fl << "\nµü´ú´ÎÊý = " << counter << "\n";
+		cout << "è¿­ä»£æ¬¡æ•° = " << counter << endl;
+		fl << "\nè¿­ä»£æ¬¡æ•° = " << counter << "\n";
 #else
 		cout << "Iteration times = " << counter << endl;
 		fl << "\nIteration times = " << counter << "\n";
@@ -435,7 +435,7 @@ void eq_Relaxation::calc() {
 		}
 		if (counter == maxcounter)
 #ifdef CHINESE_VERSION
-		cout << "\n¾¯¸æ£º¼ÆËã x = " << x[i] << " Ê±´ïµ½×î´óµü´ú´ÎÊý" << endl;
+		cout << "\nè­¦å‘Šï¼šè®¡ç®— x = " << x[i] << " æ—¶è¾¾åˆ°æœ€å¤§è¿­ä»£æ¬¡æ•°" << endl;
 #else
 		cout << "\nWarning: Reach the maximum iteration number when calculate x = " << x[i] << endl;
 #endif
@@ -444,16 +444,16 @@ void eq_Relaxation::calc() {
 
 void eq_Relaxation::out_result() {
 #ifdef CHINESE_VERSION
-	cout << "\nÓÉËÉ³Ú¼ÓËÙ·¨¼ÆËã¡£" << endl;
-	fl << "\nÓÉËÉ³Ú¼ÓËÙ·¨¼ÆËã¡£";
+	cout << "\nç”±æ¾å¼›åŠ é€Ÿæ³•è®¡ç®—ã€‚" << endl;
+	fl << "\nç”±æ¾å¼›åŠ é€Ÿæ³•è®¡ç®—ã€‚";
 #else
 	cout << "\nCalculated by relaxation acceleration method." << endl;
 	fl << "\nCalculated by relaxation acceleration method.";
 #endif
 	if (count_flag) {
 #ifdef CHINESE_VERSION
-		cout << "µü´ú´ÎÊý = " << counter << endl;
-		fl << "\nµü´ú´ÎÊý = " << counter << "\n";
+		cout << "è¿­ä»£æ¬¡æ•° = " << counter << endl;
+		fl << "\nè¿­ä»£æ¬¡æ•° = " << counter << "\n";
 #else
 		cout << "Iteration times = " << counter << endl;
 		fl << "\nIteration times = " << counter << "\n";
@@ -480,7 +480,7 @@ void eq_Aitken::calc() {
 		}
 		if (counter == maxcounter)
 #ifdef CHINESE_VERSION
-		cout << "\n¾¯¸æ£º¼ÆËã x = " << x[i] << " Ê±´ïµ½×î´óµü´ú´ÎÊý" << endl;
+		cout << "\nè­¦å‘Šï¼šè®¡ç®— x = " << x[i] << " æ—¶è¾¾åˆ°æœ€å¤§è¿­ä»£æ¬¡æ•°" << endl;
 #else
 		cout << "\nWarning: Reach the maximum iteration number when calculate x = " << x[i] << endl;
 #endif
@@ -489,16 +489,16 @@ void eq_Aitken::calc() {
 
 void eq_Aitken::out_result() {
 #ifdef CHINESE_VERSION
-	cout << "\nÓÉAitken¼ÓËÙ·¨¼ÆËã¡£" << endl;
-	fl << "\nÓÉAitken¼ÓËÙ·¨¼ÆËã¡£";
+	cout << "\nç”±AitkenåŠ é€Ÿæ³•è®¡ç®—ã€‚" << endl;
+	fl << "\nç”±AitkenåŠ é€Ÿæ³•è®¡ç®—ã€‚";
 #else
 	cout << "\nCalculated by Aitken acceleration method." << endl;
 	fl << "\nCalculated by Aitken acceleration method.";
 #endif
 	if (count_flag) {
 #ifdef CHINESE_VERSION
-		cout << "µü´ú´ÎÊý = " << counter << endl;
-		fl << "\nµü´ú´ÎÊý = " << counter << "\n";
+		cout << "è¿­ä»£æ¬¡æ•° = " << counter << endl;
+		fl << "\nè¿­ä»£æ¬¡æ•° = " << counter << "\n";
 #else
 		cout << "Iteration times = " << counter << endl;
 		fl << "\nIteration times = " << counter << "\n";
@@ -517,8 +517,8 @@ nl_eqs::nl_eqs() {
 
 void nl_eqs::input_fx() {
 #ifdef CHINESE_VERSION
-	cout << "\n·ÇÏßÐÔ·½³Ì×é£ºf(x) = 0" << endl;
-	cout << "\nÇëÊäÈë·½³Ì¸öÊý£ºn = ";
+	cout << "\néžçº¿æ€§æ–¹ç¨‹ç»„ï¼šf(x) = 0" << endl;
+	cout << "\nè¯·è¾“å…¥æ–¹ç¨‹ä¸ªæ•°ï¼šn = ";
 #else
 	cout << "\nNonlinear equations: f(x) = 0" << endl;
 	cout << "\nPlease enter the number of functions: n = ";
@@ -526,8 +526,8 @@ void nl_eqs::input_fx() {
 	n = in_int();
 	fx.init(n);
 #ifdef CHINESE_VERSION
-	cout << "\n·½³ÌÎª£º(MATLAB¸ñÊ½)" << endl;
-	fl << "\n·½³ÌÎª£º(MATLAB¸ñÊ½)\n\n";
+	cout << "\næ–¹ç¨‹ä¸ºï¼š(MATLABæ ¼å¼)" << endl;
+	fl << "\næ–¹ç¨‹ä¸ºï¼š(MATLABæ ¼å¼)\n\n";
 #else
 	cout << "\nThe equations are: (MATLAB format)" << endl;
 	fl << "\nThe equations are: (MATLAB format)\n\n";
@@ -540,7 +540,7 @@ void nl_eqs::input_fx() {
 
 void nl_eqs::input_x() {
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÊäÈë³õÊ¼ÏòÁ¿ x0£º\nx0(" << n << "*" << 1 << ") = ";
+	cout << "\nè¯·è¾“å…¥åˆå§‹å‘é‡ x0ï¼š\nx0(" << n << "*" << 1 << ") = ";
 #else
 	cout << "\nPlease enter the initial vector x0:\nx0(" << n << "*" << 1 << ") = ";
 #endif
@@ -554,10 +554,10 @@ void nl_eqs::input_x() {
 
 void nl_eqs::input_max_eps() {
 #ifdef CHINESE_VERSION
-	cout << "\nÉèÖÃÎó²îÏÞºÍ×î´óµü´ú´ÎÊý£º" << endl;
-	cout << "  |f(x_k+1)| < eps1 , »ò |x_k+1 - x_k| < eps2" << endl;
-	cout << "  Ä¬ÈÏÖµ£ºeps1 = 1.0e-6, eps2 = 1.0e-6, ×î´óµü´ú´ÎÊý = 10000" << endl;
-	cout << "Ê¹ÓÃÄ¬ÈÏÖµ£¿(1 = ÊÇ, 0 = ·ñ) ";
+	cout << "\nè®¾ç½®è¯¯å·®é™å’Œæœ€å¤§è¿­ä»£æ¬¡æ•°ï¼š" << endl;
+	cout << "  |f(x_k+1)| < eps1 , æˆ– |x_k+1 - x_k| < eps2" << endl;
+	cout << "  é»˜è®¤å€¼ï¼šeps1 = 1.0e-6, eps2 = 1.0e-6, æœ€å¤§è¿­ä»£æ¬¡æ•° = 10000" << endl;
+	cout << "ä½¿ç”¨é»˜è®¤å€¼ï¼Ÿ(1 = æ˜¯, 0 = å¦) ";
 #else
 	cout << "\nSet the errors and the maximum iteration times:" << endl;
 	cout << "  |f(x_k+1)| < eps1 , or |x_k+1 - x_k| < eps2" << endl;
@@ -576,7 +576,7 @@ void nl_eqs::input_max_eps() {
 		cout << "eps2 = ";
 		cin >> eps2;
 #ifdef CHINESE_VERSION
-		cout << "×î´óµü´ú´ÎÊý = ";
+		cout << "æœ€å¤§è¿­ä»£æ¬¡æ•° = ";
 #else
 		cout << "maximum iteration times = ";
 #endif
@@ -584,7 +584,7 @@ void nl_eqs::input_max_eps() {
 	}
 	else {
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£º·Ç·¨ÊäÈë¡£" << endl;
+		cout << "é”™è¯¯ï¼šéžæ³•è¾“å…¥ã€‚" << endl;
 #else
 		cout << "Error: Illegal input." << endl;
 #endif
@@ -609,8 +609,8 @@ eqs_Simple::eqs_Simple() {
 
 void eqs_Simple::input_fx() {
 #ifdef CHINESE_VERSION
-	cout << "\n·ÇÏßÐÔ·½³Ì×éµÄµÈ¼Û±ä»»£ºx = g(x)" << endl;
-	cout << "\nÇëÊäÈë·½³Ì¸öÊý£ºn = ";
+	cout << "\néžçº¿æ€§æ–¹ç¨‹ç»„çš„ç­‰ä»·å˜æ¢ï¼šx = g(x)" << endl;
+	cout << "\nè¯·è¾“å…¥æ–¹ç¨‹ä¸ªæ•°ï¼šn = ";
 #else
 	cout << "\nEquivalent transformation of nonlinear equation: x = g(x)" << endl;
 	cout << "\nPlease enter the number of functions: n = ";
@@ -618,8 +618,8 @@ void eqs_Simple::input_fx() {
 	n = in_int();
 	fx.init(n, "g");
 #ifdef CHINESE_VERSION
-	cout << "\nµÈ¼Û±ä»»Îª£º(MATLAB¸ñÊ½)" << endl;
-	fl << "\nµÈ¼Û±ä»»Îª£º(MATLAB¸ñÊ½)\n\n";
+	cout << "\nç­‰ä»·å˜æ¢ä¸ºï¼š(MATLABæ ¼å¼)" << endl;
+	fl << "\nç­‰ä»·å˜æ¢ä¸ºï¼š(MATLABæ ¼å¼)\n\n";
 #else
 	cout << "\nThe equivalent transformations are: (MATLAB format)" << endl;
 	fl << "\nThe equivalent transformations are: (MATLAB format)\n\n";
@@ -644,11 +644,11 @@ void eqs_Simple::calc() {
 		counter++;
 	}
 #ifdef CHINESE_VERSION
-	if (counter == maxcounter) cout << "\n¾¯¸æ£º´ïµ½×î´óµü´ú´ÎÊý" << endl;
+	if (counter == maxcounter) cout << "\nè­¦å‘Šï¼šè¾¾åˆ°æœ€å¤§è¿­ä»£æ¬¡æ•°" << endl;
 #else
 	if (counter == maxcounter)
 #ifdef CHINESE_VERSION
-	cout << "\n¾¯¸æ£º´ïµ½×î´óµü´ú´ÎÊý" << endl;
+	cout << "\nè­¦å‘Šï¼šè¾¾åˆ°æœ€å¤§è¿­ä»£æ¬¡æ•°" << endl;
 #else
 	cout << "\nWarning: Reach the maximum iteration number" << endl;
 #endif
@@ -657,10 +657,10 @@ void eqs_Simple::calc() {
 
 void eqs_Simple::out_result() {
 #ifdef CHINESE_VERSION
-	cout << "\nÓÉ¼òµ¥µü´ú·¨¼ÆËã¡£" << endl;
-	fl << "\nÓÉ¼òµ¥µü´ú·¨¼ÆËã¡£";
-	cout << "µü´ú´ÎÊý = " << counter << endl;
-	fl << "\nµü´ú´ÎÊý = " << counter << "\n";
+	cout << "\nç”±ç®€å•è¿­ä»£æ³•è®¡ç®—ã€‚" << endl;
+	fl << "\nç”±ç®€å•è¿­ä»£æ³•è®¡ç®—ã€‚";
+	cout << "è¿­ä»£æ¬¡æ•° = " << counter << endl;
+	fl << "\nè¿­ä»£æ¬¡æ•° = " << counter << "\n";
 #else
 	cout << "\nCalculated by simple iteration method." << endl;
 	fl << "\nCalculated by simple iteration method.";
@@ -710,11 +710,11 @@ void eqs_Newton::calc() {
 		counter++;
 	}
 #ifdef CHINESE_VERSION
-	if (counter == maxcounter) cout << "\n¾¯¸æ£º´ïµ½×î´óµü´ú´ÎÊý" << endl;
+	if (counter == maxcounter) cout << "\nè­¦å‘Šï¼šè¾¾åˆ°æœ€å¤§è¿­ä»£æ¬¡æ•°" << endl;
 #else
 	if (counter == maxcounter)
 #ifdef CHINESE_VERSION
-	cout << "\n¾¯¸æ£º´ïµ½×î´óµü´ú´ÎÊý" << endl;
+	cout << "\nè­¦å‘Šï¼šè¾¾åˆ°æœ€å¤§è¿­ä»£æ¬¡æ•°" << endl;
 #else
 	cout << "\nWarning: Reach the maximum iteration number" << endl;
 #endif
@@ -723,10 +723,10 @@ void eqs_Newton::calc() {
 
 void eqs_Newton::out_result() {
 #ifdef CHINESE_VERSION
-	cout << "\nÓÉNewton·¨¼ÆËã¡£" << endl;
-	fl << "\nÓÉNewton·¨¼ÆËã¡£";
-	cout << "µü´ú´ÎÊý = " << counter << endl;
-	fl << "\nµü´ú´ÎÊý = " << counter << "\n";
+	cout << "\nç”±Newtonæ³•è®¡ç®—ã€‚" << endl;
+	fl << "\nç”±Newtonæ³•è®¡ç®—ã€‚";
+	cout << "è¿­ä»£æ¬¡æ•° = " << counter << endl;
+	fl << "\nè¿­ä»£æ¬¡æ•° = " << counter << "\n";
 #else
 	cout << "\nCalculated by Newton method." << endl;
 	fl << "\nCalculated by Newton method.";
@@ -748,7 +748,7 @@ eqs_Secant::eqs_Secant() {
 
 void eqs_Secant::input_h() {
 #ifdef CHINESE_VERSION
-	cout << "\nÊ¹ÓÃÄ¬ÈÏ²½³¤ h = 0.001 ? (1 = ÊÇ, 0 = ·ñ) ";
+	cout << "\nä½¿ç”¨é»˜è®¤æ­¥é•¿ h = 0.001 ? (1 = æ˜¯, 0 = å¦) ";
 #else
 	cout << "\nUse the default value of step size h = 0.001 ? (1 = Yes, 0 = No) ";
 #endif
@@ -760,14 +760,14 @@ void eqs_Secant::input_h() {
 	}
 	else {
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£º·Ç·¨ÊäÈë¡£" << endl;
+		cout << "é”™è¯¯ï¼šéžæ³•è¾“å…¥ã€‚" << endl;
 #else
 		cout << "Error: Illegal input." << endl;
 #endif
 		throw 0;
 	}
 #ifdef CHINESE_VERSION
-	fl << "²½³¤ h = " << h << "\n";
+	fl << "æ­¥é•¿ h = " << h << "\n";
 #else
 	fl << "step size h = " << h << "\n";
 #endif
@@ -808,10 +808,10 @@ void eqs_Secant::calc() {
 
 void eqs_Secant::out_result() {
 #ifdef CHINESE_VERSION
-	cout << "\nÓÉÏÒ¸î·¨¼ÆËã¡£" << endl;
-	fl << "\nÓÉÏÒ¸î·¨¼ÆËã¡£";
-	cout << "µü´ú´ÎÊý = " << counter << endl;
-	fl << "\nµü´ú´ÎÊý = " << counter << "\n";
+	cout << "\nç”±å¼¦å‰²æ³•è®¡ç®—ã€‚" << endl;
+	fl << "\nç”±å¼¦å‰²æ³•è®¡ç®—ã€‚";
+	cout << "è¿­ä»£æ¬¡æ•° = " << counter << endl;
+	fl << "\nè¿­ä»£æ¬¡æ•° = " << counter << "\n";
 #else
 	cout << "\nCalculated by Secant method." << endl;
 	fl << "\nCalculated by Secant method.";
@@ -879,10 +879,10 @@ void eqs_Broyden::calc() {
 
 void eqs_Broyden::out_result() {
 #ifdef CHINESE_VERSION
-	cout << "\nÓÉBroyden·½·¨¼ÆËã¡£" << endl;
-	fl << "\nÓÉBroyden·½·¨¼ÆËã¡£";
-	cout << "µü´ú´ÎÊý = " << counter << endl;
-	fl << "\nµü´ú´ÎÊý = " << counter << "\n";
+	cout << "\nç”±Broydenæ–¹æ³•è®¡ç®—ã€‚" << endl;
+	fl << "\nç”±Broydenæ–¹æ³•è®¡ç®—ã€‚";
+	cout << "è¿­ä»£æ¬¡æ•° = " << counter << endl;
+	fl << "\nè¿­ä»£æ¬¡æ•° = " << counter << "\n";
 #else
 	cout << "\nCalculated by Broyden method." << endl;
 	fl << "\nCalculated by Broyden method.";

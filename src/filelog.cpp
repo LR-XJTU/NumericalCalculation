@@ -24,7 +24,7 @@ void filelog::init(const char* fn) {
 		test.close();
 		cout << '\n' << filename;
 #ifdef CHINESE_VERSION
-		cout << " ÒÑ¾­´æÔÚ£¬¸²¸Ç»¹ÊÇ¼ÌÐøÐ´Èë£¿ (1 = ¸²¸Ç , 2 = ¼ÌÐøÐ´Èë)" << endl;
+		cout << " å·²ç»å­˜åœ¨ï¼Œè¦†ç›–è¿˜æ˜¯ç»§ç»­å†™å…¥ï¼Ÿ (1 = è¦†ç›– , 2 = ç»§ç»­å†™å…¥)" << endl;
 #else
 		cout << " already exists. Overwrite it or continue at the end? (1 = overwrite , 2 = continue)" << endl;
 #endif
@@ -49,6 +49,7 @@ void filelog::judge_type() {
 	string str = filename;
 	if (str.find(".txt") != str.npos) filetype = FILE_TXT;
 	else if (str.find(".m") != str.npos) filetype = FILE_M;
+	else if (str.find(".html") != str.npos) filetype = FILE_HTML;
 }
 
 void filelog::set_width(int wid) {

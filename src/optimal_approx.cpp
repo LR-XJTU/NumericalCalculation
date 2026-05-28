@@ -66,7 +66,7 @@ void optimal_approx::Cheby_poly(double** c, int nnp1) {
 
 sqr_approx::sqr_approx() {
 #ifdef CHINESE_VERSION
-	cout << "\nÒª±Æ½üÁ¬Ðøº¯Êý»¹ÊÇÁÐ±íº¯Êý£¿(1 = Á¬Ðø, 2 = ÁÐ±í)" << endl;
+	cout << "\nè¦é€¼è¿‘è¿žç»­å‡½æ•°è¿˜æ˜¯åˆ—è¡¨å‡½æ•°ï¼Ÿ(1 = è¿žç»­, 2 = åˆ—è¡¨)" << endl;
 #else
 	cout << "\nWant to approximate a continuous function or a list function? (1 = continuous, 2 = list)" << endl;
 #endif
@@ -75,7 +75,7 @@ sqr_approx::sqr_approx() {
 	else if (flag == 2) cont = false;
 	else {
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£º·Ç·¨ÊäÈë¡£" << endl;
+		cout << "é”™è¯¯ï¼šéžæ³•è¾“å…¥ã€‚" << endl;
 #else
 		cout << "Error: Illegal input." << endl;
 #endif
@@ -84,7 +84,7 @@ sqr_approx::sqr_approx() {
 	if (cont) {
 		fx.init();
 #ifdef CHINESE_VERSION
-		cout << "\nÇëÊäÈëÇø¼ä [a,b]£º" << endl;
+		cout << "\nè¯·è¾“å…¥åŒºé—´ [a,b]ï¼š" << endl;
 #else
 		cout << "\nPlease input the interval [a,b]:" << endl;
 #endif
@@ -95,7 +95,7 @@ sqr_approx::sqr_approx() {
 	}
 	else {
 #ifdef CHINESE_VERSION
-		cout << "\nÇëÊäÈëµãµÄ¸öÊý£ºm = ";
+		cout << "\nè¯·è¾“å…¥ç‚¹çš„ä¸ªæ•°ï¼šm = ";
 #else
 		cout << "\nPlease enter the number of points: m = ";
 #endif
@@ -104,7 +104,7 @@ sqr_approx::sqr_approx() {
 		y = new double[m];
 		wl = new double[m];
 #ifdef CHINESE_VERSION
-		cout << "\nÇëÊäÈë (x,y)£º\nx\ty" << endl;
+		cout << "\nè¯·è¾“å…¥ (x,y)ï¼š\nx\ty" << endl;
 #else
 		cout << "\nPlease input (x,y):\nx\ty" << endl;
 #endif
@@ -116,7 +116,7 @@ sqr_approx::sqr_approx() {
 		interval[1] = x[m - 1];
 	}
 #ifdef CHINESE_VERSION
-	cout << "\nÈ¨ÖØ w Ê¹ÓÃÄ¬ÈÏÖµ 1£¿(1 = ÊÇ, 0 = ·ñ)" << endl;
+	cout << "\næƒé‡ w ä½¿ç”¨é»˜è®¤å€¼ 1ï¼Ÿ(1 = æ˜¯, 0 = å¦)" << endl;
 #else
 	cout << "\nThe weight w uses the default value 1? (1 = Yes, 0 = No)" << endl;
 #endif
@@ -137,7 +137,7 @@ sqr_approx::sqr_approx() {
 		w_flag = true;
 		if (cont) {
 #ifdef CHINESE_VERSION
-			cout << "\nÇëÊäÈëÈ¨ÖØº¯Êý w£º\nw = ";
+			cout << "\nè¯·è¾“å…¥æƒé‡å‡½æ•° wï¼š\nw = ";
 #else
 			cout << "\nPlease input weight function w:\nw = ";
 #endif
@@ -147,7 +147,7 @@ sqr_approx::sqr_approx() {
 		}
 		else {
 #ifdef CHINESE_VERSION
-			cout << "\nÇëÊäÈë w_i£º(i=0,1,...," << m << ")" << endl;
+			cout << "\nè¯·è¾“å…¥ w_iï¼š(i=0,1,...," << m << ")" << endl;
 #else
 			cout << "\nPlease enter w_i: (i=0,1,...," << m << ")" << endl;
 #endif
@@ -156,16 +156,16 @@ sqr_approx::sqr_approx() {
 	}
 	else {
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£º·Ç·¨ÊäÈë¡£" << endl;
+		cout << "é”™è¯¯ï¼šéžæ³•è¾“å…¥ã€‚" << endl;
 #else
 		cout << "Error: Illegal input." << endl;
 #endif
 		throw 0;
 	}
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÑ¡Ôñ»ùº¯Êý£º" << endl;
-	cout << "1.µÝÍÆÕý½»¶àÏîÊ½" << endl;
-	cout << "2.×Ô¶¨Òå»ùº¯Êý" << endl;
+	cout << "\nè¯·é€‰æ‹©åŸºå‡½æ•°ï¼š" << endl;
+	cout << "1.é€’æŽ¨æ­£äº¤å¤šé¡¹å¼" << endl;
+	cout << "2.è‡ªå®šä¹‰åŸºå‡½æ•°" << endl;
 #else
 	cout << "\nPlease select the basis functions:" << endl;
 	cout << "1.Recursive orthogonal polynomials" << endl;
@@ -174,7 +174,7 @@ sqr_approx::sqr_approx() {
 	basis_flag = in_int();
 	if (basis_flag == 1) {
 #ifdef CHINESE_VERSION
-		cout << "\nÇëÊäÈë¶àÏîÊ½½×Êý£ºn = ";
+		cout << "\nè¯·è¾“å…¥å¤šé¡¹å¼é˜¶æ•°ï¼šn = ";
 #else
 		cout << "\nPlease enter the order of the polynomial: n = ";
 #endif
@@ -187,7 +187,7 @@ sqr_approx::sqr_approx() {
 	}
 	else if (basis_flag == 2) {
 #ifdef CHINESE_VERSION
-		cout << "\nÇëÊäÈë»ùº¯Êý¸öÊý£ºn = ";
+		cout << "\nè¯·è¾“å…¥åŸºå‡½æ•°ä¸ªæ•°ï¼šn = ";
 #else
 		cout << "\nPlease enter the number of basis functions: n = ";
 #endif
@@ -202,8 +202,8 @@ sqr_approx::sqr_approx() {
 			basis[i].init(s);
 		}
 #ifdef CHINESE_VERSION
-		cout << "\n»ùº¯ÊýÎª£º" << endl;
-		fl << "\n»ùº¯ÊýÎª£º\n";
+		cout << "\nåŸºå‡½æ•°ä¸ºï¼š" << endl;
+		fl << "\nåŸºå‡½æ•°ä¸ºï¼š\n";
 #else
 		cout << "\nThe basis functions are:" << endl;
 		fl << "\nThe basis functions are:\n";
@@ -214,7 +214,7 @@ sqr_approx::sqr_approx() {
 	}
 	else {
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£º·Ç·¨ÊäÈë¡£" << endl;
+		cout << "é”™è¯¯ï¼šéžæ³•è¾“å…¥ã€‚" << endl;
 #else
 		cout << "Error: Illegal input." << endl;
 #endif
@@ -316,7 +316,7 @@ void sqr_approx::orth_poly(formula* ff, int n) {
 		ff[i].init(s);
 	}
 #ifdef CHINESE_VERSION
-	cout << "\n»ùº¯ÊýÎª£º" << endl;
+	cout << "\nåŸºå‡½æ•°ä¸ºï¼š" << endl;
 #else
 	cout << "\nThe basis functions are:" << endl;
 #endif
@@ -325,7 +325,7 @@ void sqr_approx::orth_poly(formula* ff, int n) {
 
 void sqr_approx::calc() {
 #ifdef CHINESE_VERSION
-	cout << "\nÕýÔÚ¼ÆËã×î¼ÑÆ½·½±Æ½üº¯Êý..." << endl;
+	cout << "\næ­£åœ¨è®¡ç®—æœ€ä½³å¹³æ–¹é€¼è¿‘å‡½æ•°..." << endl;
 #else
 	cout << "\nCalculating optimal square approximation function..." << endl;
 #endif
@@ -396,7 +396,7 @@ void sqr_approx::calc() {
 	err = sqrt(err);
 	delete [] cc;
 #ifdef CHINESE_VERSION
-	cout << "\n¼ÆËãÍê³É¡£" << endl;
+	cout << "\nè®¡ç®—å®Œæˆã€‚" << endl;
 #else
 	cout << "\nFinish calculating." << endl;
 #endif
@@ -409,11 +409,11 @@ void sqr_approx::out_result() {
 		cout << "w(x) = " << wc.get_fstr() << endl;
 		fl << "w(x) = " << wc.get_fstr() << "\n";
 #ifdef CHINESE_VERSION
-		fl << "\n»ùº¯ÊýÎª£º\n";
+		fl << "\nåŸºå‡½æ•°ä¸ºï¼š\n";
 		for (int i = 0; i < np1; i++) fl << "\ng" << i << "(x) = " << basis[i].get_fstr();
 		fl << "\n";
-		cout << "\nf(x) ÔÚ [" << interval[0] << "," << interval[1] << "] ÉÏµÄ×î¼ÑÆ½·½±Æ½üÎª\n\np(x) = ";
-		fl << "\nf(x) ÔÚ [" << interval[0] << "," << interval[1] << "] ÉÏµÄ×î¼ÑÆ½·½±Æ½üÎª\n\np(x) = ";
+		cout << "\nf(x) åœ¨ [" << interval[0] << "," << interval[1] << "] ä¸Šçš„æœ€ä½³å¹³æ–¹é€¼è¿‘ä¸º\n\np(x) = ";
+		fl << "\nf(x) åœ¨ [" << interval[0] << "," << interval[1] << "] ä¸Šçš„æœ€ä½³å¹³æ–¹é€¼è¿‘ä¸º\n\np(x) = ";
 #else
 		fl << "\nThe basis functions are:\n";
 		for (int i = 0; i < np1; i++) fl << "\ng" << i << "(x) = " << basis[i].get_fstr();
@@ -424,8 +424,8 @@ void sqr_approx::out_result() {
 	}
 	else {
 #ifdef CHINESE_VERSION
-		cout << "\nÑù±¾µãºÍÈ¨ÖØÏµÊýÎª£º" << endl;
-		fl << "\nÑù±¾µãºÍÈ¨ÖØÏµÊýÎª£º\n";
+		cout << "\næ ·æœ¬ç‚¹å’Œæƒé‡ç³»æ•°ä¸ºï¼š" << endl;
+		fl << "\næ ·æœ¬ç‚¹å’Œæƒé‡ç³»æ•°ä¸ºï¼š\n";
 #else
 		cout << "\nThe sample points and the weight coefficients are:" << endl;
 		fl << "\nThe sample points and the weight coefficients are:\n";
@@ -435,11 +435,11 @@ void sqr_approx::out_result() {
 			fl << "(" << x[i] << " , " << y[i] << ") , w_" << i + 1 << " = " << wl[i] << "\n";
 		}
 #ifdef CHINESE_VERSION
-		fl << "\n»ùº¯ÊýÎª£º\n";
+		fl << "\nåŸºå‡½æ•°ä¸ºï¼š\n";
 		for (int i = 0; i < np1; i++) fl << "\ng" << i << "(x) = " << basis[i].get_fstr();
 		fl << "\n";
-		cout << "\nÑù±¾µãµÄ×î¼ÑÆ½·½±Æ½üÎª\n\np(x) = ";
-		fl << "\nÑù±¾µãµÄ×î¼ÑÆ½·½±Æ½üÎª\n\np(x) = ";
+		cout << "\næ ·æœ¬ç‚¹çš„æœ€ä½³å¹³æ–¹é€¼è¿‘ä¸º\n\np(x) = ";
+		fl << "\næ ·æœ¬ç‚¹çš„æœ€ä½³å¹³æ–¹é€¼è¿‘ä¸º\n\np(x) = ";
 #else
 		fl << "\nThe basis functions are:\n";
 		for (int i = 0; i < np1; i++) fl << "\ng" << i << "(x) = " << basis[i].get_fstr();
@@ -451,8 +451,8 @@ void sqr_approx::out_result() {
 	cout << resultstr << endl;
 	fl << resultstr << "\n";
 #ifdef CHINESE_VERSION
-	cout << "\n¾ù·½Îó²î = " << err << endl;
-	fl << "\n¾ù·½Îó²î = " << err << "\n";
+	cout << "\nå‡æ–¹è¯¯å·® = " << err << endl;
+	fl << "\nå‡æ–¹è¯¯å·® = " << err << "\n";
 #else
 	cout << "\nThe mean square error = " << err << endl;
 	fl << "\nThe mean square error = " << err << "\n";
@@ -461,8 +461,49 @@ void sqr_approx::out_result() {
 }
 
 void sqr_approx::generate_m() {
+#ifdef WEB_VISUALIZATION
+	filelog gm;
+	gm.init("Optimal_approx.html");
+	gm << "<!DOCTYPE html>" << "\n";
+	gm << "<html><head>" << "\n";
+	gm << "<meta charset='UTF-8'>" << "\n";
+	gm << "<title>Optimal Square Approximation</title>" << "\n";
+	gm << "<script src='https://cdn.plot.ly/plotly-3.0.0.min.js'></script>" << "\n";
+	gm << "</head><body>" << "\n";
+	gm << "<div id='plot' style='width:100%;height:100vh;'></div>" << "\n";
+	gm << "<script>" << "\n";
+		int npt=1000;
+		double h=(interval[1]-interval[0])/(npt-1);
+		if(cont){
+			gm << "var fxx=[],fyy=[];" << "\n";
+			for(int i=0;i<npt;i++){
+				double xi=interval[0]+i*h;
+				gm << "fxx.push(" << xi << ");fyy.push(" << fx.f(xi) << ");" << "\n";
+			}
+			gm << "var traces=[{x:fxx,y:fyy,mode:'lines',name:'f(x)'}];" << "\n";
+		}else{
+			gm << "var sx=[";
+			for(int i=0;i<m;i++) gm << x[i] << ((i<m-1)?",":"");
+			gm << "];" << "\n";
+			gm << "var sy=[";
+			for(int i=0;i<m;i++) gm << y[i] << ((i<m-1)?",":"");
+			gm << "];" << "\n";
+			gm << "var traces=[{x:sx,y:sy,mode:'markers',name:'Sample points',marker:{size:8}}];" << "\n";
+		}
+		formula approx;
+		approx.init(resultstr);
+		gm << "var apx=[],apy=[];" << "\n";
+		for(int i=0;i<npt;i++){
+			double xi=interval[0]+i*h;
+			gm << "apx.push(" << xi << ");apy.push(" << approx.f(xi) << ");" << "\n";
+		}
+		gm << "traces.push({x:apx,y:apy,mode:'lines',name:'Approximation'});" << "\n";
+		gm << "Plotly.newPlot('plot',traces,{title:'Optimal Square Approximation',xaxis:{title:'x'},yaxis:{title:'y'}});" << "\n";
+	gm << "</script>" << "\n";
+	gm << "</body></html>" << "\n";
+#else
 #ifdef CHINESE_VERSION
-	cout << "\nÊÇ·ñÉú³É .m ÎÄ¼þÓÃÓÚÔÚMATLABÖÐ»æÖÆ×î¼Ñ±Æ½üº¯ÊýÍ¼Ïñ£¿(1 = ÊÇ, 0 = ·ñ)" << endl;
+	cout << "\næ˜¯å¦ç”Ÿæˆ .m æ–‡ä»¶ç”¨äºŽåœ¨MATLABä¸­ç»˜åˆ¶æœ€ä½³é€¼è¿‘å‡½æ•°å›¾åƒï¼Ÿ(1 = æ˜¯, 0 = å¦)" << endl;
 #else
 	cout << "\nWant to generate .m file to get figure of the optimal approximation function in MATLAB? (1 = Yes , 0 = No)" << endl;
 #endif
@@ -539,13 +580,15 @@ void sqr_approx::generate_m() {
 		gm << "ylabel('y');\n";
 		gm << "title('The graph of the optimal square approximation');\n";
 	}
+
+#endif
 }
 
 uni_approx::uni_approx() {
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÑ¡Ôñ½üËÆ×î¼ÑÒ»ÖÂ±Æ½üµÄ·½·¨£º" << endl;
-	cout << "1.Chebyshev²åÖµ¶àÏîÊ½" << endl;
-	cout << "2.½Ø¶ÏChebyshev¼¶Êý·¨" << endl;
+	cout << "\nè¯·é€‰æ‹©è¿‘ä¼¼æœ€ä½³ä¸€è‡´é€¼è¿‘çš„æ–¹æ³•ï¼š" << endl;
+	cout << "1.Chebyshevæ’å€¼å¤šé¡¹å¼" << endl;
+	cout << "2.æˆªæ–­Chebyshevçº§æ•°æ³•" << endl;
 #else
 	cout << "\nPlease select the method of approximate optimal uniform approximation:" << endl;
 	cout << "1.Chebyshev interpolation polynomials" << endl;
@@ -554,7 +597,7 @@ uni_approx::uni_approx() {
 	ua_method = in_int();
 	if (ua_method < 1 || ua_method>2) {
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£º³¬³öË÷Òý·¶Î§¡£" << endl;
+		cout << "é”™è¯¯ï¼šè¶…å‡ºç´¢å¼•èŒƒå›´ã€‚" << endl;
 #else
 		cout << "Error: Out of index range." << endl;
 #endif
@@ -571,7 +614,7 @@ uni_approx::uni_approx() {
 		fx.init(temp_fx);
 	}
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÊäÈëÇø¼ä [a,b]£º" << endl;
+	cout << "\nè¯·è¾“å…¥åŒºé—´ [a,b]ï¼š" << endl;
 #else
 	cout << "\nPlease input the interval [a,b]:" << endl;
 #endif
@@ -580,7 +623,7 @@ uni_approx::uni_approx() {
 	cout << "b = ";
 	cin >> interval[1];
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÊäÈë½üËÆ×î¼ÑÒ»ÖÂ±Æ½ü¶àÏîÊ½µÄ½×Êý£ºn = ";
+	cout << "\nè¯·è¾“å…¥è¿‘ä¼¼æœ€ä½³ä¸€è‡´é€¼è¿‘å¤šé¡¹å¼çš„é˜¶æ•°ï¼šn = ";
 #else
 	cout << "\nPlease enter the order of the polynomial of approximate optimal uniform approximation: n = ";
 #endif
@@ -617,8 +660,8 @@ void uni_approx::out_result() {
 	cout << "\nf(x) = " << fx.get_fstr() << " , " << interval[0] << " <= x <= " << interval[1] << endl;
 	fl << "\nf(x) = " << fx.get_fstr() << " , " << interval[0] << " <= x <= " << interval[1] << "\n";
 #ifdef CHINESE_VERSION
-	cout << "f(x) ÔÚ [" << interval[0] << "," << interval[1] << "] ÉÏµÄ×î¼ÑÒ»ÖÂ±Æ½üÎª\n\np(x) = ";
-	fl << "f(x) ÔÚ [" << interval[0] << "," << interval[1] << "] ÉÏµÄ×î¼ÑÒ»ÖÂ±Æ½üÎª\n\np(x) = ";
+	cout << "f(x) åœ¨ [" << interval[0] << "," << interval[1] << "] ä¸Šçš„æœ€ä½³ä¸€è‡´é€¼è¿‘ä¸º\n\np(x) = ";
+	fl << "f(x) åœ¨ [" << interval[0] << "," << interval[1] << "] ä¸Šçš„æœ€ä½³ä¸€è‡´é€¼è¿‘ä¸º\n\np(x) = ";
 #else
 	cout << "The optimal uniform approximation of f(x) on [" << interval[0] << "," << interval[1] << "] is\n\np(x) = ";
 	fl << "The optimal uniform approximation of f(x) on [" << interval[0] << "," << interval[1] << "] is\n\np(x) = ";
@@ -626,16 +669,16 @@ void uni_approx::out_result() {
 	cout << resultstr << endl;
 	fl << resultstr << "\n";
 #ifdef CHINESE_VERSION
-	cout << "\nÓÉ ";
-	fl << "\nÓÉ ";
+	cout << "\nç”± ";
+	fl << "\nç”± ";
 #else
 	cout << "\nSolved by ";
 	fl << "\nSolved by ";
 #endif
 	if (ua_method == 1) {
 #ifdef CHINESE_VERSION
-		cout << "Chebyshev²åÖµ¶àÏîÊ½¼ÆËã¡£" << endl;
-		fl << "Chebyshev²åÖµ¶àÏîÊ½¼ÆËã¡£\n";
+		cout << "Chebyshevæ’å€¼å¤šé¡¹å¼è®¡ç®—ã€‚" << endl;
+		fl << "Chebyshevæ’å€¼å¤šé¡¹å¼è®¡ç®—ã€‚\n";
 #else
 		cout << "Chebyshev interpolation polynomials." << endl;
 		fl << "Chebyshev interpolation polynomials.\n";
@@ -643,8 +686,8 @@ void uni_approx::out_result() {
 	}
 	else if (ua_method == 2) {
 #ifdef CHINESE_VERSION
-		cout << "½Ø¶ÏChebyshev¼¶Êý·¨¼ÆËã¡£" << endl;
-		fl << "½Ø¶ÏChebyshev¼¶Êý·¨¼ÆËã¡£\n";
+		cout << "æˆªæ–­Chebyshevçº§æ•°æ³•è®¡ç®—ã€‚" << endl;
+		fl << "æˆªæ–­Chebyshevçº§æ•°æ³•è®¡ç®—ã€‚\n";
 #else
 		cout << "truncated Chebyshev series method." << endl;
 		fl << "truncated Chebyshev series method.\n";
@@ -654,8 +697,39 @@ void uni_approx::out_result() {
 }
 
 void uni_approx::generate_m() {
+#ifdef WEB_VISUALIZATION
+	filelog gm;
+	gm.init("Optimal_approx.html");
+	gm << "<!DOCTYPE html>" << "\n";
+	gm << "<html><head>" << "\n";
+	gm << "<meta charset='UTF-8'>" << "\n";
+	gm << "<title>Optimal Uniform Approximation</title>" << "\n";
+	gm << "<script src='https://cdn.plot.ly/plotly-3.0.0.min.js'></script>" << "\n";
+	gm << "</head><body>" << "\n";
+	gm << "<div id='plot' style='width:100%;height:100vh;'></div>" << "\n";
+	gm << "<script>" << "\n";
+		int npt=1000;
+		double h=(interval[1]-interval[0])/(npt-1);
+		gm << "var fxx=[],fyy=[];" << "\n";
+		for(int i=0;i<npt;i++){
+			double xi=interval[0]+i*h;
+			gm << "fxx.push(" << xi << ");fyy.push(" << fx.f(xi) << ");" << "\n";
+		}
+		gm << "var traces=[{x:fxx,y:fyy,mode:'lines',name:'f(x)'}];" << "\n";
+		formula approx;
+		approx.init(resultstr);
+		gm << "var apx=[],apy=[];" << "\n";
+		for(int i=0;i<npt;i++){
+			double xi=interval[0]+i*h;
+			gm << "apx.push(" << xi << ");apy.push(" << approx.f(xi) << ");" << "\n";
+		}
+		gm << "traces.push({x:apx,y:apy,mode:'lines',name:'Approximation'});" << "\n";
+		gm << "Plotly.newPlot('plot',traces,{title:'Optimal Uniform Approximation',xaxis:{title:'x'},yaxis:{title:'y'}});" << "\n";
+	gm << "</script>" << "\n";
+	gm << "</body></html>" << "\n";
+#else
 #ifdef CHINESE_VERSION
-	cout << "\nÊÇ·ñÉú³É .m ÎÄ¼þÓÃÓÚÔÚMATLABÖÐ»æÖÆ×î¼Ñ±Æ½üº¯ÊýÍ¼Ïñ£¿(1 = ÊÇ, 0 = ·ñ)" << endl;
+	cout << "\næ˜¯å¦ç”Ÿæˆ .m æ–‡ä»¶ç”¨äºŽåœ¨MATLABä¸­ç»˜åˆ¶æœ€ä½³é€¼è¿‘å‡½æ•°å›¾åƒï¼Ÿ(1 = æ˜¯, 0 = å¦)" << endl;
 #else
 	cout << "\nWant to generate .m file to get figure of the optimal approximation function in MATLAB? (1 = Yes , 0 = No)" << endl;
 #endif
@@ -718,6 +792,8 @@ void uni_approx::generate_m() {
 		gm << "ylabel('y');\n";
 		gm << "title('The graph of the optimal uniform approximation');\n";
 	}
+
+#endif
 }
 
 void uni_approx::Cheby_interp() {
