@@ -14,7 +14,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 MINGW="D:/Dev-Cpp/MinGW64"
-$MINGW/bin/g++.exe -std=c++11 -o NumericalCalculation src/*.cpp \
+$MINGW/bin/g++.exe -std=c++11 -Wall -Wextra -o NumericalCalculation src/*.cpp \
     -I$MINGW/include \
     -I$MINGW/x86_64-w64-mingw32/include \
     -I$MINGW/lib/gcc/x86_64-w64-mingw32/4.9.2/include \
@@ -85,18 +85,23 @@ Eigen_val_vec — Power_method, Inverse_power
 
 全部使用 `std::vector` / `std::vector<std::vector<double>>`，**无 `new[]`/`delete[]`**。RAII 自动管理，无需手动释放。所有仅做 `delete[]` 的析构函数已删除，编译器自动生成。
 
+### `bool` 构造函数
+
+`Direct_method` 和 `Iteration_method` 的子类大多有两个构造函数：
+
+```cpp
+Gauss()        // 默认：交互式 I/O（读 cin 输入矩阵）
+Gauss(bool)    // 传 true：空壳，程序内部传数据后手动调 init()/calc()
+```
+
+`bool` 参数本身即是"跳过 I/O"的信号，不需要 `if` 判断。所有调用方都传 `true`。典型用法见 `cube_spline::calc()` 和 `eigen_val_vec.cpp`。
+
 ### 函数约定
 
 - 矩阵参数用 `const std::vector<std::vector<double>>&`
 - 向量参数用 `const std::vector<double>&` 或 `std::vector<double>&`（输出参数）
 - 范数函数 `vecnorm*`、`matnorm*` 只接受 vector 版本（无原始指针重载）
 - `Ax_b::get_x(std::vector<double>&)` 直接赋值（`xx = x`），无需传大小
-
-## 已知问题
-
-- **`bool no_init` 构造函数**（`directmethod.cpp` 8 个类 + `interpolation.cpp` Newton_Ip）：`else ClassName();` 创建临时对象而非委托构造，`no_init=false` 路径不工作。当前所有调用都传 `true`，暂时潜伏。不要新增 `false` 调用。
-- **`cube_spline::calc()`** `bdcd_flag == 2` 时 `M_solve[-1]` 越界，需对照算法修正。
-- **`exchange_diag_no_0()`** 负数索引检查在访问之后，极罕见触发。
 
 ## 注意事项
 
@@ -105,3 +110,4 @@ Eigen_val_vec — Power_method, Inverse_power
 - `testdata.txt` 是 4×4 线性方程组的测试数据（A 矩阵 + b 向量），用于快速验证线性方程组求解
 - 构建 `resultstr`（用于 `formula` 解析的表达式字符串）时，`stringstream` 需加 `uppercase`，确保科学计数法输出大写 `E`
 - 所有 `.cpp` 和 `.h` 使用 `std::vector`，**不要引入 `new[]`/`delete[]`**。需要动态数组时用 `vector::resize()`
+- 编译必须通过 `-Wall -Wextra` 零警告。新增代码避免 `-Wsign-compare`（循环变量与 `.size()` 比较用 `size_t`）
