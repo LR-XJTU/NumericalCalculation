@@ -105,31 +105,19 @@ filelog& filelog::operator<<(const int x) {
 	return *this;
 }
 
-filelog& filelog::operator<<(const int* arr) {
-	for (int i = 0; i < m; i++) (*flog) << "\t" << arr[i] << "\n";
-	(*flog) << flush;
-	return *this;
-}
-
 filelog& filelog::operator<<(const double x) {
 	(*flog) << x;
 	(*flog) << flush;
 	return *this;
 }
 
-filelog& filelog::operator<<(const double* arr) {
+filelog& filelog::operator<<(const vector<double>& arr) {
 	for (int i = 0; i < m; i++) (*flog) << "\t" << arr[i] << "\n";
 	(*flog) << flush;
 	return *this;
 }
 
-filelog& filelog::operator<<(const vector<double> arr) {
-	for (int i = 0; i < m; i++) (*flog) << "\t" << arr[i] << "\n";
-	(*flog) << flush;
-	return *this;
-}
-
-filelog& filelog::operator<<(const double* const* mat) {
+filelog& filelog::operator<<(const std::vector<std::vector<double>>& mat) {
 	set_left_right(true);
 	for (int i = 0; i < m; i++) {
 		(*flog) << "\t";

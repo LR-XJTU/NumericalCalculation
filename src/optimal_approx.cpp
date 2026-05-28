@@ -23,36 +23,35 @@ double optimal_approx::inner_product(formula f, formula g, formula w, double a, 
 	return integ.get_result();
 }
 
-double optimal_approx::inner_product(formula f, formula g, double* x, int m, double* w) {
-	double* fy = new double[m];
-	double* gy = new double[m];
+double optimal_approx::inner_product(formula f, formula g, const vector<double>& x, const vector<double>& w) {
+	int m = x.size();
+	vector<double> fy(m);
+	vector<double> gy(m);
 	for (int i = 0; i < m; i++) {
 		fy[i] = f.f(x[i]);
 		gy[i] = g.f(x[i]);
 	}
 	double r = 0.0;
 	for (int i = 0; i < m; i++) r += w[i] * fy[i] * gy[i];
-	delete[] fy;
-	delete[] gy;
 	return r;
 }
 
-double optimal_approx::inner_product(formula f, double* y, double* x, int m, double* w) {
-	double* fy = new double[m];
+double optimal_approx::inner_product(formula f, const vector<double>& y, const vector<double>& x, const vector<double>& w) {
+	int m = x.size();
+	vector<double> fy(m);
 	for (int i = 0; i < m; i++) fy[i] = f.f(x[i]);
 	double r = 0.0;
 	for (int i = 0; i < m; i++) r += w[i] * y[i] * fy[i];
-	delete[] fy;
 	return r;
 }
 
-double optimal_approx::inner_product(double* y1, double* y2, int m, double* w) {
+double optimal_approx::inner_product(const vector<double>& y1, const vector<double>& y2, const vector<double>& w) {
 	double r = 0.0;
-	for (int i = 0; i < m; i++) r += w[i] * y1[i] * y2[i];
+	for (size_t i = 0; i < y1.size(); i++) r += w[i] * y1[i] * y2[i];
 	return r;
 }
 
-void optimal_approx::Cheby_poly(double** c, int nnp1) {
+void optimal_approx::Cheby_poly(vector<vector<double>>& c, int nnp1) {
 	c[0][0] = 1.0;
 	if (nnp1 == 1) return;
 	c[1][0] = 1.0;
@@ -100,9 +99,9 @@ sqr_approx::sqr_approx() {
 		cout << "\nPlease enter the number of points: m = ";
 #endif
 		m = in_int();
-		x = new double[m];
-		y = new double[m];
-		wl = new double[m];
+		x.resize(m);
+		y.resize(m);
+		wl.resize(m);
 #ifdef CHINESE_VERSION
 		cout << "\n请输入 (x,y)：\nx\ty" << endl;
 #else
@@ -179,10 +178,9 @@ sqr_approx::sqr_approx() {
 		cout << "\nPlease enter the order of the polynomial: n = ";
 #endif
 		np1 = in_int() + 1;
-		basis = new formula[np1];
-		coef = new double[np1];
-		for (int i = 0; i < np1; i++) coef[i] = 0.0;
-		c = new double* [np1];
+		basis.resize(np1);
+		coef.resize(np1, 0.0);
+		c.resize(np1);
 		orth_poly(basis, np1);
 	}
 	else if (basis_flag == 2) {
@@ -192,9 +190,8 @@ sqr_approx::sqr_approx() {
 		cout << "\nPlease enter the number of basis functions: n = ";
 #endif
 		np1 = in_int();
-		basis = new formula[np1];
-		coef = new double[np1];
-		for (int i = 0; i < np1; i++) coef[i] = 0.0;
+		basis.resize(np1);
+		coef.resize(np1, 0.0);
 		string s;
 		for (int i = 0; i < np1; i++) {
 			cout << "f" << i << "(x) = ";
@@ -222,18 +219,6 @@ sqr_approx::sqr_approx() {
 	}
 }
 
-sqr_approx::~sqr_approx() {
-	if (!cont) {
-		delete[] x;
-		delete[] y;
-		delete[] wl;
-	}
-	delete[] basis;
-	delete[] coef;
-	for (int i = 0; i < np1; i++) delete[] c[i];
-	delete[] c;
-}
-
 //sort the points by x
 void sqr_approx::sort_xy() {
 	double t;
@@ -254,12 +239,13 @@ void sqr_approx::sort_xy() {
 double sqr_approx::innpro(formula f, formula g) {
 	double r;
 	if (cont) r = inner_product(f, g, wc, interval[0], interval[1]);
-	else r = inner_product(f, g, x, m, wl);
+	else r = inner_product(f, g, x, wl);
 	return r;
 }
 
 //transform a polynomial into string
-string optimal_approx::polytostr(double* p, int l) {
+string optimal_approx::polytostr(const vector<double>& p) {
+	int l = p.size();
 	string ts;
 	bool zero_flag = true;
 	for (int i = 0; i < l; i++) {
@@ -282,24 +268,24 @@ string optimal_approx::polytostr(double* p, int l) {
 	return ts;
 }
 
-void sqr_approx::orth_poly(formula* ff, int n) {
+void sqr_approx::orth_poly(vector<formula>& ff, int n) {
 	string s;
 	formula xx;
 	s = "x";
 	xx.init(s);
-	c[0] = new double[1];
+	c[0].resize(1);
 	c[0][0] = 1.0;
-	s = polytostr(c[0], 1);
+	s = polytostr(c[0]);
 	ff[0].init(s);
 	if (n == 1) return;
 	double bk, ck, beta, gamma;
 	beta = innpro(xx * ff[0], ff[0]);
 	gamma = innpro(ff[0], ff[0]);
 	bk = beta / gamma;
-	c[1] = new double[2];
+	c[1].resize(2);
 	c[1][0] = 1.0;
 	c[1][1] = -1.0 * bk;
-	s = polytostr(c[1], 2);
+	s = polytostr(c[1]);
 	ff[1].init(s);
 	for (int i = 2; i < n; i++) {
 		ck = 1.0 / gamma;
@@ -307,12 +293,12 @@ void sqr_approx::orth_poly(formula* ff, int n) {
 		gamma = innpro(ff[i - 1], ff[i - 1]);
 		bk = beta / gamma;
 		ck *= gamma;
-		c[i] = new double[i + 1];
+		c[i].resize(i + 1);
 		for (int j = 0; j < i + 1; j++) c[i][j] = 0.0;
 		for (int j = 0; j < i; j++) c[i][j] += c[i - 1][j];
 		for (int j = 1; j < i + 1; j++) c[i][j] += -1.0 * bk * c[i - 1][j - 1];
 		for (int j = 2; j < i + 1; j++) c[i][j] += -1.0 * ck * c[i - 2][j - 2];
-		s = polytostr(c[i], i + 1);
+		s = polytostr(c[i]);
 		ff[i].init(s);
 	}
 #ifdef CHINESE_VERSION
@@ -329,23 +315,22 @@ void sqr_approx::calc() {
 #else
 	cout << "\nCalculating optimal square approximation function..." << endl;
 #endif
-	double* cc = new double[np1];
+	vector<double> cc(np1);
 	if (basis_flag == 1) {
 		if (cont) {
 			for (int i = 0; i < np1; i++) cc[i] = innpro(basis[i], fx) / innpro(basis[i], basis[i]);
 		}
 		else {
-			for (int i = 0; i < np1; i++) cc[i] = inner_product(basis[i], y, x, m, wl) / innpro(basis[i], basis[i]);
+			for (int i = 0; i < np1; i++) cc[i] = inner_product(basis[i], y, x, wl) / innpro(basis[i], basis[i]);
 		}
 		for (int i = 0; i < np1; i++) {
 			for (int j = np1 - i - 1; j < np1; j++) coef[j] += cc[i] * c[i][j - np1 + i + 1];
 		}
-		resultstr = polytostr(coef, np1);
+		resultstr = polytostr(coef);
 	}
 	else if (basis_flag == 2) {
-		double** A = new double* [np1];
-		for (int i = 0; i < np1; i++) A[i] = new double[np1];
-		double* b = new double[np1];
+		vector<vector<double>> A(np1, vector<double>(np1));
+		vector<double> b(np1);
 		for (int i = 0; i < np1; i++) {
 			for (int j = 0; j < np1; j++) {
 				A[i][j] = innpro(basis[i], basis[j]);
@@ -355,14 +340,11 @@ void sqr_approx::calc() {
 			for (int i = 0; i < np1; i++) b[i] = innpro(basis[i], fx);
 		}
 		else {
-			for (int i = 0; i < np1; i++) b[i] = inner_product(basis[i], y, x, m, wl);
+			for (int i = 0; i < np1; i++) b[i] = inner_product(basis[i], y, x, wl);
 		}
-		conjugate_gradient conj(A, b, np1);
+		conjugate_gradient conj(A, b);
 		conj.calc();
 		conj.get_result(cc);
-		for (int i = 0; i < np1; i++) delete[] A[i];
-		delete[] A;
-		delete[] b;
 		for (int i = 0; i < np1; i++) coef[i] = cc[i];
 		stringstream ss1;
 		ss1 << uppercase << setprecision(15) << coef[0];
@@ -389,12 +371,11 @@ void sqr_approx::calc() {
 			for (int j = 0; j < np1; j++) {
 				err += cc[i] * cc[j] * innpro(basis[i], basis[j]);
 			}
-			err -= 2.0 * cc[i] * inner_product(basis[i], y, x, m, wl);
+			err -= 2.0 * cc[i] * inner_product(basis[i], y, x, wl);
 		}
-		err += inner_product(y, y, m, wl);
+		err += inner_product(y, y, wl);
 	}
 	err = sqrt(err);
-	delete [] cc;
 #ifdef CHINESE_VERSION
 	cout << "\n计算完成。" << endl;
 #else
@@ -629,8 +610,7 @@ uni_approx::uni_approx() {
 	cout << "\nPlease enter the order of the polynomial of approximate optimal uniform approximation: n = ";
 #endif
 	np1 = in_int() + 1;
-	coef = new double[np1];
-	for (int i = 0; i < np1; i++) coef[i] = 0.0;
+	coef.resize(np1, 0.0);
 	if (ua_method == 2) {
 		double a1, a2;
 		a1 = (interval[1] - interval[0]) / 2.0;
@@ -646,10 +626,6 @@ uni_approx::uni_approx() {
 		xt.init(s, cosx);
 		fx_xt_cos.init(temp_fx, xt.get_fstr());
 	}
-}
-
-uni_approx::~uni_approx() {
-	delete [] coef;
 }
 
 void uni_approx::calc() {
@@ -798,26 +774,24 @@ void uni_approx::generate_m() {
 }
 
 void uni_approx::Cheby_interp() {
-	double* x = new double[np1];
-	double* y = new double[np1];
+	vector<double> cx(np1);
+	vector<double> cy(np1);
 	for (int i = 0; i < np1; i++) {
-		x[i] = cos((2.0 * i + 1.0) / 2.0 / np1 * 3.14159265358979323846);
-		x[i] = (interval[1] - interval[0]) / 2.0 * x[i] + (interval[1] + interval[0]) / 2.0;
-		y[i] = fx.f(x[i]);
+		cx[i] = cos((2.0 * i + 1.0) / 2.0 / np1 * 3.14159265358979323846);
+		cx[i] = (interval[1] - interval[0]) / 2.0 * cx[i] + (interval[1] + interval[0]) / 2.0;
+		cy[i] = fx.f(cx[i]);
 	}
-	Newton_Ip newton(x, y, np1);
+	Newton_Ip newton(cx, cy);
 	newton.pure_calc();
 	resultstr = newton.get_str();
-	delete[]x;
-	delete[]y;
 }
 
 void uni_approx::Trunc_Cheby() {
-	c = new double* [np1]; //coefficients of Chebyshev polynomials
-	for (int i = 0; i < np1; i++) c[i] = new double[i + 1];
+	c.resize(np1);
+	for (int i = 0; i < np1; i++) c[i].resize(i + 1);
 	Cheby_poly(c, np1);
 
-	double* cc = new double[np1]; //coefficients of Chebyshev series
+	vector<double> cc(np1); //coefficients of Chebyshev series
 	Romberg rg(fx_xt_cos, 0.0, 3.14159265358979323846);
 	rg.calc();
 	cc[0] = rg.get_result() / 3.14159265358979323846;
@@ -833,25 +807,24 @@ void uni_approx::Trunc_Cheby() {
 	double ctx[2]; //t=f^(-1)(x)
 	ctx[0] = 2.0 / (interval[1] - interval[0]);
 	ctx[1] = -1.0 * (interval[1] + interval[0]) / (interval[1] - interval[0]);
-	double** yanghui_tri = new double* [np1]; //Yanghui triangle
-	yanghui_tri[0] = new double[1];
+	vector<vector<double>> yanghui_tri(np1); //Yanghui triangle
+	yanghui_tri[0].resize(1);
 	yanghui_tri[0][0] = 1.0;
 	if (np1 > 1) {
-		yanghui_tri[1] = new double[2];
+		yanghui_tri[1].resize(2);
 		yanghui_tri[1][0] = 1.0;
 		yanghui_tri[1][1] = 1.0;
 	}
 	if (np1 > 2) {
 		for (int i = 2; i < np1; i++) {
-			yanghui_tri[i] = new double[i + 1];
+			yanghui_tri[i].resize(i + 1);
 			yanghui_tri[i][0] = 1.0;
 			yanghui_tri[i][i] = 1.0;
 			for (int j = 1; j < i; j++) yanghui_tri[i][j] = yanghui_tri[i - 1][j - 1] + yanghui_tri[i - 1][j];
 		}
 	}
-	double** ccc = new double* [np1]; //coefficients of Chebyshev polynomials when the variable is x
-	for (int i = 0; i < np1; i++) ccc[i] = new double[i + 1];
-	for (int i = 0; i < np1; i++) for (int j = 0; j < i + 1; j++) ccc[i][j] = 0.0;
+	vector<vector<double>> ccc(np1); //coefficients of Chebyshev polynomials when the variable is x
+	for (int i = 0; i < np1; i++) ccc[i].resize(i + 1, 0.0);
 	for (int i = 0; i < np1; i++) {
 		for (int j = 0; j < i + 1; j++) {
 			for (int k = j; k < i + 1; k++) {
@@ -863,11 +836,5 @@ void uni_approx::Trunc_Cheby() {
 		for (int j = np1 - i - 1; j < np1; j++) coef[j] += cc[i] * ccc[i][j - np1 + i + 1];
 	}
 
-	resultstr = polytostr(coef, np1);
-	for (int i = 0; i < np1; i++) delete [] c[i];
-	delete [] c;
-	delete [] cc;
-	delete [] ccc;
-	for (int i = 0; i < np1; i++) delete[] yanghui_tri[i];
-	delete[] yanghui_tri;
+	resultstr = polytostr(coef);
 }

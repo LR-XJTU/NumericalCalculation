@@ -183,7 +183,7 @@ void Power_method::out_result() {
 #endif
 	cout << "xi =" << endl;
 	fl << "\nxi =";
-	for (int i = 0; i < z.size(); i++) {
+	for (size_t i = 0; i < z.size(); i++) {
 		cout << "  " << z[i] << endl;
 		fl << "\n  " << z[i];
 	}
@@ -294,7 +294,7 @@ void Inverse_power::out_result() {
 #endif
 	cout << "xi =" << endl;
 	fl << "\nxi =";
-	for (int i = 0; i < z.size(); i++) {
+	for (size_t i = 0; i < z.size(); i++) {
 		cout << "  " << z[i] << endl;
 		fl << "\n  " << z[i];
 	}

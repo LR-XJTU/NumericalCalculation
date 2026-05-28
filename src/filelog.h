@@ -27,11 +27,9 @@ public:
 	filelog& operator<<(const char);
 	filelog& operator<<(const char*);
 	filelog& operator<<(const int);
-	filelog& operator<<(const int*);
 	filelog& operator<<(const double);
-	filelog& operator<<(const double*);
-	filelog& operator<<(const std::vector<double>);
-	filelog& operator<<(const double* const*);
+	filelog& operator<<(const std::vector<double>&);
+	filelog& operator<<(const std::vector<std::vector<double>>&);
 };
 
 #endif

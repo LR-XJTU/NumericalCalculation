@@ -138,7 +138,7 @@ void nl_eq::isolation() {
 #else
 	cout << "Found " << x.size() << " roots on the interval." << endl;
 #endif
-	for (int i = 0; i < x.size(); i++) cout << "x = " << x[i] << endl;
+	for (size_t i = 0; i < x.size(); i++) cout << "x = " << x[i] << endl;
 }
 
 double nl_eq::bisection(double a, double b) {
@@ -227,7 +227,7 @@ void eq_Simple::input_x() {
 }
 
 void eq_Simple::calc() {
-	for (int i = 0; i < x.size(); i++) {
+	for (size_t i = 0; i < x.size(); i++) {
 		counter = 0;
 		double xk;
 		while (counter < maxcounter) {
@@ -263,7 +263,7 @@ void eq_Simple::out_result() {
 		fl << "\nIteration times = " << counter << "\n";
 #endif
 	}
-	for (int i = 0; i < x.size(); i++) {
+	for (size_t i = 0; i < x.size(); i++) {
 		cout << "x = " << x[i] << endl;
 		fl << "\nx = " << x[i];
 	}
@@ -278,7 +278,7 @@ eq_Newton::eq_Newton() {
 
 void eq_Newton::calc() {
 	DerivExtra df(fx);
-	for (int i = 0; i < x.size(); i++) {
+	for (size_t i = 0; i < x.size(); i++) {
 		counter = 0;
 		double xk;
 		while (counter < maxcounter) {
@@ -314,7 +314,7 @@ void eq_Newton::out_result() {
 		fl << "\nIteration times = " << counter << "\n";
 #endif
 	}
-	for (int i = 0; i < x.size(); i++) {
+	for (size_t i = 0; i < x.size(); i++) {
 		cout << "x = " << x[i] << endl;
 		fl << "\nx = " << x[i];
 	}
@@ -354,7 +354,7 @@ void eq_Secant::input_x() {
 		interval[1] = b;
 		isolation();
 		double dt = (interval[1] - interval[0]) * 0.00001;
-		for (int i = 0; i < x.size(); i++) x0.push_back(x[i] - dt);
+		for (size_t i = 0; i < x.size(); i++) x0.push_back(x[i] - dt);
 		count_flag = false;
 	}
 	else {
@@ -368,7 +368,7 @@ void eq_Secant::input_x() {
 }
 
 void eq_Secant::calc() {
-	for (int i = 0; i < x.size(); i++) {
+	for (size_t i = 0; i < x.size(); i++) {
 		counter = 0;
 		double xk, xk1, t;
 		xk1 = x0[i];
@@ -413,7 +413,7 @@ void eq_Secant::out_result() {
 		fl << "\nIteration times = " << counter << "\n";
 #endif
 	}
-	for (int i = 0; i < x.size(); i++) {
+	for (size_t i = 0; i < x.size(); i++) {
 		cout << "x = " << x[i] << endl;
 		fl << "\nx = " << x[i];
 	}
@@ -422,7 +422,7 @@ void eq_Secant::out_result() {
 
 void eq_Relaxation::calc() {
 	DerivExtra dphi(fx);
-	for (int i = 0; i < x.size(); i++) {
+	for (size_t i = 0; i < x.size(); i++) {
 		double omega = dphi.orderderiv(1, x[i]);
 		counter = 0;
 		double xk;
@@ -459,7 +459,7 @@ void eq_Relaxation::out_result() {
 		fl << "\nIteration times = " << counter << "\n";
 #endif
 	}
-	for (int i = 0; i < x.size(); i++) {
+	for (size_t i = 0; i < x.size(); i++) {
 		cout << "x = " << x[i] << endl;
 		fl << "\nx = " << x[i];
 	}
@@ -467,7 +467,7 @@ void eq_Relaxation::out_result() {
 }
 
 void eq_Aitken::calc() {
-	for (int i = 0; i < x.size(); i++) {
+	for (size_t i = 0; i < x.size(); i++) {
 		counter = 0;
 		double x1, x2;
 		while (counter < maxcounter) {
@@ -504,7 +504,7 @@ void eq_Aitken::out_result() {
 		fl << "\nIteration times = " << counter << "\n";
 #endif
 	}
-	for (int i = 0; i < x.size(); i++) {
+	for (size_t i = 0; i < x.size(); i++) {
 		cout << "x = " << x[i] << endl;
 		fl << "\nx = " << x[i];
 	}

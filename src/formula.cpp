@@ -112,7 +112,7 @@ void formula::showtips_xnum() {
 }
 
 bool formula::x_flag() {
-	for (int i = 0; i < frpn.size(); i++) if (frpn[i] == FX) return true;
+	for (size_t i = 0; i < frpn.size(); i++) if (frpn[i] == FX) return true;
 	return false;
 }
 
@@ -143,7 +143,7 @@ void formula::define_xy() {
 
 //If the point has been defined, return true
 bool formula::find_xy(double x) {
-	for (int i = 0; i < dfx.size(); i++) {
+	for (size_t i = 0; i < dfx.size(); i++) {
 		if (dfx[i] == x) return true;
 	}
 	return false;
@@ -151,7 +151,7 @@ bool formula::find_xy(double x) {
 
 //Return f(x) of the defined point
 double formula::list_xy(double x) {
-	for (int i = 0; i < dfx.size(); i++) {
+	for (size_t i = 0; i < dfx.size(); i++) {
 		if (dfx[i] == x) return dfy[i];
 	}
 #ifdef CHINESE_VERSION
@@ -205,7 +205,7 @@ void formula::rf_str(string& str) {
 	string s;
 	//judge |
 	int c_al = 0, c_ar = 0;
-	for (int i = 0; i < str.size(); i++) {
+	for (size_t i = 0; i < str.size(); i++) {
 		if (str.at(i) == '|') {
 			if (i == 0) {
 				if (str.size() > 1) {
@@ -253,7 +253,7 @@ void formula::rf_str(string& str) {
 	}
 	//erase ' ' and '\t', and supplement ')'
 	int c_l = 0, c_r = 0;
-	for (int i = 0; i < str.size(); i++) {
+	for (size_t i = 0; i < str.size(); i++) {
 		if (str.at(i) == '(') c_l++;
 		if (str.at(i) == ')') c_r++;
 		if (str.at(i) == ' ' || str.at(i) == '\t') {
@@ -280,18 +280,18 @@ void formula::rf_str(string& str) {
 		str.erase(tp, len);
 		skipbracket(str, tp);
 		tp++;
-		if (tp < str.size()) str.insert(tp, ts);
+		if ((size_t)tp < str.size()) str.insert(tp, ts);
 		else str += ts;
 	}
 	//handle with negative number
 	if (str.at(0) == '-') str.insert(0, "0");
-	for (int i = 0; i < str.size(); i++) {
+	for (size_t i = 0; i < str.size(); i++) {
 		if (str.at(i) == '(' && i + 1 < str.size()) {
 			if (str.at(i + 1) == '-') str.insert(i + 1, "0");
 		}
 	}
 	//segmentation
-	for (int i = 0; i < str.size(); i++) {
+	for (size_t i = 0; i < str.size(); i++) {
 		if ((str.at(i) - '0' >= 0 && str.at(i) - '9' <= 0) || str.at(i) == '.') {
 			str.insert(i, " ");
 			i++;
@@ -416,7 +416,7 @@ void formula::rf_str(string& str) {
 	}
 	//standardize the product terms
 	t = 0;
-	while (t < str.size()) {
+	while ((size_t)t < str.size()) {
 		while (str.at(t) == ' ') t++;
 		if ((str.at(t) - '0' >= 0 && str.at(t) - '9' <= 0) || str.at(t) == '.' || str.at(t) == 'x') {
 			if (t - 2 >= 0) {
@@ -427,9 +427,9 @@ void formula::rf_str(string& str) {
 			}
 			while (str.at(t) != ' ') {
 				t++;
-				if (t == str.size()) break;
+				if ((size_t)t == str.size()) break;
 			}
-			if (t + 1 < str.size()) {
+			if ((size_t)(t + 1) < str.size()) {
 				if (str.at(t + 1) != '+' && str.at(t + 1) != '-' && str.at(t + 1) != '*' && str.at(t + 1) != '/' && str.at(t + 1) != '^' && str.at(t + 1) != ')') {
 					str.insert(t + 1, "* ");
 					t += 2;
@@ -448,7 +448,7 @@ void formula::rf_str(string& str) {
 		else {
 			while (str.at(t) != ' ') {
 				t++;
-				if (t == str.size()) break;
+				if ((size_t)t == str.size()) break;
 			}
 		}
 	}
@@ -460,7 +460,7 @@ void formula::trans_rpn(std::string str) {
 	std::string sdata;
 	int ord1, ord2;
 	op temp;
-	for (int i = 0; i < str.size(); i++) {
+	for (size_t i = 0; i < str.size(); i++) {
 		while (str.at(i) != ' ') {
 			i++;
 			if (i >= str.size()) break;
@@ -637,14 +637,14 @@ void formula::matlab_format() {
 	while (fstr.find("arccos") != fstr.npos) fstr.replace(fstr.find("arccos"), 6, "acos");
 	while (fstr.find("arctan") != fstr.npos) fstr.replace(fstr.find("arctan"), 6, "atan");
 	while(fstr.find("ln")!=fstr.npos) fstr.replace(fstr.find("ln"), 2, "log");
-	for (int i = 0; i < fstr.size(); i++) {
+	for (size_t i = 0; i < fstr.size(); i++) {
 		if (fstr.at(i) == ' ') {
 			fstr.erase(i, 1);
 			i--;
 		}
 	}
 	if (fstr.size() > 1) if (fstr.at(0) == '0' && fstr.at(1) == '-') fstr.erase(0, 1);
-	for (int i = 0; i < fstr.size(); i++) {
+	for (size_t i = 0; i < fstr.size(); i++) {
 		if (fstr.at(i) == '(' && i + 2 < fstr.size()) {
 			if (fstr.at(i + 1) == '0' && fstr.at(i + 2) == '-') fstr.erase(i + 1, 1);
 		}
@@ -1103,7 +1103,7 @@ double formula::f_xnum(vector<double> x) {
 }
 
 void formula::check_stack(std::stack<double> temp, int num) {
-	double* t = new double[num];
+	std::vector<double> t(num);
 	for (int i = 0; i < num; i++) {
 		if (temp.empty()) {
 #ifdef CHINESE_VERSION
@@ -1117,18 +1117,17 @@ void formula::check_stack(std::stack<double> temp, int num) {
 		temp.pop();
 	}
 	for (int i = num - 1; i >= 0; i--) temp.push(t[i]);
-	delete [] t;
 }
 
 void formula::skipbracket(string str, int &pos) {
 	int temp = 0;
-	while (pos < str.size()) {
+	while ((size_t)pos < str.size()) {
 		if (str.at(pos) == '(') temp++;
 		else if (str.at(pos) == ')') temp--;
 		if (temp == 0) break;
 		pos++;
 	}
-	if (pos == str.size()) {
+	if ((size_t)pos == str.size()) {
 #ifdef CHINESE_VERSION
 		cout << "错误：无法跳过括号。" << endl;
 #else
@@ -1159,7 +1158,7 @@ formula formula::operator*(formula fx) {
 	}
 	if (!this->dfx.empty()) {
 		double tx, ty;
-		for (int i = 0; i < this->dfx.size(); i++) {
+		for (size_t i = 0; i < this->dfx.size(); i++) {
 			tx = this->dfx[i];
 			if (fx.find_xy(tx)) ty = this->dfy[i] * fx.list_xy(tx);
 			else ty = this->dfy[i] * fx.f(tx);
@@ -1169,7 +1168,7 @@ formula formula::operator*(formula fx) {
 	}
 	if (!fx.dfx.empty()) {
 		double tx, ty;
-		for (int i = 0; i < fx.dfx.size(); i++) {
+		for (size_t i = 0; i < fx.dfx.size(); i++) {
 			tx = fx.dfx[i];
 			if (this->find_xy(tx)) ty = fx.dfy[i] * this->list_xy(tx);
 			else ty = fx.dfy[i] * this->f(tx);
@@ -1293,7 +1292,7 @@ vector<double> formulae::f(vector<double> x) {
 	xx.resize(n);
 	for (int i = 0; i < n; i++) xx[i].resize(xnum[i].size());
 	fy.resize(n);
-	for (int i = 0; i < n; i++) for (int j = 0; j < xx[i].size(); j++) xx[i][j] = x[xnum[i][j] - 1];
+	for (int i = 0; i < n; i++) for (size_t j = 0; j < xx[i].size(); j++) xx[i][j] = x[xnum[i][j] - 1];
 	for (int i = 0; i < n; i++) fy[i] = fx[i].f_xnum(xx[i]);
 	return fy;
 }

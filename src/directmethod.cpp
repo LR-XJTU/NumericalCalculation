@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <algorithm>
 #include "directmethod.h"
 
 using namespace std;
@@ -48,7 +49,7 @@ void Direct_method::init() {
 }
 
 //initialization with 4 parameters
-void Direct_method::init(int mm,int nn,double **AA,double *bb) {
+void Direct_method::init(int mm,int nn,const vector<vector<double>>& AA,const vector<double>& bb) {
 	if(mm<=0)
 	{
 #ifdef CHINESE_VERSION
@@ -82,7 +83,7 @@ void Direct_method::init(int mm,int nn,double **AA,double *bb) {
 }
 
 //initialization with 6 parameters
-void Direct_method::init(int mm,int nn,double *dd,double *ud,double *ld,double *bb) {
+void Direct_method::init(int mm,int nn,const vector<double>& dd,const vector<double>& ud,const vector<double>& ld,const vector<double>& bb) {
 	if(mm<=0)
 	{
 #ifdef CHINESE_VERSION
@@ -154,10 +155,7 @@ Gauss::Gauss() {
 	out_Ab();
 }
 
-Gauss::Gauss(bool no_init) {
-	if (no_init) return;
-	else Gauss();
-}
+Gauss::Gauss(bool) {}
 
 void Gauss::calc()
 {
@@ -260,10 +258,6 @@ void Gauss::out_result()
 	out_x();
 }
 
-Gauss::~Gauss() {
-	delete_Ax_b();
-}
-
 //2.Column principle Gaussian elimination
 
 CP_Gauss::CP_Gauss() {
@@ -272,10 +266,7 @@ CP_Gauss::CP_Gauss() {
 	out_Ab();
 }
 
-CP_Gauss::CP_Gauss(bool no_init) {
-	if (no_init) return;
-	else CP_Gauss();
-}
+CP_Gauss::CP_Gauss(bool) {}
 
 void CP_Gauss::calc()
 {
@@ -376,10 +367,6 @@ void CP_Gauss::out_result()
 	out_x();
 }
 
-CP_Gauss::~CP_Gauss() {
-	delete_Ax_b();
-}
-
 //3.Doolittle decomposition (LU)
 
 Doolittle::Doolittle() {
@@ -389,12 +376,8 @@ Doolittle::Doolittle() {
 	out_Ab();
 }
 
-Doolittle::Doolittle(bool no_init) {
-	if (no_init) {
-		print_flag = false;
-		return;
-	}
-	else Doolittle();
+Doolittle::Doolittle(bool) {
+	print_flag = false;
 }
 
 void Doolittle::calc()
@@ -494,9 +477,9 @@ void Doolittle::calc()
 }
 
 void Doolittle::decomposition(vector<vector<double>> AA, vector<vector<double>>& L, vector<vector<double>>& R) {
-	int mm = AA.size();
-	int nn = AA[0].size();
-	for (int i = 0; i < mm; i++) if (AA[i].size() != nn) {
+	size_t mm = AA.size();
+	size_t nn = AA[0].size();
+	for (size_t i = 0; i < mm; i++) if (AA[i].size() != nn) {
 #ifdef CHINESE_VERSION
 		cout << "错误：矩阵阶数不一致" << endl;
 #else
@@ -554,8 +537,7 @@ void Doolittle::U_solve(vector<vector<double>> UU, vector<double>& xx, std::vect
 
 void Doolittle::out_LU()
 {
-	double** temp = new double* [n];
-	for (int i = 0; i < n; i++) temp[i] = new double[n];
+	vector<vector<double>> temp(n, vector<double>(n));
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < n; j++)
@@ -599,8 +581,6 @@ void Doolittle::out_LU()
 	}
 	fl << "\nU (" << m << "*" << n << ") =\n\n";
 	fl.set_mat_size(n, n) << temp;
-	for (int i = 0; i < n; i++) delete[] temp[i];
-	delete[] temp;
 }
 
 void Doolittle::out_result()
@@ -616,10 +596,6 @@ void Doolittle::out_result()
 	out_x();
 }
 
-Doolittle::~Doolittle() {
-	delete_Ax_b();
-}
-
 //4.Cholesky decomposition
 
 Cholesky::Cholesky() {
@@ -628,10 +604,7 @@ Cholesky::Cholesky() {
 	out_Ab();
 }
 
-Cholesky::Cholesky(bool no_init) {
-	if (no_init) return;
-	else Cholesky();
-}
+Cholesky::Cholesky(bool) {}
 
 void Cholesky::calc()
 {
@@ -710,8 +683,7 @@ void Cholesky::calc()
 }
 
 void Cholesky::out_G() {
-	double** temp = new double* [n];
-	for (int i = 0; i < n; i++) temp[i] = new double[n];
+	vector<vector<double>> temp(n, vector<double>(n));
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < n; j++)
@@ -733,8 +705,6 @@ void Cholesky::out_G() {
 	}
 	fl << "\nG (" << m << "*" << n << ") =\n\n";
 	fl.set_mat_size(n, n) << temp;
-	for (int i = 0; i < n; i++) delete[] temp[i];
-	delete[] temp;
 }
 
 void Cholesky::out_result()
@@ -750,10 +720,6 @@ void Cholesky::out_result()
 	out_x();
 }
 
-Cholesky::~Cholesky() {
-	delete_Ax_b();
-}
-
 //5.Improved Square Root
 
 Improved_sqrt::Improved_sqrt() {
@@ -762,10 +728,7 @@ Improved_sqrt::Improved_sqrt() {
 	out_Ab();
 }
 
-Improved_sqrt::Improved_sqrt(bool no_init) {
-	if (no_init) return;
-	else Improved_sqrt();
-}
+Improved_sqrt::Improved_sqrt(bool) {}
 
 void Improved_sqrt::calc()
 {
@@ -837,8 +800,7 @@ void Improved_sqrt::calc()
 }
 
 void Improved_sqrt::out_LD() {
-	double** temp = new double* [n];
-	for (int i = 0; i < n; i++) temp[i] = new double[n];
+	vector<vector<double>> temp(n, vector<double>(n));
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < n; j++)
@@ -882,8 +844,6 @@ void Improved_sqrt::out_LD() {
 	}
 	fl << "\nD (" << m << "*" << n << ") =\n\n";
 	fl.set_mat_size(n, n) << temp;
-	for (int i = 0; i < n; i++) delete[] temp[i];
-	delete[] temp;
 }
 
 void Improved_sqrt::out_result()
@@ -897,10 +857,6 @@ void Improved_sqrt::out_result()
 #endif
 	out_LD();
 	out_x();
-}
-
-Improved_sqrt::~Improved_sqrt() {
-	delete_Ax_b();
 }
 
 //6.Chasing
@@ -923,10 +879,7 @@ Chasing::Chasing() {
 	out_Ab();
 }
 
-Chasing::Chasing(bool no_init) {
-	if (no_init) return;
-	else Chasing();
-}
+Chasing::Chasing(bool) {}
 
 void Chasing::calc()
 {
@@ -1025,8 +978,7 @@ void Chasing::save_Ab_sym_tri() {
 
 void Chasing::out_LU()
 {
-	double** temp = new double* [n];
-	for (int i = 0; i < n; i++) temp[i] = new double[n];
+	vector<vector<double>> temp(n, vector<double>(n));
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < n; j++)
@@ -1070,8 +1022,6 @@ void Chasing::out_LU()
 	}
 	fl << "\nU (" << m << "*" << n << ") =\n\n";
 	fl.set_mat_size(n, n) << temp;
-	for (int i = 0; i < n; i++) delete[] temp[i];
-	delete[] temp;
 }
 
 void Chasing::out_result()
@@ -1087,28 +1037,17 @@ void Chasing::out_result()
 	out_x();
 }
 
-Chasing::~Chasing() {
-	delete_Ax_b();
-}
-
 //7.Givens transformation (QR)
 
 Givens::Givens() {
 	init();
 	enter_Ab();
 	out_Ab();
-	Q = new double* [m];
-	for (int i = 0; i < m; i++) Q[i] = new double[m];
-	for (int i = 0; i < m; i++) for (int j = 0; j < m; j++) {
-		Q[i][j] = 0.0;
-		if (i == j) Q[i][j] = 1.0;
-	}
+	Q.resize(m, vector<double>(m, 0.0));
+	for (int i = 0; i < m; i++) Q[i][i] = 1.0;
 }
 
-Givens::Givens(bool no_init) {
-	if (no_init) return;
-	else Givens();
-}
+Givens::Givens(bool) {}
 
 void Givens::calc()
 {
@@ -1166,7 +1105,7 @@ void Givens::calc()
 			Q[j][i] = temp;
 		}
 	}
-	double* y = new double[m];
+	vector<double> y(m);
 	for (int i = 0; i < m; i++)
 	{
 		y[i] = Q[0][i] * b[0];
@@ -1200,7 +1139,6 @@ void Givens::calc()
 		}
 		x[i] /= A[i][i];
 	}
-	delete[]y;
 #ifdef CHINESE_VERSION
 	cout << "\n求解完成" << endl;
 #else
@@ -1299,32 +1237,21 @@ void Givens::out_result()
 	out_x();
 }
 
-Givens::~Givens() {
-	delete_Ax_b();
-	for (int i = 0; i < m; i++) delete[] Q[i];
-	delete[] Q;
-}
-
 //8.Householder transformation
 
 Householder::Householder() {
 	init();
 	enter_Ab();
 	out_Ab();
-	Q = new double* [m];
-	for (int i = 0; i < m; i++) Q[i] = new double[m];
-	for (int i = 0; i < m; i++) for (int j = 0; j < m; j++) {
-		Q[i][j] = 0.0;
-		if (i == j) Q[i][j] = 1.0;
-	}
-	d = new double[n];
-	alpha = new double[n];
+	Q.resize(m, vector<double>(m, 0.0));
+	for (int i = 0; i < m; i++) Q[i][i] = 1.0;
+	d.resize(n);
+	alpha.resize(n);
 	print_flag = true;
 }
 
-Householder::Householder(bool no_init) {
-	if (no_init) return;
-	else Householder();
+Householder::Householder(bool) {
+	print_flag = false;
 }
 
 Householder::Householder(int mm, int nn, std::vector<std::vector<double>> AA, std::vector<double> bb) {
@@ -1358,14 +1285,10 @@ Householder::Householder(int mm, int nn, std::vector<std::vector<double>> AA, st
 	A_init(mm, nn);
 	copy_A(AA);
 	copy_b(bb);
-	Q = new double* [m];
-	for (int i = 0; i < m; i++) Q[i] = new double[m];
-	for (int i = 0; i < m; i++) for (int j = 0; j < m; j++) {
-		Q[i][j] = 0.0;
-		if (i == j) Q[i][j] = 1.0;
-	}
-	d = new double[n];
-	alpha = new double[n];
+	Q.resize(m, vector<double>(m, 0.0));
+	for (int i = 0; i < m; i++) Q[i][i] = 1.0;
+	d.resize(n);
+	alpha.resize(n);
 	print_flag = false;
 }
 
@@ -1420,8 +1343,8 @@ void Householder::calc()
 #endif
 		throw 0;
 	}
-	double* temp1 = new double[m];
-	double* temp2 = new double[m];
+	vector<double> temp1(m);
+	vector<double> temp2(m);
 	for (int k = 0; k < min(m - 1, n); k++)
 	{
 		for (int j = 0; j < m; j++)
@@ -1446,10 +1369,8 @@ void Householder::calc()
 			}
 		}
 	}
-	delete[]temp1;
-	delete[]temp2;
 	double temp;
-	double* y = new double[m];
+	vector<double> y(m);
 	for (int i = 0; i < m; i++)
 	{
 		for (int j = i + 1; j < m; j++)
@@ -1493,7 +1414,6 @@ void Householder::calc()
 		}
 		x[i] /= d[i];
 	}
-	delete[]y;
 #ifdef CHINESE_VERSION
 	if (print_flag) cout << "\n求解完成" << endl;
 #else
@@ -1610,10 +1530,3 @@ void Householder::out_result()
 	out_x();
 }
 
-Householder::~Householder() {
-	delete_Ax_b();
-	for (int i = 0; i < m; i++) delete[] Q[i];
-	delete[] Q;
-	delete[] d;
-	delete[] alpha;
-}

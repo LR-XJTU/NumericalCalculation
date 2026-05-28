@@ -16,7 +16,7 @@ Int_Diff::Int_Diff(formula fx) {
 	print_state = false;
 }
 
-Int_Diff::Int_Diff(bool no_init) {
+Int_Diff::Int_Diff(bool) {
 	print_state = false;
 }
 
@@ -153,25 +153,18 @@ void Romberg::out_result() {
 	fl << "\nf(x) = " << fx.get_fstr() << "\n";
 	fl << "\nThe integral of f(x) on [" << interval[0] << "," << interval[1] << "] equals to \n\nR = " << result << "\n";
 #endif
-	std::vector<double>::iterator it;
-	double* e = new double[err.size()];
-	int i = 0;
-	for (it = err.begin(); it != err.end(); it++) {
-		e[i] = *it;
-		i++;
-	}
 #ifdef CHINESE_VERSION
 	cout << "\n误差表如下：\n\n计算次数 k\t\t误差" << endl;
-	for (i = 0; i < err.size(); i++) cout << "\t" << i + 1 << "\t\t\t" << e[i] << endl;
+	for (int i = 0; i < (int)err.size(); i++) cout << "\t" << i + 1 << "\t\t\t" << err[i] << endl;
 	fl << "\n误差限为 eps = " << eps << "\n";
 	fl << "\n误差表如下：\n\n计算次数 k\t\t误差\n";
 #else
 	cout << "\nThe error table is as follow:\n\ncalculation number k\t\terror" << endl;
-	for (i = 0; i < err.size(); i++) cout << "\t" << i + 1 << "\t\t\t" << e[i] << endl;
+	for (int i = 0; i < (int)err.size(); i++) cout << "\t" << i + 1 << "\t\t\t" << err[i] << endl;
 	fl << "\nThe error limit is eps = " << eps << "\n";
 	fl << "\nThe error table is as follow:\n\ncalculation number k\t\terror\n";
 #endif
-	for (i = 0; i < err.size(); i++) fl << "\t" << i + 1 << "\t\t\t" << e[i] << "\n";
+	for (int i = 0; i < (int)err.size(); i++) fl << "\t" << i + 1 << "\t\t\t" << err[i] << "\n";
 	generate_m();
 }
 
@@ -214,7 +207,7 @@ void Int_Diff::generate_m() {
 		gm << "\nfigure\n";
 		gm << "x = 1:" << (int)err.size() << ";\n";
 		gm << "data = [";
-		for (int i = 0; i < err.size(); i++) gm << err[i] << " ";
+		for (int i = 0; i < (int)err.size(); i++) gm << err[i] << " ";
 		gm << "];\n";
 		gm << "y=log2(data);\n";
 		gm << "plot(y,'rx-')\n";
@@ -303,10 +296,7 @@ DerivExtra::DerivExtra(formula fx) :Int_Diff(fx) {
 	eps = 0.5e-8;
 }
 
-DerivExtra::DerivExtra(bool no_init) : Int_Diff(no_init) {
-	if (no_init) return;
-	else DerivExtra();
-}
+DerivExtra::DerivExtra(bool) : Int_Diff(true) {}
 
 void DerivExtra::init(formula fx) {
 	this->fx = fx;
@@ -351,7 +341,7 @@ vector<double> DerivExtra::dxp(vector<double> xx, vector<int> xnum, int j, doubl
 	vector<double> xxx;
 	xxx.resize(xnum.size());
 	xx[j] += hi;
-	for (int i = 0; i < xnum.size(); i++) xxx[i] = xx[xnum[i] - 1];
+	for (size_t i = 0; i < xnum.size(); i++) xxx[i] = xx[xnum[i] - 1];
 	return xxx;
 }
 
@@ -359,7 +349,7 @@ vector<double> DerivExtra::dxn(vector<double> xx, vector<int> xnum, int j, doubl
 	vector<double> xxx;
 	xxx.resize(xnum.size());
 	xx[j] -= hi;
-	for (int i = 0; i < xnum.size(); i++) xxx[i] = xx[xnum[i] - 1];
+	for (size_t i = 0; i < xnum.size(); i++) xxx[i] = xx[xnum[i] - 1];
 	return xxx;
 }
 
@@ -491,25 +481,18 @@ void DerivExtra::out_result() {
 		fl << "(" << x << ") = " << result << "\n";
 #endif
 	}
-	std::vector<double>::iterator it;
-	double* e = new double[err.size()];
-	int i = 0;
-	for (it = err.begin(); it != err.end(); it++) {
-		e[i] = *it;
-		i++;
-	}
 #ifdef CHINESE_VERSION
 	cout << "\n误差表如下：\n\n计算次数 k\t\t误差" << endl;
-	for (i = 0; i < err.size(); i++) cout << "\t" << i + 1 << "\t\t\t" << e[i] << endl;
+	for (int i = 0; i < (int)err.size(); i++) cout << "\t" << i + 1 << "\t\t\t" << err[i] << endl;
 	fl << "\n误差限为 eps = " << eps << "\n";
 	fl << "\n误差表如下：\n\n计算次数 k\t\t误差\n";
 #else
 	cout << "\nThe error table is as follow:\n\ncalculation number k\t\terror" << endl;
-	for (i = 0; i < err.size(); i++) cout << "\t" << i + 1 << "\t\t\t" << e[i] << endl;
+	for (int i = 0; i < (int)err.size(); i++) cout << "\t" << i + 1 << "\t\t\t" << err[i] << endl;
 	fl << "\nThe error limit is eps = " << eps << "\n";
 	fl << "\nThe error table is as follow:\n\ncalculation number k\t\terror\n";
 #endif
-	for (i = 0; i < err.size(); i++) fl << "\t" << i + 1 << "\t\t\t" << e[i] << "\n";
+	for (int i = 0; i < (int)err.size(); i++) fl << "\t" << i + 1 << "\t\t\t" << err[i] << "\n";
 	generate_m();
 }
 

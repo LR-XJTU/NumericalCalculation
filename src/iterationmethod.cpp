@@ -46,7 +46,7 @@ void Iteration_method::init() {
 	set_eps();
 	fl.set_precision(eps);
 	set_max();
-	itrerr = new double[maxcounter];
+	itrerr.resize(maxcounter);
 }
 
 //save matrices A, b after constructing them as symmetric triangular matrices
@@ -167,12 +167,7 @@ void Iteration_method::set_max() {
 
 //if the actual iteration times is lower than the maximum, then resize the array saving the iteration error
 void Iteration_method::resize_itrerr() {
-	double* temp = new double[itcounter];
-	for (int i = 0; i < itcounter; i++) temp[i] = itrerr[i];
-	delete[] itrerr;
-	itrerr = new double[itcounter];
-	for (int i = 0; i < itcounter; i++) itrerr[i] = temp[i];
-	delete[] temp;
+	itrerr.resize(itcounter);
 }
 
 //cout and save results
@@ -276,11 +271,12 @@ void Iteration_method::exchange_diag_no_0(int i) {
 	{
 		temp = 0;
 		while (1) {
-			while (A[i + temp][i] == 0.0) {
+			while (i + temp >= 0 && A[i + temp][i] == 0.0) {
 				temp--;
-				if (i + temp < 0) break;
 			}
-			if (A[i][i + temp] != 0.0 || i + temp < 0) break;
+			if (i + temp < 0) break;
+			if (A[i][i + temp] != 0.0) break;
+			temp--;
 		}
 		if (i + temp < 0) {
 #ifdef CHINESE_VERSION
@@ -306,7 +302,7 @@ void Jacobi::calc() {
 #else
 	cout << "\nSolving Ax=b by Jacobi iterative method..." << endl;
 #endif
-	double* x0 = new double[n];
+	vector<double> x0(n);
 	double err;
 	for (int i = 0; i < n; i++) {
 		if (A[i][i] == 0.0) exchange_diag_no_0(i);
@@ -325,11 +321,10 @@ void Jacobi::calc() {
 			x[i] += b[i];
 		}
 		for (int i = 0; i < n; i++) x0[i] = x[i] - x0[i];
-		err = vecnorm2(x0, n);
+		err = vecnorm2(x0);
 		itrerr[itcounter] = err;
 		itcounter++;
 	} while (err > eps && itcounter < maxcounter);
-	delete[]x0;
 #ifdef CHINESE_VERSION
 	cout << "\n求解完成。" << endl;
 #else
@@ -348,11 +343,6 @@ void Jacobi::out_result() {
 	Iteration_method::out_result();
 }
 
-Jacobi::~Jacobi() {
-	delete_Ax_b();
-	delete[]itrerr;
-}
-
 //2.Gauss-Seidel iteration
 
 Gauss_Seidel::Gauss_Seidel() {
@@ -365,7 +355,7 @@ void Gauss_Seidel::calc() {
 #else
 	cout << "\nSolving Ax=b by Gauss-Samuel iterative method..." << endl;
 #endif
-	double* x0 = new double[n];
+	vector<double> x0(n);
 	double err;
 	for (int i = 0; i < n; i++) {
 		if (A[i][i] == 0.0) exchange_diag_no_0(i);
@@ -384,11 +374,10 @@ void Gauss_Seidel::calc() {
 			x[i] += b[i];
 		}
 		for (int i = 0; i < n; i++) x0[i] = x[i] - x0[i];
-		err = vecnorm2(x0, n);
+		err = vecnorm2(x0);
 		itrerr[itcounter] = err;
 		itcounter++;
 	} while (err > eps && itcounter < maxcounter);
-	delete[]x0;
 #ifdef CHINESE_VERSION
 	cout << "\n求解完成。" << endl;
 #else
@@ -405,11 +394,6 @@ void Gauss_Seidel::out_result() {
 	fl << "\nSolved by Gauss-Seidel iteration method.\n";
 #endif
 	Iteration_method::out_result();
-}
-
-Gauss_Seidel::~Gauss_Seidel() {
-	delete_Ax_b();
-	delete[]itrerr;
 }
 
 //3.SOR iteration
@@ -434,7 +418,7 @@ void SOR::calc() {
 #else
 	cout << "\nSolving Ax=b by SOR iterative method..." << endl;
 #endif
-	double* x0 = new double[n];
+	vector<double> x0(n);
 	double err;
 	for (int i = 0; i < n; i++) {
 		if (A[i][i] == 0.0) exchange_diag_no_0(i);
@@ -453,11 +437,10 @@ void SOR::calc() {
 			x[i] += b[i];
 		}
 		for (int i = 0; i < n; i++) x0[i] = x[i] - x0[i];
-		err = vecnorm2(x0, n);
+		err = vecnorm2(x0);
 		itrerr[itcounter] = err;
 		itcounter++;
 	} while (err > eps && itcounter < maxcounter);
-	delete[]x0;
 #ifdef CHINESE_VERSION
 	cout << "\n求解完成。" << endl;
 #else
@@ -474,11 +457,6 @@ void SOR::out_result() {
 	fl << "\nSolved by SOR iteration method.\n";
 #endif
 	Iteration_method::out_result();
-}
-
-SOR::~SOR() {
-	delete_Ax_b();
-	delete[]itrerr;
 }
 
 //4.steepest descent method
@@ -502,8 +480,8 @@ void steepest_descent::calc() {
 #endif
 		throw 0;
 	}
-	double* x0 = new double[n];
-	double* p = new double[n];
+	vector<double> x0(n);
+	vector<double> p(n);
 	double alpha;
 	double temp;
 	double err;
@@ -520,12 +498,10 @@ void steepest_descent::calc() {
 		alpha /= temp;
 		for (int i = 0; i < n; i++) x[i] += alpha * p[i];
 		for (int i = 0; i < n; i++) x0[i] = x[i] - x0[i];
-		err = vecnorm2(x0, n);
+		err = vecnorm2(x0);
 		itrerr[itcounter] = err;
 		itcounter++;
 	} while (err > eps && itcounter < maxcounter);
-	delete[]x0;
-	delete[]p;
 #ifdef CHINESE_VERSION
 	cout << "\n求解完成。" << endl;
 #else
@@ -544,11 +520,6 @@ void steepest_descent::out_result() {
 	Iteration_method::out_result();
 }
 
-steepest_descent::~steepest_descent() {
-	delete_Ax_b();
-	delete[]itrerr;
-}
-
 //5.conjugate gradient method
 
 conjugate_gradient::conjugate_gradient() {
@@ -556,7 +527,8 @@ conjugate_gradient::conjugate_gradient() {
 	print_state = true;
 }
 
-conjugate_gradient::conjugate_gradient(double** AA, double* bb, int nn) {
+conjugate_gradient::conjugate_gradient(const vector<vector<double>>& AA, const vector<double>& bb) {
+	int nn = AA.size();
 	A_init(nn);
 	copy_A(AA);
 	copy_b(bb);
@@ -564,7 +536,7 @@ conjugate_gradient::conjugate_gradient(double** AA, double* bb, int nn) {
 	eps = 0.5e-8;
 	maxcounter = 5 * nn;
 	init_x(0.0);
-	itrerr = new double[maxcounter];
+	itrerr.resize(maxcounter);
 	print_state = false;
 }
 
@@ -583,9 +555,9 @@ void conjugate_gradient::calc() {
 #endif
 		throw 0;
 	}
-	double* r0 = new double[n];
-	double* r = new double[n];
-	double* d = new double[n];
+	vector<double> r0(n);
+	vector<double> r(n);
+	vector<double> d(n);
 	double alpha;
 	double beta;
 	double temp;
@@ -605,11 +577,11 @@ void conjugate_gradient::calc() {
 		r[i] = b[i];
 		for (int j = 0; j < n; j++) r[i] -= A[i][j] * x[j];
 	}
-	err = vecnorm2(r, n);
+	err = vecnorm2(r);
 	itrerr[itcounter] = err;
 	itcounter++;
-	while (err > eps && itcounter < 5 * n) {
-		beta = sqr(vecnorm2(r, n) / vecnorm2(r0, n));
+	while (err > eps && itcounter < maxcounter) {
+		beta = sqr(vecnorm2(r) / vecnorm2(r0));
 		for (int i = 0; i < n; i++) {
 			d[i] *= beta;
 			d[i] += r[i];
@@ -625,13 +597,10 @@ void conjugate_gradient::calc() {
 			r[i] = b[i];
 			for (int j = 0; j < n; j++) r[i] -= A[i][j] * x[j];
 		}
-		err = vecnorm2(r, n);
+		err = vecnorm2(r);
 		itrerr[itcounter] = err;
 		itcounter++;
 	}
-	delete[]r0;
-	delete[]r;
-	delete[]d;
 #ifdef CHINESE_VERSION
 	if (print_state) cout << "\n求解完成。" << endl;
 #else
@@ -650,13 +619,8 @@ void conjugate_gradient::out_result() {
 	Iteration_method::out_result();
 }
 
-conjugate_gradient::~conjugate_gradient() {
-	delete_Ax_b();
-	delete[]itrerr;
-}
-
-void conjugate_gradient::get_result(double* xx) {
-	get_x(xx);
+void conjugate_gradient::get_result(vector<double>& xx) {
+	xx = x;
 }
 
 //6.GMRES
@@ -680,20 +644,19 @@ void GMRES::calc() {
 #else
 	cout << "\nSolving Ax=b by GMRES..." << endl;
 #endif
-	double* r0 = new double[n];
-	double** Vm = new double*[n];
-	for(int i=0;i<n;i++) Vm[i] = new double[m+1];
-	double** H_trans = new double*[m]; //transpose of H
-	for(int i=0;i<m;i++) H_trans[i] = new double[i+2];
-	double* e1 = new double[m+1];
+	vector<double> r0(n);
+	vector<vector<double>> Vm(n, vector<double>(m+1));
+	vector<vector<double>> H_trans(m);
+	for(int i=0;i<m;i++) H_trans[i].resize(i+2);
+	vector<double> e1(m+1);
 	double c,s,tmpi,tmpj;
-	double* y = new double[m];
+	vector<double> y(m);
 	double err;
 	for(int i=0;i<n;i++) {
 		r0[i] = b[i];
 		for(int j=0;j<n;j++) r0[i] -= A[i][j]*x[j];
 	}
-	err = vecnorm2(r0,n);
+	err = vecnorm2(r0);
 	while (err > eps && itcounter < maxcounter) {
 		//Arnoldi process
 		for(int i=0;i<n;i++) Vm[i][0] = r0[i]/err;
@@ -709,7 +672,7 @@ void GMRES::calc() {
 				for(int j=0;j<=k;j++) Vm[i][k+1] -= H_trans[k][j]*Vm[i][j];
 			}
 			for(int i=0;i<n;i++) r0[i] = Vm[i][k+1];
-			H_trans[k][k+1] = vecnorm2(r0,n);
+			H_trans[k][k+1] = vecnorm2(r0);
 			if(k==(m-1) && H_trans[m-1][m]==0.0) for(int i=0;i<n;i++) Vm[i][m] = 0.0;
 			else for(int i=0;i<n;i++) Vm[i][k+1] /= H_trans[k][k+1];
 		}
@@ -745,13 +708,6 @@ void GMRES::calc() {
 		itrerr[itcounter] = err;
 		itcounter++;
 	}
-	delete[] r0;
-	for(int i=0;i<n;i++) delete[] Vm[i];
-	delete[] Vm;
-	for(int i=0;i<m;i++) delete[] H_trans[i];
-	delete[] H_trans;
-	delete[] e1;
-	delete[] y;
 #ifdef CHINESE_VERSION
 	cout << "\n求解完成。" << endl;
 #else
@@ -770,7 +726,3 @@ void GMRES::out_result() {
 	Iteration_method::out_result();
 }
 
-GMRES::~GMRES() {
-	delete_Ax_b();
-	delete[]itrerr;
-}

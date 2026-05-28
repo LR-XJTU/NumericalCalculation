@@ -2,8 +2,6 @@
 *.txt
 *.m
 *.html
-Makefile.win
-*.dev
 *.exe
-*.layout
-.gitignore
+.env
+.claude/

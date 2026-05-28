@@ -12,14 +12,14 @@ protected:
 	double interval[2];
 	//weight function
 	bool w_flag;
-	double* wl;
+	std::vector<double> wl;
 	formula wc;
 	//basis function
 	int np1;
-	double** c;
-	formula* basis;
+	std::vector<std::vector<double>> c;
+	std::vector<formula> basis;
 	//result
-	double* coef;
+	std::vector<double> coef;
 	std::string resultstr;
 	double err;
 	filelog fl;
@@ -27,11 +27,11 @@ public:
 	optimal_approx();
 	virtual ~optimal_approx() = default;
 	double inner_product(formula f, formula g, formula w, double a, double b);
-	double inner_product(formula f, formula g, double* x, int m, double *w);
-	double inner_product(formula f, double* y, double* x, int m, double* w);
-	double inner_product(double* y1, double* y2, int m, double* w);
-	void Cheby_poly(double**, int);
-	std::string polytostr(double* p, int l);
+	double inner_product(formula f, formula g, const std::vector<double>& x, const std::vector<double>& w);
+	double inner_product(formula f, const std::vector<double>& y, const std::vector<double>& x, const std::vector<double>& w);
+	double inner_product(const std::vector<double>& y1, const std::vector<double>& y2, const std::vector<double>& w);
+	void Cheby_poly(std::vector<std::vector<double>>&, int);
+	std::string polytostr(const std::vector<double>& p);
 	virtual void calc() = 0;
 	virtual void out_result() = 0;
 };
@@ -41,15 +41,14 @@ protected:
 	bool cont;
 	//list function
 	int m;
-	double* x;
-	double* y;
+	std::vector<double> x;
+	std::vector<double> y;
 	int basis_flag;
 public:
 	sqr_approx();
-	~sqr_approx();
 	void sort_xy();
 	double innpro(formula f, formula g);
-	void orth_poly(formula*, int);
+	void orth_poly(std::vector<formula>&, int);
 	void calc();
 	void out_result();
 	void generate_m();
@@ -61,7 +60,6 @@ protected:
 	formula fx_xt_cos;
 public:
 	uni_approx();
-	~uni_approx();
 	void calc();
 	void out_result();
 	void generate_m();

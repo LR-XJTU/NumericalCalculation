@@ -1,16 +1,8 @@
 #include <iostream>
+#include <algorithm>
 #include "linear_equations.h"
 #include "common_fd.h"
 using namespace std;
-
-void Ax_b::delete_Ax_b() {
-	if (init_flag) {
-		for (int i = 0; i < m; i++) delete[] A[i];
-		delete[] A;
-		delete[] b;
-		delete[] x;
-	}
-}
 
 void Ax_b::enter_Ab() {
 #ifdef CHINESE_VERSION
@@ -60,21 +52,17 @@ void Ax_b::init_x(double x0) {
 void Ax_b::A_init(int mn) {
 	m = mn;
 	n = mn;
-	A = new double* [n];
-	for (int i = 0; i < n; i++) A[i] = new double[n];
-	b = new double[n];
-	x = new double[n];
-	init_flag = true;
+	A.resize(n, vector<double>(n));
+	b.resize(n);
+	x.resize(n);
 }
 
 void Ax_b::A_init(int mm, int nn) {
 	m = mm;
 	n = nn;
-	A = new double* [m];
-	for (int i = 0; i < m; i++) A[i] = new double[n];
-	b = new double[m];
-	x = new double[n];
-	init_flag = true;
+	A.resize(m, vector<double>(n));
+	b.resize(m);
+	x.resize(n);
 }
 
 void Ax_b::in_A(int i, int j, double data) {
@@ -85,38 +73,22 @@ void Ax_b::in_b(int i, double data) {
 	b[i] = data;
 }
 
-void Ax_b::copy_A(double** AA) {
+void Ax_b::copy_A(const vector<vector<double>>& AA) {
 	for (int i = 0; i < m; i++) for (int j = 0; j < n; j++) A[i][j] = AA[i][j];
 }
 
-void Ax_b::copy_b(double* bb) {
+void Ax_b::copy_b(const vector<double>& bb) {
 	for (int i = 0; i < m; i++) b[i] = bb[i];
 }
 
-void Ax_b::copy_A(vector<vector<double>> AA) {
-	for (int i = 0; i < m; i++) for (int j = 0; j < n; j++) A[i][j] = AA[i][j];
-}
-
-void Ax_b::copy_b(vector<double> bb) {
-	for (int i = 0; i < m; i++) b[i] = bb[i];
-}
-
-void Ax_b::get_x(double* r) {
-	for (int i = 0; i < n; i++) r[i] = x[i];
+void Ax_b::get_x(vector<double>& xx) {
+	xx = x;
 }
 
 void Ax_b::exchange_row(int i1, int i2)
 {
-	double temp;
-	for (int j = 0; j < n; j++)
-	{
-		temp = A[i1][j];
-		A[i1][j] = A[i2][j];
-		A[i2][j] = temp;
-	}
-	temp = b[i1];
-	b[i1] = b[i2];
-	b[i2] = temp;
+	swap(A[i1], A[i2]);
+	swap(b[i1], b[i2]);
 }
 
 bool Ax_b::check_symmetry()
@@ -145,7 +117,7 @@ bool Ax_b::check_tridiagonal()
 	return false;
 }
 
-void Ax_b::construct_tri(double* dd, double* ud, double* ld) {
+void Ax_b::construct_tri(const vector<double>& dd, const vector<double>& ud, const vector<double>& ld) {
 	for (int i = 0; i < m; i++) for (int j = 0; j < n; j++) {
 		if (i == j) A[i][j] = dd[i];
 		else if (i - j == 1) A[i][j] = ld[j];

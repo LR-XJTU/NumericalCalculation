@@ -141,7 +141,8 @@ void Interpolation::in_y(int i, double t) {
 }
 
 //cout a polynomial
-void Interpolation::cout_poly(double* p, int l) {
+void Interpolation::cout_poly(const vector<double>& p) {
+	int l = p.size();
 	bool zero_flag = 1;
 	for (int i = 0; i < l; i++) {
 		if (p[i] == 0.0 && (i < l - 1 || !zero_flag)) continue;
@@ -155,7 +156,8 @@ void Interpolation::cout_poly(double* p, int l) {
 }
 
 //save a polynomial
-void Interpolation::save_poly(double* p, int l) {
+void Interpolation::save_poly(const vector<double>& p) {
+	int l = p.size();
 	bool zero_flag = 1;
 	for (int i = 0; i < l; i++) {
 		if (p[i] == 0.0 && (i < l - 1 || !zero_flag)) continue;
@@ -170,7 +172,8 @@ void Interpolation::save_poly(double* p, int l) {
 }
 
 //transform a polynomial into string
-std::string Interpolation::polytostr(double* p, int l) {
+std::string Interpolation::polytostr(const vector<double>& p) {
+	int l = p.size();
 	std::string ts;
 	bool zero_flag = 1;
 	for (int i = 0; i < l; i++) {
@@ -213,32 +216,21 @@ Newton_Ip::Newton_Ip() {
 		throw 0;
 	}
 	np1 = nn;
-	x = new double[np1];
-	y = new double[np1];
-	f = new double* [np1];
-	for (int i = 0; i < np1; i++) f[i] = new double[np1];
-	N = new double[np1];
-	for (int i = 0; i < np1; i++) N[i] = 0.0;
+	x.resize(np1);
+	y.resize(np1);
+	f.resize(np1, vector<double>(np1));
+	N.resize(np1, 0.0);
 	input_data();
 }
 
-Newton_Ip::Newton_Ip(bool no_init) {
-	if (no_init) return;
-	else Newton_Ip();
-}
+Newton_Ip::Newton_Ip(bool) {}
 
-Newton_Ip::Newton_Ip(double* xx, double* yy, double nnp1) {
-	np1 = nnp1;
-	x = new double[np1];
-	y = new double[np1];
-	for (int i = 0; i < np1; i++) {
-		x[i] = xx[i];
-		y[i] = yy[i];
-	}
-	f = new double* [np1];
-	for (int i = 0; i < np1; i++) f[i] = new double[np1];
-	N = new double[np1];
-	for (int i = 0; i < np1; i++) N[i] = 0.0;
+Newton_Ip::Newton_Ip(const vector<double>& xx, const vector<double>& yy) {
+	np1 = xx.size();
+	x = xx;
+	y = yy;
+	f.resize(np1, vector<double>(np1));
+	N.resize(np1, 0.0);
 }
 
 void Newton_Ip::cout_polynomial() {
@@ -247,7 +239,7 @@ void Newton_Ip::cout_polynomial() {
 #else
 	cout << "\nN = ";
 #endif
-	cout_poly(N, np1);
+	cout_poly(N);
 	cout << endl;
 }
 
@@ -257,7 +249,7 @@ void Newton_Ip::save_polynomial() {
 #else
 	fl << "\nN = ";
 #endif
-	save_poly(N, np1);
+	save_poly(N);
 	fl << "\n";
 }
 
@@ -321,7 +313,8 @@ void Newton_Ip::pure_calc() {
 }
 
 //transform a polynomial into string
-std::string Newton_Ip::polytostr_nodot(double* p, int l) {
+std::string Newton_Ip::polytostr_nodot(const vector<double>& p) {
+	int l = p.size();
 	std::string ts;
 	bool zero_flag = 1;
 	for (int i = 0; i < l; i++) {
@@ -346,7 +339,7 @@ std::string Newton_Ip::polytostr_nodot(double* p, int l) {
 
 string Newton_Ip::get_str() {
 	string s;
-	s = polytostr_nodot(N, np1);
+	s = polytostr_nodot(N);
 	return s;
 }
 
@@ -451,7 +444,7 @@ void Newton_Ip::generate_m() {
 			}
 			gm << "fplot(@(x) " << s << ",[" << x[0] << "," << x[np1 - 1] << "])\n" << "hold on\n";
 		}
-		gm << "fplot(@(x) " << polytostr(N, np1) << ",[" << x[0] << "," << x[np1 - 1] << "])\n";
+		gm << "fplot(@(x) " << polytostr(N) << ",[" << x[0] << "," << x[np1 - 1] << "])\n";
 		gm << "xlabel('x');\n";
 		gm << "ylabel('y');\n";
 		gm << "title('The graph of interpolation polynomial');\n";
@@ -485,48 +478,13 @@ void Newton_Ip::pi_expansion(int ord) {
 }
 
 void Newton_Ip::add_point(double xx, double yy) {
-	double* temp = new double[np1];
-	for (int i = 0; i < np1; i++) temp[i] = x[i];
-	delete[] x;
+	x.push_back(xx);
+	y.push_back(yy);
+	N.insert(N.begin(), 0.0);
+	vector<vector<double>> ff = f;
+	f.resize(np1 + 1, vector<double>(np1 + 1));
+	for (int i = 0; i < np1; i++) for (int j = 0; j <= i; j++) f[i][j] = ff[i][j];
 	np1++;
-	x = new double[np1];
-	for (int i = 0; i < np1 - 1; i++) x[i] = temp[i];
-	x[np1 - 1] = xx;
-	np1--;
-	for (int i = 0; i < np1; i++) temp[i] = y[i];
-	delete[] y;
-	np1++;
-	y = new double[np1];
-	for (int i = 0; i < np1 - 1; i++) y[i] = temp[i];
-	y[np1 - 1] = yy;
-	np1--;
-	for (int i = 0; i < np1; i++) temp[i] = N[i];
-	delete[] N;
-	np1++;
-	N = new double[np1];
-	N[0] = 0.0;
-	for (int i = 1; i < np1; i++) N[i] = temp[i-1];
-	delete[] temp;
-	np1--;
-	double** ff = new double* [np1];
-	for (int i = 0; i < np1; i++) ff[i] = new double[np1];
-	for (int i = 0; i < np1; i++) for (int j = 0; j <= i; j++) ff[i][j] = f[i][j];
-	for (int i = 0; i < np1; i++) delete[] f[i];
-	delete[] f;
-	np1++;
-	f = new double* [np1];
-	for (int i = 0; i < np1; i++) f[i] = new double[np1];
-	for (int i = 0; i < np1 - 1; i++) for (int j = 0; j <= i; j++) f[i][j] = ff[i][j];
-	for (int i = 0; i < np1 - 1; i++) delete[] ff[i];
-	delete[] ff;
-}
-
-Newton_Ip::~Newton_Ip() {
-	delete[] x;
-	delete[] y;
-	for (int i = 0; i < np1; i++) delete[] f[i];
-	delete[] f;
-	delete[] N;
 }
 
 //2.Hermite interpolation
@@ -549,14 +507,11 @@ Hermite_Ip::Hermite_Ip() :Newton_Ip(true) {
 		throw 0;
 	}
 	np1 = nn;
-	x = new double[np1];
-	y = new double[np1];
-	f = new double* [np1];
-	for (int i = 0; i < np1; i++) f[i] = new double[np1];
-	N = new double[np1];
-	for (int i = 0; i < np1; i++) N[i] = 0.0;
-	d = new int[np1];
-	for (int i = 0; i < np1; i++) d[i] = 0;
+	x.resize(np1);
+	y.resize(np1);
+	f.resize(np1, vector<double>(np1));
+	N.resize(np1, 0.0);
+	d.resize(np1, 0);
 	input_data();
 }
 
@@ -721,7 +676,7 @@ void Hermite_Ip::cout_polynomial() {
 #else
 	cout << "\nH = ";
 #endif
-	cout_poly(N, np1);
+	cout_poly(N);
 	cout << endl;
 }
 
@@ -731,7 +686,7 @@ void Hermite_Ip::save_polynomial() {
 #else
 	fl << "\nH = ";
 #endif
-	save_poly(N, np1);
+	save_poly(N);
 	fl << "\n";
 }
 
@@ -820,26 +775,9 @@ void Hermite_Ip::difference_quotient(int i, int j) {
 }
 
 void Hermite_Ip::add_point(double xx, double yy, int dd) {
-	int* temp = new int[np1];
-	for (int i = 0; i < np1; i++) temp[i] = d[i];
-	delete[] d;
-	np1++;
-	d = new int[np1];
-	for (int i = 0; i < np1 - 1; i++) d[i] = temp[i];
-	d[np1 - 1] = dd;
-	delete[] temp;
-	np1--;
+	d.push_back(dd);
 	Newton_Ip::add_point(xx, yy);
 	for (int i = 0; i < np1; i++) N[i] = 0.0;
-}
-
-Hermite_Ip::~Hermite_Ip() {
-	delete[] x;
-	delete[] y;
-	for (int i = 0; i < np1; i++) delete[] f[i];
-	delete[] f;
-	delete[] N;
-	delete[] d;
 }
 
 //3.cube spline interpolation
@@ -862,10 +800,9 @@ cube_spline::cube_spline() {
 		throw 0;
 	}
 	np1 = nn;
-	x = new double[np1];
-	y = new double[np1];
-	S = new double* [np1 - 1];
-	for (int i = 0; i < np1 - 1; i++) S[i] = new double[4];
+	x.resize(np1);
+	y.resize(np1);
+	S.resize(np1 - 1, vector<double>(4));
 	input_data();
 	input_bd();
 }
@@ -928,7 +865,7 @@ void cube_spline::cout_polynomial() {
 #endif
 	for (int i = 0; i < np1 - 1; i++) {
 		cout << "\t";
-		cout_poly(S[i], 4);
+		cout_poly(S[i]);
 		cout << " , " << x[i] << " <= x <= " << x[i + 1] << endl;
 	}
 }
@@ -941,7 +878,7 @@ void cube_spline::save_polynomial() {
 #endif
 	for (int i = 0; i < np1 - 1; i++) {
 		fl << "\t";
-		save_poly(S[i], 4);
+		save_poly(S[i]);
 		fl << " , " << x[i] << " <= x <= " << x[i + 1] << "\n";
 	}
 }
@@ -952,9 +889,8 @@ void cube_spline::calc() {
 #else
 	cout << "\nCalculating the interpolation polynomial..." << endl;
 #endif
-	double* h = new double[np1 - 1];
+	vector<double> h(np1 - 1);
 	for (int i = 0; i < np1 - 1; i++) h[i] = x[i + 1] - x[i];
-	double* M_solve, * M, * mu, * lambda, * d;
 	double extra_lm[2];
 	int siz;
 	switch (bdcd_flag) {
@@ -970,11 +906,11 @@ void cube_spline::calc() {
 	default:
 		break;
 	}
-	M = new double[np1];
-	M_solve = new double[siz];
-	d = new double[siz];
-	lambda = new double[siz - 1];
-	mu = new double[siz - 1];
+	vector<double> M(np1);
+	vector<double> M_solve(siz);
+	vector<double> d(siz);
+	vector<double> lambda(siz - 1);
+	vector<double> mu(siz - 1);
 	switch (bdcd_flag) {
 	case 1:
 		for (int i = 0; i < siz - 1; i++) lambda[i] = h[i + 1] / (h[i] + h[i + 1]);
@@ -1006,8 +942,7 @@ void cube_spline::calc() {
 	default:
 		break;
 	}
-	double* a = new double[siz];
-	for (int i = 0; i < siz; i++) a[i] = 2.0;
+	vector<double> a(siz, 2.0);
 	Direct_method* mat;
 	if (bdcd_flag == 3) mat = new Doolittle(true);
 	else mat = new Chasing(true);
@@ -1026,7 +961,7 @@ void cube_spline::calc() {
 		M[np1 - 1] = bd[1];
 		break;
 	case 2:
-		for (int i = 0; i < np1; i++) M[i] = M_solve[i - 1];
+		for (int i = 0; i < np1; i++) M[i] = M_solve[i];
 		break;
 	case 3:
 		M[0] = M_solve[np1 - 2];
@@ -1039,12 +974,6 @@ void cube_spline::calc() {
 	for (int i = 0; i < np1 - 1; i++) S[i][1] = (M[i] * x[i + 1] - M[i + 1] * x[i]) / 2.0 / h[i];
 	for (int i = 0; i < np1 - 1; i++) S[i][2] = ((3.0 * sqr(x[i]) - sqr(h[i])) * M[i + 1] - (3.0 * sqr(x[i + 1]) - sqr(h[i])) * M[i] + 6.0 * (y[i + 1] - y[i])) / 6.0 / h[i];
 	for (int i = 0; i < np1 - 1; i++) S[i][3] = ((sqr(h[i]) - sqr(x[i])) * x[i] * M[i + 1] - (sqr(h[i]) - sqr(x[i + 1])) * x[i + 1] * M[i] + 6.0 * (x[i + 1] * y[i] - x[i] * y[i + 1])) / 6.0 / h[i];
-	delete[] h;
-	delete[] M;
-	delete[] M_solve;
-	delete[] mu;
-	delete[] lambda;
-	delete[] d;
 #ifdef CHINESE_VERSION
 	cout << "\n插值完成。" << endl;
 #else
@@ -1157,7 +1086,7 @@ void cube_spline::generate_m() {
 			gm << "fplot(@(x) " << s << ",[" << x[0] << "," << x[np1 - 1] << "])\n" << "hold on\n";
 		}
 		for (int i = 0; i < np1 - 1; i++) {
-			gm << "fplot(@(x) " << polytostr(S[i], 4) << ",[" << x[i] << "," << x[i + 1] << "])\n";
+			gm << "fplot(@(x) " << polytostr(S[i]) << ",[" << x[i] << "," << x[i + 1] << "])\n";
 			if (i < np1 - 2) gm << "hold on\n";
 		}
 		gm << "xlabel('x');\n";
@@ -1168,9 +1097,3 @@ void cube_spline::generate_m() {
 #endif
 }
 
-cube_spline::~cube_spline() {
-	delete[] x;
-	delete[] y;
-	for (int i = 0; i < np1 - 1; i++) delete[] S[i];
-	delete[] S;
-}

@@ -78,12 +78,25 @@ Eigen_val_vec — Power_method, Inverse_power
 ### 核心工具类
 
 - **`formula`** — 数学表达式解析器（逆波兰求值）。流程：`rf_str()` 预处理 → `trans_rpn()` 调度场算法 → `f(x)` 求值。支持隐式乘法、科学计数法（仅大写 `E`，小写 `e` 是自然对数底数）、`log` 底数转换。`formulae` 是多变量版本，变量名为 `x1, x2, ...`。
-- **`filelog`** — 文件日志，重载 `<<` 输出矩阵/向量，支持 `.txt`、`.m`（MATLAB 脚本）、`.html`（Web 可视化）。配合 `set_mat_size()` / `set_array_len()` 使用。
-- **`Ax_b`** — 线性方程组基类，封装 `A/b/x` 矩阵/向量、输入/输出、对称性/三对角检测、行交换等。
+- **`filelog`** — 文件日志，重载 `<<` 输出矩阵/向量（接受 `const std::vector<double>&` 和 `const std::vector<std::vector<double>>&`），支持 `.txt`、`.m`（MATLAB 脚本）、`.html`（Web 可视化）。配合 `set_mat_size()` / `set_array_len()` 使用。
+- **`Ax_b`** — 线性方程组基类，封装矩阵/向量（`std::vector<std::vector<double>> A`、`std::vector<double> x`、`std::vector<double> b`）、输入/输出、对称性/三对角检测、行交换（O(1) `std::swap`）等。
 
 ### 内存管理
 
-项目使用原始 `new[]` / `delete[]`，资源释放依赖各子类的析构函数。由于基类析构已为 virtual，通过基类指针 `delete` 能正确释放。
+全部使用 `std::vector` / `std::vector<std::vector<double>>`，**无 `new[]`/`delete[]`**。RAII 自动管理，无需手动释放。所有仅做 `delete[]` 的析构函数已删除，编译器自动生成。
+
+### 函数约定
+
+- 矩阵参数用 `const std::vector<std::vector<double>>&`
+- 向量参数用 `const std::vector<double>&` 或 `std::vector<double>&`（输出参数）
+- 范数函数 `vecnorm*`、`matnorm*` 只接受 vector 版本（无原始指针重载）
+- `Ax_b::get_x(std::vector<double>&)` 直接赋值（`xx = x`），无需传大小
+
+## 已知问题
+
+- **`bool no_init` 构造函数**（`directmethod.cpp` 8 个类 + `interpolation.cpp` Newton_Ip）：`else ClassName();` 创建临时对象而非委托构造，`no_init=false` 路径不工作。当前所有调用都传 `true`，暂时潜伏。不要新增 `false` 调用。
+- **`cube_spline::calc()`** `bdcd_flag == 2` 时 `M_solve[-1]` 越界，需对照算法修正。
+- **`exchange_diag_no_0()`** 负数索引检查在访问之后，极罕见触发。
 
 ## 注意事项
 
@@ -91,3 +104,4 @@ Eigen_val_vec — Power_method, Inverse_power
 - 自动生成的输出文件（`.txt`、`.m`、`.html`）在项目根目录，已在 `.gitignore` 中
 - `testdata.txt` 是 4×4 线性方程组的测试数据（A 矩阵 + b 向量），用于快速验证线性方程组求解
 - 构建 `resultstr`（用于 `formula` 解析的表达式字符串）时，`stringstream` 需加 `uppercase`，确保科学计数法输出大写 `E`
+- 所有 `.cpp` 和 `.h` 使用 `std::vector`，**不要引入 `new[]`/`delete[]`**。需要动态数组时用 `vector::resize()`

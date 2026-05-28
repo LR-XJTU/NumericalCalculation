@@ -29,7 +29,7 @@ int strtoint(string s) {
 int in_int() {
 	string s;
 	cin >> s;
-	for (int i = 0; i < s.length(); i++)
+	for (size_t i = 0; i < s.length(); i++)
 	{
 		if (s[i] - '0' < 0 || s[i] - '9' > 0)
 		{
@@ -68,54 +68,48 @@ double calc_fac(double k) {
 }
 
 //1-norm of vector
-double vecnorm1(double* xx, int nn) {
+double vecnorm1(const vector<double>& xx) {
 	double norm = 0.0;
-	for (int i = 0; i < nn; i++) norm += fabs(xx[i]);
+	for (size_t i = 0; i < xx.size(); i++) norm += fabs(xx[i]);
 	return norm;
 }
 
 //2-norm of vector
-double vecnorm2(double* xx, int nn) {
+double vecnorm2(const vector<double>& xx) {
 	double norm = 0.0;
-	for (int i = 0; i < nn; i++) norm += sqr(xx[i]);
-	norm = sqrt(norm);
-	return norm;
-}
-
-//2-norm of vector
-double vecnorm2(vector<double> xx) {
-	double norm = 0.0;
-	for (int i = 0; i < xx.size(); i++) norm += sqr(xx[i]);
+	for (size_t i = 0; i < xx.size(); i++) norm += sqr(xx[i]);
 	norm = sqrt(norm);
 	return norm;
 }
 
 //inf-norm of vector
-double vecnorminf(double* xx, int nn) {
+double vecnorminf(const vector<double>& xx) {
 	double norm = fabs(xx[0]);
-	for (int i = 1; i < nn; i++) if (fabs(xx[i]) > norm) norm = fabs(xx[i]);
+	for (size_t i = 1; i < xx.size(); i++) if (fabs(xx[i]) > norm) norm = fabs(xx[i]);
 	return norm;
 }
 
 //1-norm of matrix
-double matnorm1(double** mm, int nn) {
+double matnorm1(const vector<vector<double>>& mm) {
+	size_t nn = mm.size();
 	double norm = 0.0;
-	for (int i = 0; i < nn; i++) norm += fabs(mm[i][0]);
-	for (int j = 1; j < nn; j++) {
+	for (size_t i = 0; i < nn; i++) norm += fabs(mm[i][0]);
+	for (size_t j = 1; j < nn; j++) {
 		double temp = 0.0;
-		for (int i = 0; i < nn; i++) temp += fabs(mm[i][j]);
+		for (size_t i = 0; i < nn; i++) temp += fabs(mm[i][j]);
 		if (temp > norm) norm = temp;
 	}
 	return norm;
 }
 
 //inf-norm of matrix
-double matnorminf(double** mm, int nn) {
+double matnorminf(const vector<vector<double>>& mm) {
+	size_t nn = mm.size();
 	double norm = 0.0;
-	for (int i = 0; i < nn; i++) norm += fabs(mm[0][i]);
-	for (int i = 1; i < nn; i++) {
+	for (size_t i = 0; i < nn; i++) norm += fabs(mm[0][i]);
+	for (size_t i = 1; i < nn; i++) {
 		double temp = 0.0;
-		for (int j = 0; j < nn; j++) temp += fabs(mm[i][j]);
+		for (size_t j = 0; j < nn; j++) temp += fabs(mm[i][j]);
 		if (temp > norm) norm = temp;
 	}
 	return norm;
@@ -123,8 +117,8 @@ double matnorminf(double** mm, int nn) {
 
 vector<vector<double>> mat_inverse(vector<vector<double>> A0) {
 	vector<vector<double>> A;
-	int n = A0.size();
-	for (int i = 0; i < n; i++) {
+	size_t n = A0.size();
+	for (size_t i = 0; i < n; i++) {
 		if (A0[i].size() != n) {
 #ifdef CHINESE_VERSION
 			cout << "错误：矩阵不是方阵，无法求逆" << endl;
@@ -135,36 +129,36 @@ vector<vector<double>> mat_inverse(vector<vector<double>> A0) {
 		}
 	}
 	A.resize(n);
-	for (int i = 0; i < n; i++) {
+	for (size_t i = 0; i < n; i++) {
 		A[i].resize(n);
 		A[i][i] = 1.0;
 	}
 	double t;
-	for (int i = 0; i < n; i++) {
-		for (int ii = i + 1; ii < n; ii++) {
+	for (size_t i = 0; i < n; i++) {
+		for (size_t ii = i + 1; ii < n; ii++) {
 			t = A0[ii][i] / A0[i][i];
-			for (int j = i; j < n; j++) A0[ii][j] -= t * A0[i][j];
-			for (int j = 0; j < n; j++) A[ii][j] -= t * A[i][j];
+			for (size_t j = i; j < n; j++) A0[ii][j] -= t * A0[i][j];
+			for (size_t j = 0; j < n; j++) A[ii][j] -= t * A[i][j];
 		}
 		t = 1.0 / A0[i][i];
-		for (int j = i; j < n; j++) A0[i][j] *= t;
-		for (int j = 0; j < n; j++) A[i][j] *= t;
-		for (int ii = i - 1; ii >= 0; ii--) {
+		for (size_t j = i; j < n; j++) A0[i][j] *= t;
+		for (size_t j = 0; j < n; j++) A[i][j] *= t;
+		for (int ii = (int)i - 1; ii >= 0; ii--) {
 			t = A0[ii][i] / A0[i][i];
-			for (int j = i; j < n; j++) A0[ii][j] -= t * A0[i][j];
-			for (int j = 0; j < n; j++) A[ii][j] -= t * A[i][j];
+			for (size_t j = i; j < n; j++) A0[ii][j] -= t * A0[i][j];
+			for (size_t j = 0; j < n; j++) A[ii][j] -= t * A[i][j];
 		}
 	}
 	return A;
 }
 
 vector<vector<double>> mat_multi(vector<vector<double>> A, vector<vector<double>> B) {
-	int m1, m2, n1, n2;
+	size_t m1, m2, n1, n2;
 	m1 = A.size();
 	n1 = A[0].size();
 	m2 = B.size();
 	n2 = B[0].size();
-	for (int i = 0; i < m1; i++) {
+	for (size_t i = 0; i < m1; i++) {
 		if (A[i].size() != n1) {
 #ifdef CHINESE_VERSION
 			cout << "错误：矩阵阶数不一致" << endl;
@@ -174,7 +168,7 @@ vector<vector<double>> mat_multi(vector<vector<double>> A, vector<vector<double>
 			throw 0;
 		}
 	}
-	for (int i = 0; i < m2; i++) {
+	for (size_t i = 0; i < m2; i++) {
 		if (B[i].size() != n2) {
 #ifdef CHINESE_VERSION
 			cout << "错误：矩阵阶数不一致" << endl;
@@ -193,16 +187,16 @@ vector<vector<double>> mat_multi(vector<vector<double>> A, vector<vector<double>
 		throw 0;
 	}
 	vector<vector<double>> C(m1);
-	for (int i = 0; i < m1; i++) C[i].resize(n2);
-	for (int i = 0; i < m1; i++) for (int j = 0; j < n2; j++) for (int k = 0; k < n1; k++) C[i][j] += A[i][k] * B[k][j];
+	for (size_t i = 0; i < m1; i++) C[i].resize(n2);
+	for (size_t i = 0; i < m1; i++) for (size_t j = 0; j < n2; j++) for (size_t k = 0; k < n1; k++) C[i][j] += A[i][k] * B[k][j];
 	return C;
 }
 
 vector<double> mat_multi_vec(vector<vector<double>> A, vector<double> a) {
-	int m, n;
+	size_t m, n;
 	m = A.size();
 	n = A[0].size();
-	for (int i = 0; i < m; i++) if (A[i].size() != n) {
+	for (size_t i = 0; i < m; i++) if (A[i].size() != n) {
 #ifdef CHINESE_VERSION
 		cout << "错误：矩阵阶数不一致" << endl;
 #else
@@ -219,9 +213,9 @@ vector<double> mat_multi_vec(vector<vector<double>> A, vector<double> a) {
 		throw 0;
 	}
 	vector<double> b(m);
-	for (int i = 0; i < m; i++) {
+	for (size_t i = 0; i < m; i++) {
 		b[i] = 0.0;
-		for (int j = 0; j < n; j++) b[i] += A[i][j] * a[j];
+		for (size_t j = 0; j < n; j++) b[i] += A[i][j] * a[j];
 	}
 	return b;
 }
