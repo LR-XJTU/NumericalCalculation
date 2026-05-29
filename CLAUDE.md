@@ -111,3 +111,4 @@ Gauss(bool)    // 传 true：空壳，程序内部传数据后手动调 init()/c
 - 构建 `resultstr`（用于 `formula` 解析的表达式字符串）时，`stringstream` 需加 `uppercase`，确保科学计数法输出大写 `E`
 - 所有 `.cpp` 和 `.h` 使用 `std::vector`，**不要引入 `new[]`/`delete[]`**。需要动态数组时用 `vector::resize()`
 - 编译必须通过 `-Wall -Wextra` 零警告。新增代码避免 `-Wsign-compare`（循环变量与 `.size()` 比较用 `size_t`）
+- **修复任何 bug 后必须更新 `BUGFIX_LOG.md`**，区分是原始代码的 bug 还是本次修改引入的。该文件是项目的修复历史档案
