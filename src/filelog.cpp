@@ -41,6 +41,7 @@ void filelog::init(const char* fn) {
 		flog = new fstream(filename, ios::out);
 	}
 	flog->precision(15);
+	(*flog) << uppercase;
 	if (filetype == FILE_TXT) (*flog) << "\n===================================================================\n";
 	init_flag = true;
 }

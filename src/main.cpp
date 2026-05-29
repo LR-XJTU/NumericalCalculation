@@ -473,6 +473,7 @@ void Numerical_calculating() {
 
 int main() {
 	system("chcp 65001 > nul");
+	cout << uppercase;
 	int c_flag = 1;
 	do{
 		cout.precision(15);

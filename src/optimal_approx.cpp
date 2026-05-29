@@ -384,7 +384,6 @@ void sqr_approx::calc() {
 }
 
 void sqr_approx::out_result() {
-	cout << uppercase;
 	if (cont) {
 		cout << "\nf(x) = " << fx.get_fstr() << " , " << interval[0] << " <= x <= " << interval[1] << endl;
 		fl << "\nf(x) = " << fx.get_fstr() << " , " << interval[0] << " <= x <= " << interval[1] << "\n";
