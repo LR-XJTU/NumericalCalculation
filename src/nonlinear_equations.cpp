@@ -12,18 +12,31 @@ nl_eq::nl_eq() {
 }
 
 void nl_eq::input_fx() {
+#ifdef CHINESE_VERSION
+	cout << "\n非线性方程：f(x) = 0" << endl;
+#else
 	cout << "\nNonlinear equation: f(x) = 0" << endl;
+#endif
 	fx.showtips();
 	cout << "\nf(x) = ";
 	string s;
 	cin >> s;
 	fx.init(s);
+#ifdef CHINESE_VERSION
+	cout << "\n方程为 " << fx.get_fstr() << " = 0 (MATLAB格式)" << endl;
+	fl << "\n方程为 " << fx.get_fstr() << " = 0 (MATLAB格式)\n";
+#else
 	cout << "\nThe equation is " << fx.get_fstr() << " = 0 (MATLAB format)" << endl;
 	fl << "\nThe equation is " << fx.get_fstr() << " = 0 (MATLAB format)\n";
+#endif
 }
 
 void nl_eq::input_x() {
+#ifdef CHINESE_VERSION
+	cout << "\n请输入初值 x0 或区间 [a,b]：(1 = x0, 2 = [a,b]) ";
+#else
 	cout << "\nPlease enter the initial value x0 or an interval [a,b]: (1 = x0, 2 = [a,b]) ";
+#endif
 	int flag = in_int();
 	if (flag == 1) {
 		double x0;
@@ -44,16 +57,27 @@ void nl_eq::input_x() {
 		count_flag = false;
 	}
 	else {
+#ifdef CHINESE_VERSION
+		cout << "错误：非法输入。" << endl;
+#else
 		cout << "Error: Illegal input." << endl;
+#endif
 		throw 0;
 	}
 }
 
 void nl_eq::input_max_eps() {
+#ifdef CHINESE_VERSION
+	cout << "\n设置误差限和最大迭代次数：" << endl;
+	cout << "  |f(x_k+1)| < eps1 , 或 |x_k+1 - x_k| < eps2" << endl;
+	cout << "  默认值：eps1 = 1.0e-6, eps2 = 1.0e-6, 最大迭代次数 = 10000" << endl;
+	cout << "使用默认值？(1 = 是, 0 = 否) ";
+#else
 	cout << "\nSet the errors and the maximum iteration times:" << endl;
 	cout << "  |f(x_k+1)| < eps1 , or |x_k+1 - x_k| < eps2" << endl;
 	cout << "  Default values: eps1 = 1.0e-6, eps2 = 1.0e-6, maximum iteration times = 10000" << endl;
 	cout << "Use default values? (1 = Yes, 0 = No) ";
+#endif
 	int flag = in_int();
 	if (flag == 1) {
 		eps1 = 1.0e-6;
@@ -65,11 +89,19 @@ void nl_eq::input_max_eps() {
 		cin >> eps1;
 		cout << "eps2 = ";
 		cin >> eps2;
+#ifdef CHINESE_VERSION
+		cout << "最大迭代次数 = ";
+#else
 		cout << "maximum iteration times = ";
+#endif
 		maxcounter = in_int();
 	}
 	else {
+#ifdef CHINESE_VERSION
+		cout << "错误：非法输入。" << endl;
+#else
 		cout << "Error: Illegal input." << endl;
+#endif
 		throw 0;
 	}
 	if (eps1 < 1.0) {
@@ -85,7 +117,11 @@ void nl_eq::input_max_eps() {
 
 void nl_eq::isolation() {
 	double xk = interval[0], h = 0.01 * (interval[1] - interval[0]);
+#ifdef CHINESE_VERSION
+	cout << "\n注意：两个相邻根的距离应大于 " << h << "，否则可能检测不到。" << endl;
+#else
 	cout << "\nNote: The distance of two adjacent roots should be above " << h << ", otherwise one of them may not be detected." << endl;
+#endif
 	double t1 = sign(fx.f(xk)), t2;
 	if (t1 == 0.0) x.push_back(interval[0]);
 	for (int i = 0; i < 100; i++) {
@@ -97,8 +133,12 @@ void nl_eq::isolation() {
 		}
 		t1 = t2;
 	}
+#ifdef CHINESE_VERSION
+	cout << "在区间上找到 " << x.size() << " 个根。" << endl;
+#else
 	cout << "Found " << x.size() << " roots on the interval." << endl;
-	for (int i = 0; i < x.size(); i++) cout << "x = " << x[i] << endl;
+#endif
+	for (size_t i = 0; i < x.size(); i++) cout << "x = " << x[i] << endl;
 }
 
 double nl_eq::bisection(double a, double b) {
@@ -113,7 +153,11 @@ double nl_eq::bisection(double a, double b) {
 		if (ft == 0.0) return t;
 		if (ft * fa < 0) b = t;
 		else if (ft * fb < 0) a = t;
+#ifdef CHINESE_VERSION
+		else cout << "\n警告：二分法出现异常，区间内可能无根或有多个根。" << endl;
+#else
 		else cout << "\nWarning: An exception happened in bisection method. There may exist no root or more than one root in the interval." << endl;
+#endif
 	}
 	t = 0.5 * (a + b);
 	return t;
@@ -126,17 +170,30 @@ eq_Simple::eq_Simple() {
 }
 
 void eq_Simple::input_fx() {
+#ifdef CHINESE_VERSION
+	cout << "\n非线性方程的等价变换：x = g(x)" << endl;
+#else
 	cout << "\nEquivalent transformation of nonlinear equation: x = g(x)" << endl;
+#endif
 	fx.showtips();
 	cout << "\ng(x) = ";
 	cin >> str;
 	fx.init(str);
+#ifdef CHINESE_VERSION
+	cout << "\n等价变换为 x = " << fx.get_fstr() << " (MATLAB格式)" << endl;
+	fl << "\n等价变换为 x = " << fx.get_fstr() << " (MATLAB格式)\n";
+#else
 	cout << "\nThe equivalent transformation is x = " << fx.get_fstr() << " (MATLAB format)" << endl;
 	fl << "\nThe equivalent transformation is x = " << fx.get_fstr() << " (MATLAB format)\n";
+#endif
 }
 
 void eq_Simple::input_x() {
+#ifdef CHINESE_VERSION
+	cout << "\n请输入初值 x0 或区间 [a,b]：(1 = x0 , 2 = [a,b]) ";
+#else
 	cout << "\nPlease enter the initial value x0 or an interval [a,b]: (1 = x0 , 2 = [a,b]) ";
+#endif
 	int flag = in_int();
 	if (flag == 1) {
 		double x0;
@@ -160,13 +217,17 @@ void eq_Simple::input_x() {
 		count_flag = false;
 	}
 	else {
+#ifdef CHINESE_VERSION
+		cout << "错误：非法输入。" << endl;
+#else
 		cout << "Error: Illegal input." << endl;
+#endif
 		throw 0;
 	}
 }
 
 void eq_Simple::calc() {
-	for (int i = 0; i < x.size(); i++) {
+	for (size_t i = 0; i < x.size(); i++) {
 		counter = 0;
 		double xk;
 		while (counter < maxcounter) {
@@ -176,18 +237,33 @@ void eq_Simple::calc() {
 			if (fabs(x[i] - xk) < eps2) break;
 			counter++;
 		}
-		if (counter == maxcounter) cout << "\nWarning: Reach the maximum iteration number when calculate x = " << x[i] << endl;
+		if (counter == maxcounter)
+#ifdef CHINESE_VERSION
+		cout << "\n警告：计算 x = " << x[i] << " 时达到最大迭代次数" << endl;
+#else
+		cout << "\nWarning: Reach the maximum iteration number when calculate x = " << x[i] << endl;
+#endif
 	}
 }
 
 void eq_Simple::out_result() {
+#ifdef CHINESE_VERSION
+	cout << "\n由简单迭代法计算。" << endl;
+	fl << "\n由简单迭代法计算。";
+#else
 	cout << "\nCalculated by simple iteration method." << endl;
 	fl << "\nCalculated by simple iteration method.";
+#endif
 	if (count_flag) {
+#ifdef CHINESE_VERSION
+		cout << "迭代次数 = " << counter << endl;
+		fl << "\n迭代次数 = " << counter << "\n";
+#else
 		cout << "Iteration times = " << counter << endl;
 		fl << "\nIteration times = " << counter << "\n";
+#endif
 	}
-	for (int i = 0; i < x.size(); i++) {
+	for (size_t i = 0; i < x.size(); i++) {
 		cout << "x = " << x[i] << endl;
 		fl << "\nx = " << x[i];
 	}
@@ -202,7 +278,7 @@ eq_Newton::eq_Newton() {
 
 void eq_Newton::calc() {
 	DerivExtra df(fx);
-	for (int i = 0; i < x.size(); i++) {
+	for (size_t i = 0; i < x.size(); i++) {
 		counter = 0;
 		double xk;
 		while (counter < maxcounter) {
@@ -212,18 +288,33 @@ void eq_Newton::calc() {
 			if (fabs(x[i] - xk) < eps2) break;
 			counter++;
 		}
-		if (counter == maxcounter) cout << "\nWarning: Reach the maximum iteration number when calculate x = " << x[i] << endl;
+		if (counter == maxcounter)
+#ifdef CHINESE_VERSION
+		cout << "\n警告：计算 x = " << x[i] << " 时达到最大迭代次数" << endl;
+#else
+		cout << "\nWarning: Reach the maximum iteration number when calculate x = " << x[i] << endl;
+#endif
 	}
 }
 
 void eq_Newton::out_result() {
+#ifdef CHINESE_VERSION
+	cout << "\n由Newton法计算。" << endl;
+	fl << "\n由Newton法计算。";
+#else
 	cout << "\nCalculated by Newton method." << endl;
 	fl << "\nCalculated by Newton method.";
+#endif
 	if (count_flag) {
+#ifdef CHINESE_VERSION
+		cout << "迭代次数 = " << counter << endl;
+		fl << "\n迭代次数 = " << counter << "\n";
+#else
 		cout << "Iteration times = " << counter << endl;
 		fl << "\nIteration times = " << counter << "\n";
+#endif
 	}
-	for (int i = 0; i < x.size(); i++) {
+	for (size_t i = 0; i < x.size(); i++) {
 		cout << "x = " << x[i] << endl;
 		fl << "\nx = " << x[i];
 	}
@@ -237,7 +328,11 @@ eq_Secant::eq_Secant() {
 }
 
 void eq_Secant::input_x() {
+#ifdef CHINESE_VERSION
+	cout << "\n请输入初值或区间 [a,b]：(1 = 初值 , 2 = [a,b]) ";
+#else
 	cout << "\nPlease enter the initial value or an interval [a,b]: (1 = initial value , 2 = [a,b]) ";
+#endif
 	int flag = in_int();
 	if (flag == 1) {
 		double temp;
@@ -259,17 +354,21 @@ void eq_Secant::input_x() {
 		interval[1] = b;
 		isolation();
 		double dt = (interval[1] - interval[0]) * 0.00001;
-		for (int i = 0; i < x.size(); i++) x0.push_back(x[i] - dt);
+		for (size_t i = 0; i < x.size(); i++) x0.push_back(x[i] - dt);
 		count_flag = false;
 	}
 	else {
+#ifdef CHINESE_VERSION
+		cout << "错误：非法输入。" << endl;
+#else
 		cout << "Error: Illegal input." << endl;
+#endif
 		throw 0;
 	}
 }
 
 void eq_Secant::calc() {
-	for (int i = 0; i < x.size(); i++) {
+	for (size_t i = 0; i < x.size(); i++) {
 		counter = 0;
 		double xk, xk1, t;
 		xk1 = x0[i];
@@ -288,18 +387,33 @@ void eq_Secant::calc() {
 			if (fabs(x[i] - xk) < eps2) break;
 			counter++;
 		}
-		if (counter == maxcounter) cout << "\nWarning: Reach the maximum iteration number when calculate x = " << x[i] << endl;
+		if (counter == maxcounter)
+#ifdef CHINESE_VERSION
+		cout << "\n警告：计算 x = " << x[i] << " 时达到最大迭代次数" << endl;
+#else
+		cout << "\nWarning: Reach the maximum iteration number when calculate x = " << x[i] << endl;
+#endif
 	}
 }
 
 void eq_Secant::out_result() {
+#ifdef CHINESE_VERSION
+	cout << "\n由弦割法计算。" << endl;
+	fl << "\n由弦割法计算。";
+#else
 	cout << "\nCalculated by Secant method." << endl;
 	fl << "\nCalculated by Secant method.";
+#endif
 	if (count_flag) {
+#ifdef CHINESE_VERSION
+		cout << "迭代次数 = " << counter << endl;
+		fl << "\n迭代次数 = " << counter << "\n";
+#else
 		cout << "Iteration times = " << counter << endl;
 		fl << "\nIteration times = " << counter << "\n";
+#endif
 	}
-	for (int i = 0; i < x.size(); i++) {
+	for (size_t i = 0; i < x.size(); i++) {
 		cout << "x = " << x[i] << endl;
 		fl << "\nx = " << x[i];
 	}
@@ -308,7 +422,7 @@ void eq_Secant::out_result() {
 
 void eq_Relaxation::calc() {
 	DerivExtra dphi(fx);
-	for (int i = 0; i < x.size(); i++) {
+	for (size_t i = 0; i < x.size(); i++) {
 		double omega = dphi.orderderiv(1, x[i]);
 		counter = 0;
 		double xk;
@@ -319,18 +433,33 @@ void eq_Relaxation::calc() {
 			if (fabs(x[i] - xk) < eps2) break;
 			counter++;
 		}
-		if (counter == maxcounter) cout << "\nWarning: Reach the maximum iteration number when calculate x = " << x[i] << endl;
+		if (counter == maxcounter)
+#ifdef CHINESE_VERSION
+		cout << "\n警告：计算 x = " << x[i] << " 时达到最大迭代次数" << endl;
+#else
+		cout << "\nWarning: Reach the maximum iteration number when calculate x = " << x[i] << endl;
+#endif
 	}
 }
 
 void eq_Relaxation::out_result() {
+#ifdef CHINESE_VERSION
+	cout << "\n由松弛加速法计算。" << endl;
+	fl << "\n由松弛加速法计算。";
+#else
 	cout << "\nCalculated by relaxation acceleration method." << endl;
 	fl << "\nCalculated by relaxation acceleration method.";
+#endif
 	if (count_flag) {
+#ifdef CHINESE_VERSION
+		cout << "迭代次数 = " << counter << endl;
+		fl << "\n迭代次数 = " << counter << "\n";
+#else
 		cout << "Iteration times = " << counter << endl;
 		fl << "\nIteration times = " << counter << "\n";
+#endif
 	}
-	for (int i = 0; i < x.size(); i++) {
+	for (size_t i = 0; i < x.size(); i++) {
 		cout << "x = " << x[i] << endl;
 		fl << "\nx = " << x[i];
 	}
@@ -338,7 +467,7 @@ void eq_Relaxation::out_result() {
 }
 
 void eq_Aitken::calc() {
-	for (int i = 0; i < x.size(); i++) {
+	for (size_t i = 0; i < x.size(); i++) {
 		counter = 0;
 		double x1, x2;
 		while (counter < maxcounter) {
@@ -349,18 +478,33 @@ void eq_Aitken::calc() {
 			if (fabs(x[i] - x2) < eps2) break;
 			counter++;
 		}
-		if (counter == maxcounter) cout << "\nWarning: Reach the maximum iteration number when calculate x = " << x[i] << endl;
+		if (counter == maxcounter)
+#ifdef CHINESE_VERSION
+		cout << "\n警告：计算 x = " << x[i] << " 时达到最大迭代次数" << endl;
+#else
+		cout << "\nWarning: Reach the maximum iteration number when calculate x = " << x[i] << endl;
+#endif
 	}
 }
 
 void eq_Aitken::out_result() {
+#ifdef CHINESE_VERSION
+	cout << "\n由Aitken加速法计算。" << endl;
+	fl << "\n由Aitken加速法计算。";
+#else
 	cout << "\nCalculated by Aitken acceleration method." << endl;
 	fl << "\nCalculated by Aitken acceleration method.";
+#endif
 	if (count_flag) {
+#ifdef CHINESE_VERSION
+		cout << "迭代次数 = " << counter << endl;
+		fl << "\n迭代次数 = " << counter << "\n";
+#else
 		cout << "Iteration times = " << counter << endl;
 		fl << "\nIteration times = " << counter << "\n";
+#endif
 	}
-	for (int i = 0; i < x.size(); i++) {
+	for (size_t i = 0; i < x.size(); i++) {
 		cout << "x = " << x[i] << endl;
 		fl << "\nx = " << x[i];
 	}
@@ -372,22 +516,34 @@ nl_eqs::nl_eqs() {
 }
 
 void nl_eqs::input_fx() {
+#ifdef CHINESE_VERSION
+	cout << "\n非线性方程组：f(x) = 0" << endl;
+	cout << "\n请输入方程个数：n = ";
+#else
 	cout << "\nNonlinear equations: f(x) = 0" << endl;
 	cout << "\nPlease enter the number of functions: n = ";
+#endif
 	n = in_int();
 	fx.init(n);
+#ifdef CHINESE_VERSION
+	cout << "\n方程为：(MATLAB格式)" << endl;
+	fl << "\n方程为：(MATLAB格式)\n\n";
+#else
 	cout << "\nThe equations are: (MATLAB format)" << endl;
+	fl << "\nThe equations are: (MATLAB format)\n\n";
+#endif
 	for (int i = 0; i < n; i++) {
 		cout << fx.get_fstr(i) << " = 0" << endl;
-	}
-	fl << "\nThe equations are: (MATLAB format)\n\n";
-	for (int i = 0; i < n; i++) {
 		fl << fx.get_fstr(i) << " = 0\n";
 	}
 }
 
 void nl_eqs::input_x() {
+#ifdef CHINESE_VERSION
+	cout << "\n请输入初始向量 x0：\nx0(" << n << "*" << 1 << ") = ";
+#else
 	cout << "\nPlease enter the initial vector x0:\nx0(" << n << "*" << 1 << ") = ";
+#endif
 	double temp;
 	for (int i = 0; i < n; i++) {
 		cin >> temp;
@@ -397,10 +553,17 @@ void nl_eqs::input_x() {
 }
 
 void nl_eqs::input_max_eps() {
+#ifdef CHINESE_VERSION
+	cout << "\n设置误差限和最大迭代次数：" << endl;
+	cout << "  |f(x_k+1)| < eps1 , 或 |x_k+1 - x_k| < eps2" << endl;
+	cout << "  默认值：eps1 = 1.0e-6, eps2 = 1.0e-6, 最大迭代次数 = 10000" << endl;
+	cout << "使用默认值？(1 = 是, 0 = 否) ";
+#else
 	cout << "\nSet the errors and the maximum iteration times:" << endl;
 	cout << "  |f(x_k+1)| < eps1 , or |x_k+1 - x_k| < eps2" << endl;
 	cout << "  Default values: eps1 = 1.0e-6, eps2 = 1.0e-6, maximum iteration times = 10000" << endl;
 	cout << "Use default values? (1 = Yes, 0 = No) ";
+#endif
 	int flag = in_int();
 	if (flag == 1) {
 		eps1 = 1.0e-6;
@@ -412,11 +575,19 @@ void nl_eqs::input_max_eps() {
 		cin >> eps1;
 		cout << "eps2 = ";
 		cin >> eps2;
+#ifdef CHINESE_VERSION
+		cout << "最大迭代次数 = ";
+#else
 		cout << "maximum iteration times = ";
+#endif
 		maxcounter = in_int();
 	}
 	else {
+#ifdef CHINESE_VERSION
+		cout << "错误：非法输入。" << endl;
+#else
 		cout << "Error: Illegal input." << endl;
+#endif
 		throw 0;
 	}
 	if (eps1 < 1.0) {
@@ -437,16 +608,24 @@ eqs_Simple::eqs_Simple() {
 }
 
 void eqs_Simple::input_fx() {
+#ifdef CHINESE_VERSION
+	cout << "\n非线性方程组的等价变换：x = g(x)" << endl;
+	cout << "\n请输入方程个数：n = ";
+#else
 	cout << "\nEquivalent transformation of nonlinear equation: x = g(x)" << endl;
 	cout << "\nPlease enter the number of functions: n = ";
+#endif
 	n = in_int();
 	fx.init(n, "g");
+#ifdef CHINESE_VERSION
+	cout << "\n等价变换为：(MATLAB格式)" << endl;
+	fl << "\n等价变换为：(MATLAB格式)\n\n";
+#else
 	cout << "\nThe equivalent transformations are: (MATLAB format)" << endl;
+	fl << "\nThe equivalent transformations are: (MATLAB format)\n\n";
+#endif
 	for (int i = 0; i < n; i++) {
 		cout << "x" << i + 1 << " = " << fx.get_fstr(i) << endl;
-	}
-	fl << "\nThe equivalent transformations are: (MATLAB format)\n\n";
-	for (int i = 0; i < n; i++) {
 		fl << "x" << i + 1 << " = " << fx.get_fstr(i) << "\n";
 	}
 }
@@ -464,14 +643,30 @@ void eqs_Simple::calc() {
 		if (vecnorm2(xk) < eps1) break;
 		counter++;
 	}
-	if (counter == maxcounter) cout << "\nWarning: Reach the maximum iteration number" << endl;
+#ifdef CHINESE_VERSION
+	if (counter == maxcounter) cout << "\n警告：达到最大迭代次数" << endl;
+#else
+	if (counter == maxcounter)
+#ifdef CHINESE_VERSION
+	cout << "\n警告：达到最大迭代次数" << endl;
+#else
+	cout << "\nWarning: Reach the maximum iteration number" << endl;
+#endif
+#endif
 }
 
 void eqs_Simple::out_result() {
+#ifdef CHINESE_VERSION
+	cout << "\n由简单迭代法计算。" << endl;
+	fl << "\n由简单迭代法计算。";
+	cout << "迭代次数 = " << counter << endl;
+	fl << "\n迭代次数 = " << counter << "\n";
+#else
 	cout << "\nCalculated by simple iteration method." << endl;
 	fl << "\nCalculated by simple iteration method.";
 	cout << "Iteration times = " << counter << endl;
 	fl << "\nIteration times = " << counter << "\n";
+#endif
 	cout << "\nx (" << n << "*" << 1 << ") =" << endl;
 	for (int i = 0; i < n; i++) cout << "\t" << x[i] << endl;
 	fl << "\nx = \n\n";
@@ -514,14 +709,30 @@ void eqs_Newton::calc() {
 		if (vecnorm2(fx.f(x)) < eps2) break;
 		counter++;
 	}
-	if (counter == maxcounter) cout << "\nWarning: Reach the maximum iteration number" << endl;
+#ifdef CHINESE_VERSION
+	if (counter == maxcounter) cout << "\n警告：达到最大迭代次数" << endl;
+#else
+	if (counter == maxcounter)
+#ifdef CHINESE_VERSION
+	cout << "\n警告：达到最大迭代次数" << endl;
+#else
+	cout << "\nWarning: Reach the maximum iteration number" << endl;
+#endif
+#endif
 }
 
 void eqs_Newton::out_result() {
+#ifdef CHINESE_VERSION
+	cout << "\n由Newton法计算。" << endl;
+	fl << "\n由Newton法计算。";
+	cout << "迭代次数 = " << counter << endl;
+	fl << "\n迭代次数 = " << counter << "\n";
+#else
 	cout << "\nCalculated by Newton method." << endl;
 	fl << "\nCalculated by Newton method.";
 	cout << "Iteration times = " << counter << endl;
 	fl << "\nIteration times = " << counter << "\n";
+#endif
 	cout << "\nx (" << n << "*" << 1 << ") =" << endl;
 	for (int i = 0; i < n; i++) cout << "\t" << x[i] << endl;
 	fl << "\nx = \n\n";
@@ -536,7 +747,11 @@ eqs_Secant::eqs_Secant() {
 }
 
 void eqs_Secant::input_h() {
+#ifdef CHINESE_VERSION
+	cout << "\n使用默认步长 h = 0.001 ? (1 = 是, 0 = 否) ";
+#else
 	cout << "\nUse the default value of step size h = 0.001 ? (1 = Yes, 0 = No) ";
+#endif
 	int flag = in_int();
 	if (flag == 1) h = 0.001;
 	else if (flag == 0) {
@@ -544,10 +759,18 @@ void eqs_Secant::input_h() {
 		cin >> h;
 	}
 	else {
+#ifdef CHINESE_VERSION
+		cout << "错误：非法输入。" << endl;
+#else
 		cout << "Error: Illegal input." << endl;
+#endif
 		throw 0;
 	}
+#ifdef CHINESE_VERSION
+	fl << "步长 h = " << h << "\n";
+#else
 	fl << "step size h = " << h << "\n";
+#endif
 }
 
 void eqs_Secant::calc() {
@@ -584,10 +807,17 @@ void eqs_Secant::calc() {
 }
 
 void eqs_Secant::out_result() {
+#ifdef CHINESE_VERSION
+	cout << "\n由弦割法计算。" << endl;
+	fl << "\n由弦割法计算。";
+	cout << "迭代次数 = " << counter << endl;
+	fl << "\n迭代次数 = " << counter << "\n";
+#else
 	cout << "\nCalculated by Secant method." << endl;
 	fl << "\nCalculated by Secant method.";
 	cout << "Iteration times = " << counter << endl;
 	fl << "\nIteration times = " << counter << "\n";
+#endif
 	cout << "\nx (" << n << "*" << 1 << ") =" << endl;
 	for (int i = 0; i < n; i++) cout << "\t" << x[i] << endl;
 	fl << "\nx = \n\n";
@@ -648,10 +878,17 @@ void eqs_Broyden::calc() {
 }
 
 void eqs_Broyden::out_result() {
+#ifdef CHINESE_VERSION
+	cout << "\n由Broyden方法计算。" << endl;
+	fl << "\n由Broyden方法计算。";
+	cout << "迭代次数 = " << counter << endl;
+	fl << "\n迭代次数 = " << counter << "\n";
+#else
 	cout << "\nCalculated by Broyden method." << endl;
 	fl << "\nCalculated by Broyden method.";
 	cout << "Iteration times = " << counter << endl;
 	fl << "\nIteration times = " << counter << "\n";
+#endif
 	cout << "\nx (" << n << "*" << 1 << ") =" << endl;
 	for (int i = 0; i < n; i++) cout << "\t" << x[i] << endl;
 	fl << "\nx = \n\n";

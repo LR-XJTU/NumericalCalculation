@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <algorithm>
 #include "directmethod.h"
 
 using namespace std;
@@ -10,7 +11,7 @@ void Direct_method::init() {
 	cout.setf(ios::left);
 	int mm, nn;
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÊäÈë¾ØÕóA(m*n)µÄÐÐÊýºÍÁÐÊý£º\nm = ";
+	cout << "\nè¯·è¾“å…¥çŸ©é˜µA(m*n)çš„è¡Œæ•°å’Œåˆ—æ•°ï¼š\nm = ";
 #else
 	cout << "\nPlease enter the numbers of rows and columns of coefficient matrix A(m*n):\nm = ";
 #endif
@@ -18,7 +19,7 @@ void Direct_method::init() {
 	if(mm<=0)
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£ºÇëÊäÈëÕýÕûÊý" << endl;
+		cout << "é”™è¯¯ï¼šè¯·è¾“å…¥æ­£æ•´æ•°" << endl;
 #else
 		cout << "Error: Please enter a positive integer." << endl;
 #endif
@@ -29,7 +30,7 @@ void Direct_method::init() {
 	if(nn<=0)
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£ºÇëÊäÈëÕýÕûÊý" << endl;
+		cout << "é”™è¯¯ï¼šè¯·è¾“å…¥æ­£æ•´æ•°" << endl;
 #else
 		cout << "Error: Please enter a positive integer." << endl;
 #endif
@@ -38,7 +39,7 @@ void Direct_method::init() {
 	if(mm<nn)
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£ºÇëÊäÈëÕýÕûÊý" << endl;
+		cout << "é”™è¯¯ï¼šè¯·è¾“å…¥æ­£æ•´æ•°" << endl;
 #else
 		cout << "Error: Please enter a positive integer." << endl;
 #endif
@@ -48,11 +49,11 @@ void Direct_method::init() {
 }
 
 //initialization with 4 parameters
-void Direct_method::init(int mm,int nn,double **AA,double *bb) {
+void Direct_method::init(int mm,int nn,const vector<vector<double>>& AA,const vector<double>& bb) {
 	if(mm<=0)
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£º¾ØÕóAµÄÐÐÊý²»ÊÇÕýÕûÊý" << endl;
+		cout << "é”™è¯¯ï¼šçŸ©é˜µAçš„è¡Œæ•°ä¸æ˜¯æ­£æ•´æ•°" << endl;
 #else
 		cout << "Error: The number of rows of A is not a positive integer." << endl;
 #endif
@@ -61,7 +62,7 @@ void Direct_method::init(int mm,int nn,double **AA,double *bb) {
 	if(nn<=0)
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£º¾ØÕóAµÄÁÐÊý²»ÊÇÕýÕûÊý" << endl;
+		cout << "é”™è¯¯ï¼šçŸ©é˜µAçš„åˆ—æ•°ä¸æ˜¯æ­£æ•´æ•°" << endl;
 #else
 		cout << "Error: The number of columns of A is not a positive integer." << endl;
 #endif
@@ -70,7 +71,7 @@ void Direct_method::init(int mm,int nn,double **AA,double *bb) {
 	if(mm<nn)
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£º·½³Ì×éÓÐÎÞÇî½â" << endl;
+		cout << "é”™è¯¯ï¼šæ–¹ç¨‹ç»„æœ‰æ— ç©·è§£" << endl;
 #else
 		cout << "Error: Equations have infinite solutions." << endl;
 #endif
@@ -82,11 +83,11 @@ void Direct_method::init(int mm,int nn,double **AA,double *bb) {
 }
 
 //initialization with 6 parameters
-void Direct_method::init(int mm,int nn,double *dd,double *ud,double *ld,double *bb) {
+void Direct_method::init(int mm,int nn,const vector<double>& dd,const vector<double>& ud,const vector<double>& ld,const vector<double>& bb) {
 	if(mm<=0)
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£º¾ØÕóAµÄÐÐÊý²»ÊÇÕýÕûÊý" << endl;
+		cout << "é”™è¯¯ï¼šçŸ©é˜µAçš„è¡Œæ•°ä¸æ˜¯æ­£æ•´æ•°" << endl;
 #else
 		cout << "Error: The number of rows of A is not a positive integer." << endl;
 #endif
@@ -95,7 +96,7 @@ void Direct_method::init(int mm,int nn,double *dd,double *ud,double *ld,double *
 	if(nn<=0)
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£º¾ØÕóAµÄÁÐÊý²»ÊÇÕýÕûÊý" << endl;
+		cout << "é”™è¯¯ï¼šçŸ©é˜µAçš„åˆ—æ•°ä¸æ˜¯æ­£æ•´æ•°" << endl;
 #else
 		cout << "Error: The number of columns of A is not a positive integer." << endl;
 #endif
@@ -104,7 +105,7 @@ void Direct_method::init(int mm,int nn,double *dd,double *ud,double *ld,double *
 	if(mm<nn)
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£º·½³Ì×éÓÐÎÞÇî½â" << endl;
+		cout << "é”™è¯¯ï¼šæ–¹ç¨‹ç»„æœ‰æ— ç©·è§£" << endl;
 #else
 		cout << "Error: Equations have infinite solutions." << endl;
 #endif
@@ -154,15 +155,12 @@ Gauss::Gauss() {
 	out_Ab();
 }
 
-Gauss::Gauss(bool no_init) {
-	if (no_init) return;
-	else Gauss();
-}
+Gauss::Gauss(bool) {}
 
 void Gauss::calc()
 {
 #ifdef CHINESE_VERSION
-	cout << "\nÕýÔÚÊ¹ÓÃ¸ßË¹ÏûÈ¥·¨Çó½â Ax=b ..." << endl;
+	cout << "\næ­£åœ¨ä½¿ç”¨é«˜æ–¯æ¶ˆåŽ»æ³•æ±‚è§£ Ax=b ..." << endl;
 #else
 	cout << "\nSolving Ax=b by Gauss elimination..." << endl;
 #endif
@@ -180,7 +178,7 @@ void Gauss::calc()
 			else
 			{
 #ifdef CHINESE_VERSION
-				cout << "´íÎó£º·½³Ì×éÓÐÎÞÇî½â" << endl;
+				cout << "é”™è¯¯ï¼šæ–¹ç¨‹ç»„æœ‰æ— ç©·è§£" << endl;
 #else
 				cout << "Error: Equations have infinite solutions." << endl;
 #endif
@@ -202,7 +200,7 @@ void Gauss::calc()
 		if (b[n - 1] == 0.0)
 		{
 #ifdef CHINESE_VERSION
-			cout << "´íÎó£º·½³Ì×éÓÐÎÞÇî½â" << endl;
+			cout << "é”™è¯¯ï¼šæ–¹ç¨‹ç»„æœ‰æ— ç©·è§£" << endl;
 #else
 			cout << "Error: Equations have infinite solutions." << endl;
 #endif
@@ -211,7 +209,7 @@ void Gauss::calc()
 		else
 		{
 #ifdef CHINESE_VERSION
-			cout << "´íÎó£º·½³Ì×éÎÞ½â" << endl;
+			cout << "é”™è¯¯ï¼šæ–¹ç¨‹ç»„æ— è§£" << endl;
 #else
 			cout << "Error: Equations have no solution." << endl;
 #endif
@@ -224,7 +222,7 @@ void Gauss::calc()
 		for (int i = n; i < m; i++) if (b[i] / A[i][n - 1] != temp)
 		{
 #ifdef CHINESE_VERSION
-			cout << "´íÎó£º·½³Ì×éÎÞ½â" << endl;
+			cout << "é”™è¯¯ï¼šæ–¹ç¨‹ç»„æ— è§£" << endl;
 #else
 			cout << "Error: Equations have no solution." << endl;
 #endif
@@ -242,7 +240,7 @@ void Gauss::calc()
 		x[i] /= A[i][i];
 	}
 #ifdef CHINESE_VERSION
-	cout << "\nÇó½âÍê³É" << endl;
+	cout << "\næ±‚è§£å®Œæˆ" << endl;
 #else
 	cout << "\nFinish solving." << endl;
 #endif
@@ -251,17 +249,13 @@ void Gauss::calc()
 void Gauss::out_result()
 {
 #ifdef CHINESE_VERSION
-	cout << "\nÍ¨¹ý¸ßË¹ÏûÈ¥·¨½âµÃ" << endl;
-	fl << "\nÍ¨¹ý¸ßË¹ÏûÈ¥·¨½âµÃ\n";
+	cout << "\né€šè¿‡é«˜æ–¯æ¶ˆåŽ»æ³•è§£å¾—" << endl;
+	fl << "\né€šè¿‡é«˜æ–¯æ¶ˆåŽ»æ³•è§£å¾—\n";
 #else
 	cout << "\nSolved by Gauss elimination." << endl;
 	fl << "\nSolved by Gauss elimination.\n";
 #endif
 	out_x();
-}
-
-Gauss::~Gauss() {
-	delete_Ax_b();
 }
 
 //2.Column principle Gaussian elimination
@@ -272,15 +266,12 @@ CP_Gauss::CP_Gauss() {
 	out_Ab();
 }
 
-CP_Gauss::CP_Gauss(bool no_init) {
-	if (no_init) return;
-	else CP_Gauss();
-}
+CP_Gauss::CP_Gauss(bool) {}
 
 void CP_Gauss::calc()
 {
 #ifdef CHINESE_VERSION
-	cout << "\nÕýÔÚÊ¹ÓÃÁÐÖ÷Ôª¸ßË¹ÏûÈ¥·¨Çó½â Ax=b ..." << endl;
+	cout << "\næ­£åœ¨ä½¿ç”¨åˆ—ä¸»å…ƒé«˜æ–¯æ¶ˆåŽ»æ³•æ±‚è§£ Ax=b ..." << endl;
 #else
 	cout << "\nSolving Ax=b by column principle Gaussian elimination..." << endl;
 #endif
@@ -296,7 +287,7 @@ void CP_Gauss::calc()
 		if (temp_max == 0.0)
 		{
 #ifdef CHINESE_VERSION
-			cout << "´íÎó£º·½³Ì×éÓÐÎÞÇî½â" << endl;
+			cout << "é”™è¯¯ï¼šæ–¹ç¨‹ç»„æœ‰æ— ç©·è§£" << endl;
 #else
 			cout << "Error: Equations have infinite solutions." << endl;
 #endif
@@ -318,7 +309,7 @@ void CP_Gauss::calc()
 		if (b[n - 1] == 0.0)
 		{
 #ifdef CHINESE_VERSION
-			cout << "´íÎó£º·½³Ì×éÓÐÎÞÇî½â" << endl;
+			cout << "é”™è¯¯ï¼šæ–¹ç¨‹ç»„æœ‰æ— ç©·è§£" << endl;
 #else
 			cout << "Error: Equations have infinite solutions." << endl;
 #endif
@@ -327,7 +318,7 @@ void CP_Gauss::calc()
 		else
 		{
 #ifdef CHINESE_VERSION
-			cout << "´íÎó£º·½³Ì×éÎÞ½â" << endl;
+			cout << "é”™è¯¯ï¼šæ–¹ç¨‹ç»„æ— è§£" << endl;
 #else
 			cout << "Error: Equations have no solution." << endl;
 #endif
@@ -340,7 +331,7 @@ void CP_Gauss::calc()
 		for (int i = n; i < m; i++) if (b[i] / A[i][n - 1] != temp)
 		{
 #ifdef CHINESE_VERSION
-			cout << "´íÎó£º·½³Ì×éÎÞ½â" << endl;
+			cout << "é”™è¯¯ï¼šæ–¹ç¨‹ç»„æ— è§£" << endl;
 #else
 			cout << "Error: Equations have no solution." << endl;
 #endif
@@ -358,7 +349,7 @@ void CP_Gauss::calc()
 		x[i] /= A[i][i];
 	}
 #ifdef CHINESE_VERSION
-	cout << "\nÇó½âÍê³É" << endl;
+	cout << "\næ±‚è§£å®Œæˆ" << endl;
 #else
 	cout << "\nFinish solving." << endl;
 #endif
@@ -367,17 +358,13 @@ void CP_Gauss::calc()
 void CP_Gauss::out_result()
 {
 #ifdef CHINESE_VERSION
-	cout << "\nÍ¨¹ýÁÐÖ÷Ôª¸ßË¹ÏûÈ¥·¨½âµÃ" << endl;
-	fl << "\nÍ¨¹ýÁÐÖ÷Ôª¸ßË¹ÏûÈ¥·¨½âµÃ\n";
+	cout << "\né€šè¿‡åˆ—ä¸»å…ƒé«˜æ–¯æ¶ˆåŽ»æ³•è§£å¾—" << endl;
+	fl << "\né€šè¿‡åˆ—ä¸»å…ƒé«˜æ–¯æ¶ˆåŽ»æ³•è§£å¾—\n";
 #else
 	cout << "\nSolved by column principle Gaussian elimination." << endl;
 	fl << "\nSolved by column principle Gaussian elimination.\n";
 #endif
 	out_x();
-}
-
-CP_Gauss::~CP_Gauss() {
-	delete_Ax_b();
 }
 
 //3.Doolittle decomposition (LU)
@@ -389,25 +376,21 @@ Doolittle::Doolittle() {
 	out_Ab();
 }
 
-Doolittle::Doolittle(bool no_init) {
-	if (no_init) {
-		print_flag = false;
-		return;
-	}
-	else Doolittle();
+Doolittle::Doolittle(bool) {
+	print_flag = false;
 }
 
 void Doolittle::calc()
 {
 #ifdef CHINESE_VERSION
-	if (print_flag) cout << "\nÕýÔÚÍ¨¹ý¶ÅÀûÌØ¶û·Ö½âÇó½â Ax=b ..." << endl;
+	if (print_flag) cout << "\næ­£åœ¨é€šè¿‡æœåˆ©ç‰¹å°”åˆ†è§£æ±‚è§£ Ax=b ..." << endl;
 #else
 	if (print_flag) cout << "\nSolving Ax=b by Doolittle decomposition..." << endl;
 #endif
 	if (m != n)
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£ºA²»ÊÇ·½Õó" << endl;
+		cout << "é”™è¯¯ï¼šAä¸æ˜¯æ–¹é˜µ" << endl;
 #else
 		cout << "Error: A is not a square matrix." << endl;
 #endif
@@ -425,7 +408,7 @@ void Doolittle::calc()
 		else
 		{
 #ifdef CHINESE_VERSION
-			cout << "´íÎó£º·½³Ì×éÓÐÎÞÇî½â" << endl;
+			cout << "é”™è¯¯ï¼šæ–¹ç¨‹ç»„æœ‰æ— ç©·è§£" << endl;
 #else
 			cout << "Error: Equations have infinite solutions." << endl;
 #endif
@@ -450,7 +433,7 @@ void Doolittle::calc()
 		if (A[i][i] == 0.0)
 		{
 #ifdef CHINESE_VERSION
-			cout << "´íÎó£º·½³Ì×éÓÐÎÞÇî½â" << endl;
+			cout << "é”™è¯¯ï¼šæ–¹ç¨‹ç»„æœ‰æ— ç©·è§£" << endl;
 #else
 			cout << "Error: Equations have infinite solutions." << endl;
 #endif
@@ -471,7 +454,7 @@ void Doolittle::calc()
 	if (A[n - 1][n - 1] == 0.0)
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£º·½³Ì×éÓÐÎÞÇî½â" << endl;
+		cout << "é”™è¯¯ï¼šæ–¹ç¨‹ç»„æœ‰æ— ç©·è§£" << endl;
 #else
 		cout << "Error: Equations have infinite solutions." << endl;
 #endif
@@ -487,18 +470,18 @@ void Doolittle::calc()
 		x[i] /= A[i][i];
 	}
 #ifdef CHINESE_VERSION
-	if (print_flag) cout << "\nÇó½âÍê³É" << endl;
+	if (print_flag) cout << "\næ±‚è§£å®Œæˆ" << endl;
 #else
 	if (print_flag) cout << "\nFinish solving." << endl;
 #endif
 }
 
 void Doolittle::decomposition(vector<vector<double>> AA, vector<vector<double>>& L, vector<vector<double>>& R) {
-	int mm = AA.size();
-	int nn = AA[0].size();
-	for (int i = 0; i < mm; i++) if (AA[i].size() != nn) {
+	size_t mm = AA.size();
+	size_t nn = AA[0].size();
+	for (size_t i = 0; i < mm; i++) if (AA[i].size() != nn) {
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£º¾ØÕó½×Êý²»Ò»ÖÂ" << endl;
+		cout << "é”™è¯¯ï¼šçŸ©é˜µé˜¶æ•°ä¸ä¸€è‡´" << endl;
 #else
 		cout << "Error: The order of matrix is inconsistent" << endl;
 #endif
@@ -554,8 +537,7 @@ void Doolittle::U_solve(vector<vector<double>> UU, vector<double>& xx, std::vect
 
 void Doolittle::out_LU()
 {
-	double** temp = new double* [n];
-	for (int i = 0; i < n; i++) temp[i] = new double[n];
+	vector<vector<double>> temp(n, vector<double>(n));
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < n; j++)
@@ -599,25 +581,19 @@ void Doolittle::out_LU()
 	}
 	fl << "\nU (" << m << "*" << n << ") =\n\n";
 	fl.set_mat_size(n, n) << temp;
-	for (int i = 0; i < n; i++) delete[] temp[i];
-	delete[] temp;
 }
 
 void Doolittle::out_result()
 {
 #ifdef CHINESE_VERSION
-	cout << "\nÍ¨¹ý¶ÅÀûÌØ¶û·Ö½â·¨½âµÃ" << endl;
-	fl << "\nÍ¨¹ý¶ÅÀûÌØ¶û·Ö½â·¨½âµÃ\n";
+	cout << "\né€šè¿‡æœåˆ©ç‰¹å°”åˆ†è§£æ³•è§£å¾—" << endl;
+	fl << "\né€šè¿‡æœåˆ©ç‰¹å°”åˆ†è§£æ³•è§£å¾—\n";
 #else
 	cout << "\nSolved by Doolittle decomposition." << endl;
 	fl << "\nSolved by Doolittle decomposition.\n";
 #endif
 	out_LU();
 	out_x();
-}
-
-Doolittle::~Doolittle() {
-	delete_Ax_b();
 }
 
 //4.Cholesky decomposition
@@ -628,22 +604,19 @@ Cholesky::Cholesky() {
 	out_Ab();
 }
 
-Cholesky::Cholesky(bool no_init) {
-	if (no_init) return;
-	else Cholesky();
-}
+Cholesky::Cholesky(bool) {}
 
 void Cholesky::calc()
 {
 #ifdef CHINESE_VERSION
-	cout << "\nÕýÔÚÍ¨¹ý³þÁÐË¹»ù·Ö½âÇó½â Ax=b ..." << endl;
+	cout << "\næ­£åœ¨é€šè¿‡æ¥šåˆ—æ–¯åŸºåˆ†è§£æ±‚è§£ Ax=b ..." << endl;
 #else
 	cout << "\nSolving Ax=b by Cholesky decomposition..." << endl;
 #endif
 	if (!check_symmetry())
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£ºA²»ÊÇ¶Ô³Æ¾ØÕó" << endl;
+		cout << "é”™è¯¯ï¼šAä¸æ˜¯å¯¹ç§°çŸ©é˜µ" << endl;
 #else
 		cout << "Error: A is not symmetrical." << endl;
 #endif
@@ -652,7 +625,7 @@ void Cholesky::calc()
 	if (A[0][0] <= 0.0)
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£ºA²»ÊÇ¶Ô³ÆÕý¶¨¾ØÕó" << endl;
+		cout << "é”™è¯¯ï¼šAä¸æ˜¯å¯¹ç§°æ­£å®šçŸ©é˜µ" << endl;
 #else
 		cout << "Error: A is not spd matrix." << endl;
 #endif
@@ -667,7 +640,7 @@ void Cholesky::calc()
 		if (A[j][j] <= 0.0)
 		{
 #ifdef CHINESE_VERSION
-			cout << "´íÎó£ºA²»ÊÇ¶Ô³ÆÕý¶¨¾ØÕó" << endl;
+			cout << "é”™è¯¯ï¼šAä¸æ˜¯å¯¹ç§°æ­£å®šçŸ©é˜µ" << endl;
 #else
 			cout << "Error: A is not spd matrix." << endl;
 #endif
@@ -686,7 +659,7 @@ void Cholesky::calc()
 	if (A[n - 1][n - 1] <= 0.0)
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£ºA²»ÊÇ¶Ô³ÆÕý¶¨¾ØÕó" << endl;
+		cout << "é”™è¯¯ï¼šAä¸æ˜¯å¯¹ç§°æ­£å®šçŸ©é˜µ" << endl;
 #else
 		cout << "Error: A is not spd matrix." << endl;
 #endif
@@ -703,15 +676,14 @@ void Cholesky::calc()
 		x[j] /= A[j][j];
 	}
 #ifdef CHINESE_VERSION
-	cout << "\nÇó½âÍê³É" << endl;
+	cout << "\næ±‚è§£å®Œæˆ" << endl;
 #else
 	cout << "\nFinish solving." << endl;
 #endif
 }
 
 void Cholesky::out_G() {
-	double** temp = new double* [n];
-	for (int i = 0; i < n; i++) temp[i] = new double[n];
+	vector<vector<double>> temp(n, vector<double>(n));
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < n; j++)
@@ -733,25 +705,19 @@ void Cholesky::out_G() {
 	}
 	fl << "\nG (" << m << "*" << n << ") =\n\n";
 	fl.set_mat_size(n, n) << temp;
-	for (int i = 0; i < n; i++) delete[] temp[i];
-	delete[] temp;
 }
 
 void Cholesky::out_result()
 {
 #ifdef CHINESE_VERSION
-	cout << "\nÍ¨¹ý³þÁÐË¹»ù·Ö½â·¨½âµÃ" << endl;
-	fl << "\nÍ¨¹ý³þÁÐË¹»ù·Ö½â·¨½âµÃ\n";
+	cout << "\né€šè¿‡æ¥šåˆ—æ–¯åŸºåˆ†è§£æ³•è§£å¾—" << endl;
+	fl << "\né€šè¿‡æ¥šåˆ—æ–¯åŸºåˆ†è§£æ³•è§£å¾—\n";
 #else
 	cout << "\nSolved by Cholesky decomposition." << endl;
 	fl << "\nSolved by Cholesky decomposition.\n";
 #endif
 	out_G();
 	out_x();
-}
-
-Cholesky::~Cholesky() {
-	delete_Ax_b();
 }
 
 //5.Improved Square Root
@@ -762,22 +728,19 @@ Improved_sqrt::Improved_sqrt() {
 	out_Ab();
 }
 
-Improved_sqrt::Improved_sqrt(bool no_init) {
-	if (no_init) return;
-	else Improved_sqrt();
-}
+Improved_sqrt::Improved_sqrt(bool) {}
 
 void Improved_sqrt::calc()
 {
 #ifdef CHINESE_VERSION
-	cout << "\nÕýÔÚÍ¨¹ý¸Ä½øÆ½·½¸ù·¨Çó½â Ax=b ..." << endl;
+	cout << "\næ­£åœ¨é€šè¿‡æ”¹è¿›å¹³æ–¹æ ¹æ³•æ±‚è§£ Ax=b ..." << endl;
 #else
 	cout << "\nSolving Ax=b by improved square root..." << endl;
 #endif
 	if (!check_symmetry())
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£ºA²»ÊÇ¶Ô³Æ¾ØÕó" << endl;
+		cout << "é”™è¯¯ï¼šAä¸æ˜¯å¯¹ç§°çŸ©é˜µ" << endl;
 #else
 		cout << "Error: A is not symmetrical." << endl;
 #endif
@@ -786,7 +749,7 @@ void Improved_sqrt::calc()
 	if (A[0][0] == 0.0)
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£ºAµÄË³ÐòÖ÷×ÓÊ½Îª0" << endl;
+		cout << "é”™è¯¯ï¼šAçš„é¡ºåºä¸»å­å¼ä¸º0" << endl;
 #else
 		cout << "Error: Sequential principal minor of A is 0." << endl;
 #endif
@@ -799,7 +762,7 @@ void Improved_sqrt::calc()
 		if (A[i][i] == 0.0)
 		{
 #ifdef CHINESE_VERSION
-			cout << "´íÎó£ºAµÄË³ÐòÖ÷×ÓÊ½Îª0" << endl;
+			cout << "é”™è¯¯ï¼šAçš„é¡ºåºä¸»å­å¼ä¸º0" << endl;
 #else
 			cout << "Error: Sequential principal minor of A is 0." << endl;
 #endif
@@ -815,7 +778,7 @@ void Improved_sqrt::calc()
 	if (A[n - 1][n - 1] == 0.0)
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£ºAµÄË³ÐòÖ÷×ÓÊ½Îª0" << endl;
+		cout << "é”™è¯¯ï¼šAçš„é¡ºåºä¸»å­å¼ä¸º0" << endl;
 #else
 		cout << "Error: Sequential principal minor of A is 0." << endl;
 #endif
@@ -830,15 +793,14 @@ void Improved_sqrt::calc()
 		x[i] /= A[i][i];
 	}
 #ifdef CHINESE_VERSION
-	cout << "\nÇó½âÍê³É" << endl;
+	cout << "\næ±‚è§£å®Œæˆ" << endl;
 #else
 	cout << "\nFinish solving." << endl;
 #endif
 }
 
 void Improved_sqrt::out_LD() {
-	double** temp = new double* [n];
-	for (int i = 0; i < n; i++) temp[i] = new double[n];
+	vector<vector<double>> temp(n, vector<double>(n));
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < n; j++)
@@ -882,15 +844,13 @@ void Improved_sqrt::out_LD() {
 	}
 	fl << "\nD (" << m << "*" << n << ") =\n\n";
 	fl.set_mat_size(n, n) << temp;
-	for (int i = 0; i < n; i++) delete[] temp[i];
-	delete[] temp;
 }
 
 void Improved_sqrt::out_result()
 {
 #ifdef CHINESE_VERSION
-	cout << "\nÍ¨¹ý¸Ä½øÆ½·½¸ù·¨½âµÃ" << endl;
-	fl << "\nÍ¨¹ý¸Ä½øÆ½·½¸ù·¨½âµÃ\n";
+	cout << "\né€šè¿‡æ”¹è¿›å¹³æ–¹æ ¹æ³•è§£å¾—" << endl;
+	fl << "\né€šè¿‡æ”¹è¿›å¹³æ–¹æ ¹æ³•è§£å¾—\n";
 #else
 	cout << "\nSolved by improved square root." << endl;
 	fl << "\nSolved by improved square root.\n";
@@ -899,16 +859,12 @@ void Improved_sqrt::out_result()
 	out_x();
 }
 
-Improved_sqrt::~Improved_sqrt() {
-	delete_Ax_b();
-}
-
 //6.Chasing
 
 Chasing::Chasing() {
 	init();
 #ifdef CHINESE_VERSION
-	cout << "\nÊÇ·ñÒª¹¹Ôì¶Ô³ÆÈý½Ç¾ØÕó£¿£¨1 = ÊÇ , 0 = ·ñ£©" << endl;
+	cout << "\næ˜¯å¦è¦æž„é€ å¯¹ç§°ä¸‰è§’çŸ©é˜µï¼Ÿï¼ˆ1 = æ˜¯ , 0 = å¦ï¼‰" << endl;
 #else
 	cout << "\nWant to construct a symmetric tridiagonal matrix? (1 = yes, 0 = no)" << endl;
 #endif
@@ -923,22 +879,19 @@ Chasing::Chasing() {
 	out_Ab();
 }
 
-Chasing::Chasing(bool no_init) {
-	if (no_init) return;
-	else Chasing();
-}
+Chasing::Chasing(bool) {}
 
 void Chasing::calc()
 {
 #ifdef CHINESE_VERSION
-	cout << "\nÕýÔÚÍ¨¹ý×·¸Ï·¨Çó½â Ax=b ..." << endl;
+	cout << "\næ­£åœ¨é€šè¿‡è¿½èµ¶æ³•æ±‚è§£ Ax=b ..." << endl;
 #else
 	cout << "\nSolving Ax=b by chasing..." << endl;
 #endif
 	if (!check_tridiagonal())
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£ºA²»ÊÇÈý½Ç¾ØÕó" << endl;
+		cout << "é”™è¯¯ï¼šAä¸æ˜¯ä¸‰è§’çŸ©é˜µ" << endl;
 #else
 		cout << "Error: A is not a tridiagonal matrix." << endl;
 #endif
@@ -953,7 +906,7 @@ void Chasing::calc()
 	for (int i = 0; i < n; i++) if (A[i][i] == 0.0)
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£ºA²»ÄÜÍ¨¹ý×·¸Ï·¨Çó½â" << endl;
+		cout << "é”™è¯¯ï¼šAä¸èƒ½é€šè¿‡è¿½èµ¶æ³•æ±‚è§£" << endl;
 #else
 		cout << "Error: A can't be solved by chasing method." << endl;
 #endif
@@ -962,7 +915,7 @@ void Chasing::calc()
 	x[n - 1] = b[n - 1] / A[n - 1][n - 1];
 	for (int i = n - 2; i >= 0; i--) x[i] = (b[i] - A[i][i + 1] * x[i + 1]) / A[i][i];
 #ifdef CHINESE_VERSION
-	cout << "\nÇó½âÍê³É" << endl;
+	cout << "\næ±‚è§£å®Œæˆ" << endl;
 #else
 	cout << "\nFinish solving." << endl;
 #endif
@@ -1025,8 +978,7 @@ void Chasing::save_Ab_sym_tri() {
 
 void Chasing::out_LU()
 {
-	double** temp = new double* [n];
-	for (int i = 0; i < n; i++) temp[i] = new double[n];
+	vector<vector<double>> temp(n, vector<double>(n));
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < n; j++)
@@ -1070,15 +1022,13 @@ void Chasing::out_LU()
 	}
 	fl << "\nU (" << m << "*" << n << ") =\n\n";
 	fl.set_mat_size(n, n) << temp;
-	for (int i = 0; i < n; i++) delete[] temp[i];
-	delete[] temp;
 }
 
 void Chasing::out_result()
 {
 #ifdef CHINESE_VERSION
-	cout << "\nÍ¨¹ý×·¸Ï·¨½âµÃ" << endl;
-	fl << "\nÍ¨¹ý×·¸Ï·¨½âµÃ\n";
+	cout << "\né€šè¿‡è¿½èµ¶æ³•è§£å¾—" << endl;
+	fl << "\né€šè¿‡è¿½èµ¶æ³•è§£å¾—\n";
 #else
 	cout << "\nSolved by chasing." << endl;
 	fl << "\nSolved by chasing.\n";
@@ -1087,33 +1037,22 @@ void Chasing::out_result()
 	out_x();
 }
 
-Chasing::~Chasing() {
-	delete_Ax_b();
-}
-
 //7.Givens transformation (QR)
 
 Givens::Givens() {
 	init();
 	enter_Ab();
 	out_Ab();
-	Q = new double* [m];
-	for (int i = 0; i < m; i++) Q[i] = new double[m];
-	for (int i = 0; i < m; i++) for (int j = 0; j < m; j++) {
-		Q[i][j] = 0.0;
-		if (i == j) Q[i][j] = 1.0;
-	}
+	Q.resize(m, vector<double>(m, 0.0));
+	for (int i = 0; i < m; i++) Q[i][i] = 1.0;
 }
 
-Givens::Givens(bool no_init) {
-	if (no_init) return;
-	else Givens();
-}
+Givens::Givens(bool) {}
 
 void Givens::calc()
 {
 #ifdef CHINESE_VERSION
-	cout << "\nÕýÔÚÍ¨¹ý¼ªÎÄË¹±ä»»Çó½â Ax=b ..." << endl;
+	cout << "\næ­£åœ¨é€šè¿‡å‰æ–‡æ–¯å˜æ¢æ±‚è§£ Ax=b ..." << endl;
 #else
 	cout << "\nSolving Ax=b by Givens transformation..." << endl;
 #endif
@@ -1141,7 +1080,7 @@ void Givens::calc()
 		if (A[k][k] == 0.0)
 		{
 #ifdef CHINESE_VERSION
-			cout << "´íÎó£ºrank(A)<n" << endl;
+			cout << "é”™è¯¯ï¼šrank(A)<n" << endl;
 #else
 			cout << "Error: rank(A)<n" << endl;
 #endif
@@ -1151,7 +1090,7 @@ void Givens::calc()
 	if (m == n && A[n - 1][n - 1] == 0.0)
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£ºrank(A)<n" << endl;
+		cout << "é”™è¯¯ï¼šrank(A)<n" << endl;
 #else
 		cout << "Error: rank(A)<n" << endl;
 #endif
@@ -1166,7 +1105,7 @@ void Givens::calc()
 			Q[j][i] = temp;
 		}
 	}
-	double* y = new double[m];
+	vector<double> y(m);
 	for (int i = 0; i < m; i++)
 	{
 		y[i] = Q[0][i] * b[0];
@@ -1182,7 +1121,7 @@ void Givens::calc()
 			if (y[i] != 0.0)
 			{
 #ifdef CHINESE_VERSION
-				cout << "ÌáÊ¾£º·½³Ì×éÊÇ³¬¶¨µÄ£¬´Ë´¦Îª×îÐ¡¶þ³Ë½â" << endl;
+				cout << "æç¤ºï¼šæ–¹ç¨‹ç»„æ˜¯è¶…å®šçš„ï¼Œæ­¤å¤„ä¸ºæœ€å°äºŒä¹˜è§£" << endl;
 #else
 				cout << "Tips: Equations are overdetermined. Here's the least-squares solution." << endl;
 #endif
@@ -1200,9 +1139,8 @@ void Givens::calc()
 		}
 		x[i] /= A[i][i];
 	}
-	delete[]y;
 #ifdef CHINESE_VERSION
-	cout << "\nÇó½âÍê³É" << endl;
+	cout << "\næ±‚è§£å®Œæˆ" << endl;
 #else
 	cout << "\nFinish solving." << endl;
 #endif
@@ -1289,8 +1227,8 @@ void Givens::out_QR()
 void Givens::out_result()
 {
 #ifdef CHINESE_VERSION
-	cout << "\nÍ¨¹ý¼ªÎÄË¹±ä»»½âµÃ" << endl;
-	fl << "\nÍ¨¹ý¼ªÎÄË¹±ä»»½âµÃ\n";
+	cout << "\né€šè¿‡å‰æ–‡æ–¯å˜æ¢è§£å¾—" << endl;
+	fl << "\né€šè¿‡å‰æ–‡æ–¯å˜æ¢è§£å¾—\n";
 #else
 	cout << "\nSolved by Givens transformation." << endl;
 	fl << "\nSolved by Givens transformation.\n";
@@ -1299,39 +1237,28 @@ void Givens::out_result()
 	out_x();
 }
 
-Givens::~Givens() {
-	delete_Ax_b();
-	for (int i = 0; i < m; i++) delete[] Q[i];
-	delete[] Q;
-}
-
 //8.Householder transformation
 
 Householder::Householder() {
 	init();
 	enter_Ab();
 	out_Ab();
-	Q = new double* [m];
-	for (int i = 0; i < m; i++) Q[i] = new double[m];
-	for (int i = 0; i < m; i++) for (int j = 0; j < m; j++) {
-		Q[i][j] = 0.0;
-		if (i == j) Q[i][j] = 1.0;
-	}
-	d = new double[n];
-	alpha = new double[n];
+	Q.resize(m, vector<double>(m, 0.0));
+	for (int i = 0; i < m; i++) Q[i][i] = 1.0;
+	d.resize(n);
+	alpha.resize(n);
 	print_flag = true;
 }
 
-Householder::Householder(bool no_init) {
-	if (no_init) return;
-	else Householder();
+Householder::Householder(bool) {
+	print_flag = false;
 }
 
 Householder::Householder(int mm, int nn, std::vector<std::vector<double>> AA, std::vector<double> bb) {
 	if (mm <= 0)
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£º¾ØÕóAµÄÐÐÊý²»ÊÇÕýÕûÊý" << endl;
+		cout << "é”™è¯¯ï¼šçŸ©é˜µAçš„è¡Œæ•°ä¸æ˜¯æ­£æ•´æ•°" << endl;
 #else
 		cout << "Error: The number of rows of A is not a positive integer." << endl;
 #endif
@@ -1340,7 +1267,7 @@ Householder::Householder(int mm, int nn, std::vector<std::vector<double>> AA, st
 	if (nn <= 0)
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£º¾ØÕóAµÄÁÐÊý²»ÊÇÕýÕûÊý" << endl;
+		cout << "é”™è¯¯ï¼šçŸ©é˜µAçš„åˆ—æ•°ä¸æ˜¯æ­£æ•´æ•°" << endl;
 #else
 		cout << "Error: The number of columns of A is not a positive integer." << endl;
 #endif
@@ -1349,7 +1276,7 @@ Householder::Householder(int mm, int nn, std::vector<std::vector<double>> AA, st
 	if (mm < nn)
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£º·½³Ì×éÓÐÎÞÇî½â" << endl;
+		cout << "é”™è¯¯ï¼šæ–¹ç¨‹ç»„æœ‰æ— ç©·è§£" << endl;
 #else
 		cout << "Error: Equations have infinite solutions." << endl;
 #endif
@@ -1358,21 +1285,17 @@ Householder::Householder(int mm, int nn, std::vector<std::vector<double>> AA, st
 	A_init(mm, nn);
 	copy_A(AA);
 	copy_b(bb);
-	Q = new double* [m];
-	for (int i = 0; i < m; i++) Q[i] = new double[m];
-	for (int i = 0; i < m; i++) for (int j = 0; j < m; j++) {
-		Q[i][j] = 0.0;
-		if (i == j) Q[i][j] = 1.0;
-	}
-	d = new double[n];
-	alpha = new double[n];
+	Q.resize(m, vector<double>(m, 0.0));
+	for (int i = 0; i < m; i++) Q[i][i] = 1.0;
+	d.resize(n);
+	alpha.resize(n);
 	print_flag = false;
 }
 
 void Householder::calc()
 {
 #ifdef CHINESE_VERSION
-	if (print_flag) cout << "\nÕýÔÚÍ¨¹ýºÀË¹»ô¶ûµÂ±ä»»Çó½â Ax=b ..." << endl;
+	if (print_flag) cout << "\næ­£åœ¨é€šè¿‡è±ªæ–¯éœå°”å¾·å˜æ¢æ±‚è§£ Ax=b ..." << endl;
 #else
 	if (print_flag) cout << "\nSolving Ax=b by Householder transformation..." << endl;
 #endif
@@ -1391,7 +1314,7 @@ void Householder::calc()
 		if (d[k] == 0.0)
 		{
 #ifdef CHINESE_VERSION
-			cout << "´íÎó£ºrank(A)<n" << endl;
+			cout << "é”™è¯¯ï¼šrank(A)<n" << endl;
 #else
 			cout << "Error: rank(A)<n" << endl;
 #endif
@@ -1414,14 +1337,14 @@ void Householder::calc()
 	if (d[n - 1] == 0.0)
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£ºrank(A)<n" << endl;
+		cout << "é”™è¯¯ï¼šrank(A)<n" << endl;
 #else
 		cout << "Error: rank(A)<n" << endl;
 #endif
 		throw 0;
 	}
-	double* temp1 = new double[m];
-	double* temp2 = new double[m];
+	vector<double> temp1(m);
+	vector<double> temp2(m);
 	for (int k = 0; k < min(m - 1, n); k++)
 	{
 		for (int j = 0; j < m; j++)
@@ -1446,10 +1369,8 @@ void Householder::calc()
 			}
 		}
 	}
-	delete[]temp1;
-	delete[]temp2;
 	double temp;
-	double* y = new double[m];
+	vector<double> y(m);
 	for (int i = 0; i < m; i++)
 	{
 		for (int j = i + 1; j < m; j++)
@@ -1475,7 +1396,7 @@ void Householder::calc()
 			if (y[i] != 0.0)
 			{
 #ifdef CHINESE_VERSION
-				cout << "ÌáÊ¾£º·½³Ì×éÊÇ³¬¶¨µÄ£¬´Ë´¦Îª×îÐ¡¶þ³Ë½â" << endl;
+				cout << "æç¤ºï¼šæ–¹ç¨‹ç»„æ˜¯è¶…å®šçš„ï¼Œæ­¤å¤„ä¸ºæœ€å°äºŒä¹˜è§£" << endl;
 #else
 				cout << "Tips: Equations are overdetermined. Here's the least-squares solution." << endl;
 #endif
@@ -1493,9 +1414,8 @@ void Householder::calc()
 		}
 		x[i] /= d[i];
 	}
-	delete[]y;
 #ifdef CHINESE_VERSION
-	if (print_flag) cout << "\nÇó½âÍê³É" << endl;
+	if (print_flag) cout << "\næ±‚è§£å®Œæˆ" << endl;
 #else
 	if (print_flag) cout << "\nFinish solving." << endl;
 #endif
@@ -1600,8 +1520,8 @@ vector<double> Householder::get_x() {
 void Householder::out_result()
 {
 #ifdef CHINESE_VERSION
-	cout << "\nÍ¨¹ýºÀË¹»ô¶ûµÂ±ä»»½âµÃ" << endl;
-	fl << "\nÍ¨¹ýºÀË¹»ô¶ûµÂ±ä»»½âµÃ\n";
+	cout << "\né€šè¿‡è±ªæ–¯éœå°”å¾·å˜æ¢è§£å¾—" << endl;
+	fl << "\né€šè¿‡è±ªæ–¯éœå°”å¾·å˜æ¢è§£å¾—\n";
 #else
 	cout << "\nSolved by Householder transformation." << endl;
 	fl << "\nSolved by Householder transformation.\n";
@@ -1610,10 +1530,3 @@ void Householder::out_result()
 	out_x();
 }
 
-Householder::~Householder() {
-	delete_Ax_b();
-	for (int i = 0; i < m; i++) delete[] Q[i];
-	delete[] Q;
-	delete[] d;
-	delete[] alpha;
-}

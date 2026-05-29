@@ -7,7 +7,7 @@
 
 class Iteration_method :protected Ax_b {
 protected:
-	double *itrerr;
+	std::vector<double> itrerr;
 	double eps;
 	int itcounter;
 	int maxcounter;
@@ -22,6 +22,7 @@ public:
 	void resize_itrerr();
 	virtual void calc() = 0;
 	virtual void out_result();
+	virtual ~Iteration_method() = default;
 	void generate_m();
 	void exchange_diag_no_0(int);
 };
@@ -30,7 +31,6 @@ public:
 class Jacobi :public Iteration_method {
 public:
 	Jacobi();
-	~Jacobi();
 	void calc();
 	void out_result();
 };
@@ -38,7 +38,6 @@ public:
 class Gauss_Seidel :public Iteration_method {
 public:
 	Gauss_Seidel();
-	~Gauss_Seidel();
 	void calc();
 	void out_result();
 };
@@ -48,7 +47,6 @@ private:
 	double omega;
 public:
 	SOR();
-	~SOR();
 	void in_omega();
 	void calc();
 	void out_result();
@@ -57,7 +55,6 @@ public:
 class steepest_descent :public Iteration_method {
 public:
 	steepest_descent();
-	~steepest_descent();
 	void calc();
 	void out_result();
 };
@@ -67,11 +64,10 @@ private:
 	bool print_state;
 public:
 	conjugate_gradient();
-	conjugate_gradient(double** AA, double* bb, int nn);
-	~conjugate_gradient();
+	conjugate_gradient(const std::vector<std::vector<double>>& AA, const std::vector<double>& bb);
 	void calc();
 	void out_result();
-	void get_result(double* xx);
+	void get_result(std::vector<double>& xx);
 };
 
 class GMRES :public Iteration_method {
@@ -79,10 +75,9 @@ private:
 	int m;
 public:
 	GMRES();
-	~GMRES();
 	void in_m();
 	void calc();
-	void out_result();	
+	void out_result();
 };
 
 #endif

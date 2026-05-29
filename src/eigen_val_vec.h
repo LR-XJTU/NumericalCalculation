@@ -16,6 +16,7 @@ protected:
 	filelog fl;
 public:
 	void init();
+	virtual ~Eigen_val_vec() = default;
 	virtual void calc() = 0;
 	virtual void out_result() = 0;
 };

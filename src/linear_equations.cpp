@@ -1,20 +1,12 @@
 #include <iostream>
+#include <algorithm>
 #include "linear_equations.h"
 #include "common_fd.h"
 using namespace std;
 
-void Ax_b::delete_Ax_b() {
-	if (init_flag) {
-		for (int i = 0; i < m; i++) delete[] A[i];
-		delete[] A;
-		delete[] b;
-		delete[] x;
-	}
-}
-
 void Ax_b::enter_Ab() {
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÊäÈë A (" << m << "*" << n << ")£º" << endl;
+	cout << "\nè¯·è¾“å…¥ A (" << m << "*" << n << ")ï¼š" << endl;
 #else
 	cout << "\nPlease input A (" << m << "*" << n << "):" << endl;
 #endif
@@ -28,7 +20,7 @@ void Ax_b::enter_Ab() {
 		}
 	}
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÊäÈë b (" << m << "*" << 1 << "):" << endl;
+	cout << "\nè¯·è¾“å…¥ b (" << m << "*" << 1 << "):" << endl;
 #else
 	cout << "\nPlease input b (" << m << "*" << 1 << "):" << endl;
 #endif
@@ -38,7 +30,7 @@ void Ax_b::enter_Ab() {
 		in_b(i, data);
 	}
 #ifdef CHINESE_VERSION
-	cout << "\nÊäÈëÍê³É" << endl;
+	cout << "\nè¾“å…¥å®Œæˆ" << endl;
 #else
 	cout << "\nFinish inputting." << endl;
 #endif
@@ -46,7 +38,7 @@ void Ax_b::enter_Ab() {
 
 void Ax_b::init_x() {
 #ifdef CHINESE_VERSION
-	cout << "\n³õÊ¼»¯ x £º" << endl;
+	cout << "\nåˆå§‹åŒ– x ï¼š" << endl;
 #else
 	cout << "\nPlease initialize x:" << endl;
 #endif
@@ -60,21 +52,17 @@ void Ax_b::init_x(double x0) {
 void Ax_b::A_init(int mn) {
 	m = mn;
 	n = mn;
-	A = new double* [n];
-	for (int i = 0; i < n; i++) A[i] = new double[n];
-	b = new double[n];
-	x = new double[n];
-	init_flag = true;
+	A.resize(n, vector<double>(n));
+	b.resize(n);
+	x.resize(n);
 }
 
 void Ax_b::A_init(int mm, int nn) {
 	m = mm;
 	n = nn;
-	A = new double* [m];
-	for (int i = 0; i < m; i++) A[i] = new double[n];
-	b = new double[m];
-	x = new double[n];
-	init_flag = true;
+	A.resize(m, vector<double>(n));
+	b.resize(m);
+	x.resize(n);
 }
 
 void Ax_b::in_A(int i, int j, double data) {
@@ -85,38 +73,22 @@ void Ax_b::in_b(int i, double data) {
 	b[i] = data;
 }
 
-void Ax_b::copy_A(double** AA) {
+void Ax_b::copy_A(const vector<vector<double>>& AA) {
 	for (int i = 0; i < m; i++) for (int j = 0; j < n; j++) A[i][j] = AA[i][j];
 }
 
-void Ax_b::copy_b(double* bb) {
+void Ax_b::copy_b(const vector<double>& bb) {
 	for (int i = 0; i < m; i++) b[i] = bb[i];
 }
 
-void Ax_b::copy_A(vector<vector<double>> AA) {
-	for (int i = 0; i < m; i++) for (int j = 0; j < n; j++) A[i][j] = AA[i][j];
-}
-
-void Ax_b::copy_b(vector<double> bb) {
-	for (int i = 0; i < m; i++) b[i] = bb[i];
-}
-
-void Ax_b::get_x(double* r) {
-	for (int i = 0; i < n; i++) r[i] = x[i];
+void Ax_b::get_x(vector<double>& xx) {
+	xx = x;
 }
 
 void Ax_b::exchange_row(int i1, int i2)
 {
-	double temp;
-	for (int j = 0; j < n; j++)
-	{
-		temp = A[i1][j];
-		A[i1][j] = A[i2][j];
-		A[i2][j] = temp;
-	}
-	temp = b[i1];
-	b[i1] = b[i2];
-	b[i2] = temp;
+	swap(A[i1], A[i2]);
+	swap(b[i1], b[i2]);
 }
 
 bool Ax_b::check_symmetry()
@@ -145,7 +117,7 @@ bool Ax_b::check_tridiagonal()
 	return false;
 }
 
-void Ax_b::construct_tri(double* dd, double* ud, double* ld) {
+void Ax_b::construct_tri(const vector<double>& dd, const vector<double>& ud, const vector<double>& ld) {
 	for (int i = 0; i < m; i++) for (int j = 0; j < n; j++) {
 		if (i == j) A[i][j] = dd[i];
 		else if (i - j == 1) A[i][j] = ld[j];
@@ -157,8 +129,8 @@ void Ax_b::construct_tri(double* dd, double* ud, double* ld) {
 void Ax_b::construct_sym_tri() {
 	double x1, x2;
 #ifdef CHINESE_VERSION
-	cout << "\n¹¹Ôì¶Ô³ÆÈý½Ç¾ØÕó A" << endl;
-	cout << "ÀýÈç£ºn = 4\nA =" << endl;
+	cout << "\næž„é€ å¯¹ç§°ä¸‰è§’çŸ©é˜µ A" << endl;
+	cout << "ä¾‹å¦‚ï¼šn = 4\nA =" << endl;
 #else
 	cout << "\nConstructing a symmetric tridiagonal matrix A." << endl;
 	cout << "e.g. n = 4\nA =" << endl;
@@ -168,13 +140,13 @@ void Ax_b::construct_sym_tri() {
 	cout << "\t0\ts\td\ts" << endl;
 	cout << "\t0\t0\ts\td" << endl;
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÊäÈë¶Ô½ÇÔªËØ£º\nd = ";
+	cout << "\nè¯·è¾“å…¥å¯¹è§’å…ƒç´ ï¼š\nd = ";
 #else
 	cout << "\nPlease enter diagonal element:\nd = ";
 #endif
 	cin >> x1;
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÊäÈë´Î¶Ô½ÇÔªËØ£º\ns = ";
+	cout << "\nè¯·è¾“å…¥æ¬¡å¯¹è§’å…ƒç´ ï¼š\ns = ";
 #else
 	cout << "\nPlease enter subdiagonal element:\ns = ";
 #endif
@@ -187,21 +159,21 @@ void Ax_b::construct_sym_tri() {
 		}
 	}
 #ifdef CHINESE_VERSION
-	cout << "\n¹¹Ôì b" << endl;
-	cout << "ÀýÈç£ºn = 4\nb =" << endl;
+	cout << "\næž„é€  b" << endl;
+	cout << "ä¾‹å¦‚ï¼šn = 4\nb =" << endl;
 #else
 	cout << "\nConstructing b." << endl;
 	cout << "e.g. n = 4\nb =" << endl;
 #endif
 	cout << "\ta\n\tc\n\tc\n\ta" << endl;
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÊäÈëa£º\na = ";
+	cout << "\nè¯·è¾“å…¥aï¼š\na = ";
 #else
 	cout << "\nPlease enter a:\na = ";
 #endif
 	cin >> x1;
 #ifdef CHINESE_VERSION
-	cout << "\nÇëÊäÈëc£º\nc = ";
+	cout << "\nè¯·è¾“å…¥cï¼š\nc = ";
 #else
 	cout << "\nPlease enter c:\nc = ";
 #endif

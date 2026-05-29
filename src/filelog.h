@@ -8,7 +8,7 @@
 class filelog {
 private:
 	const char* filename;
-	enum file_type { FILE_TXT, FILE_M };
+	enum file_type { FILE_TXT, FILE_M, FILE_HTML };
 	file_type filetype;
 	std::fstream* flog;
 	int m, n;
@@ -27,11 +27,9 @@ public:
 	filelog& operator<<(const char);
 	filelog& operator<<(const char*);
 	filelog& operator<<(const int);
-	filelog& operator<<(const int*);
 	filelog& operator<<(const double);
-	filelog& operator<<(const double*);
-	filelog& operator<<(const std::vector<double>);
-	filelog& operator<<(const double* const*);
+	filelog& operator<<(const std::vector<double>&);
+	filelog& operator<<(const std::vector<std::vector<double>>&);
 };
 
 #endif

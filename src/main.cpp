@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdlib>
 #include <string>
 #include "common_fd.h"
 #include "formula.h"
@@ -15,17 +16,17 @@ using namespace std;
 void Numerical_calculating() {
 	int chapter;
 #ifdef CHINESE_VERSION
-	cout << "\n--- ÊýÖµ¼ÆËã ---" << endl;
-	cout << "ÇëÑ¡Ôñ¹¦ÄÜ£º" << endl;
-	cout << "1 Ö±½Ó·¨Çó½âÏßÐÔ·½³Ì×é" << endl;
-	cout << "2 µü´ú·¨Çó½âÏßÐÔ·½³Ì×é" << endl;
-	cout << "3 ²åÖµ·¨" << endl;
-	cout << "4 º¯Êý×îÓÅ±Æ½ü" << endl;
-	cout << "5 ÊýÖµ»ý·ÖÓëÊýÖµÎ¢·Ö" << endl;
-	cout << "6 ·ÇÏßÐÔ·½³Ì£¨×é£©" << endl;
-	cout << "7 ¾ØÕóÌØÕ÷ÖµÓëÌØÕ÷ÏòÁ¿" << endl;
-	cout << "¸½¼Ó¹¦ÄÜ:" << endl;
-	cout << "0 ¿ÆÑ§¼ÆËãÆ÷" << endl;
+	cout << "\n--- æ•°å€¼è®¡ç®— ---" << endl;
+	cout << "è¯·é€‰æ‹©åŠŸèƒ½ï¼š" << endl;
+	cout << "1 ç›´æŽ¥æ³•æ±‚è§£çº¿æ€§æ–¹ç¨‹ç»„" << endl;
+	cout << "2 è¿­ä»£æ³•æ±‚è§£çº¿æ€§æ–¹ç¨‹ç»„" << endl;
+	cout << "3 æ’å€¼æ³•" << endl;
+	cout << "4 å‡½æ•°æœ€ä¼˜é€¼è¿‘" << endl;
+	cout << "5 æ•°å€¼ç§¯åˆ†ä¸Žæ•°å€¼å¾®åˆ†" << endl;
+	cout << "6 éžçº¿æ€§æ–¹ç¨‹ï¼ˆç»„ï¼‰" << endl;
+	cout << "7 çŸ©é˜µç‰¹å¾å€¼ä¸Žç‰¹å¾å‘é‡" << endl;
+	cout << "é™„åŠ åŠŸèƒ½:" << endl;
+	cout << "0 ç§‘å­¦è®¡ç®—å™¨" << endl;
 #else
 	cout << "\n--- Numerical calculating ---" << endl;
 	cout << "Please select the chapter:" << endl;
@@ -43,7 +44,7 @@ void Numerical_calculating() {
 	if (chapter < 0 || chapter >7)
 	{
 #ifdef CHINESE_VERSION
-		cout << "´íÎó£º³¬³öË÷Òý" << endl;
+		cout << "é”™è¯¯ï¼šè¶…å‡ºç´¢å¼•" << endl;
 #else
 		cout << "Error: Out of index range." << endl;
 #endif
@@ -52,8 +53,8 @@ void Numerical_calculating() {
 	switch (chapter) {
 		case 0: {
 #ifdef CHINESE_VERSION
-			cout << "\n--- ¿ÆÑ§¼ÆËãÆ÷ ---" << endl;
-			cout << "* ÐèÒªÍË³öÊ±ÇëÊäÈë000" << endl;
+			cout << "\n--- ç§‘å­¦è®¡ç®—å™¨ ---" << endl;
+			cout << "* éœ€è¦é€€å‡ºæ—¶è¯·è¾“å…¥000" << endl;
 #else
 			cout << "\n--- Scientific calculator ---" << endl;
 			cout << "* Input 000 if you want to exit." << endl;
@@ -70,7 +71,7 @@ void Numerical_calculating() {
 				if (fml.x_flag()) {
 					cout << "\nf(x) = " << fml.get_fstr();
 #ifdef CHINESE_VERSION
-					cout << "   (Matlab¸ñÊ½)" << endl;
+					cout << "   (Matlabæ ¼å¼)" << endl;
 #else
 					cout << "   (Matlab format)" << endl;
 #endif
@@ -96,16 +97,16 @@ void Numerical_calculating() {
 			Direct_method* dm = NULL;
 			int method;
 #ifdef CHINESE_VERSION
-			cout << "\n--- Çó½âÏßÐÔ·½³Ì×é Ax=b ---" << endl;
-			cout << "ÇëÑ¡ÔñÇó½â·½·¨£º" << endl;
-			cout << "1 ¸ßË¹ÏûÈ¥·¨" << endl;
-			cout << "2 ÁÐÖ÷Ôª¸ßË¹ÏûÈ¥·¨" << endl;
-			cout << "3 ¶ÅÀûÌØ¶û·Ö½â£¨LU·Ö½â£©" << endl;
-			cout << "4 ³þÁÐË¹»ù·Ö½â" << endl;
-			cout << "5 ¸Ä½øÆ½·½¸ù·¨" << endl;
-			cout << "6 ×·¸Ï·¨" << endl;
-			cout << "7 ¼ªÎÄË¹±ä»»£¨QR·Ö½â£©" << endl;
-			cout << "8 ºÀË¹»ô¶ûµÂ±ä»»" << endl;
+			cout << "\n--- æ±‚è§£çº¿æ€§æ–¹ç¨‹ç»„ Ax=b ---" << endl;
+			cout << "è¯·é€‰æ‹©æ±‚è§£æ–¹æ³•ï¼š" << endl;
+			cout << "1 é«˜æ–¯æ¶ˆåŽ»æ³•" << endl;
+			cout << "2 åˆ—ä¸»å…ƒé«˜æ–¯æ¶ˆåŽ»æ³•" << endl;
+			cout << "3 æœåˆ©ç‰¹å°”åˆ†è§£ï¼ˆLUåˆ†è§£ï¼‰" << endl;
+			cout << "4 æ¥šåˆ—æ–¯åŸºåˆ†è§£" << endl;
+			cout << "5 æ”¹è¿›å¹³æ–¹æ ¹æ³•" << endl;
+			cout << "6 è¿½èµ¶æ³•" << endl;
+			cout << "7 å‰æ–‡æ–¯å˜æ¢ï¼ˆQRåˆ†è§£ï¼‰" << endl;
+			cout << "8 è±ªæ–¯éœå°”å¾·å˜æ¢" << endl;
 #else
 			cout << "\n--- To solve linear equations Ax=b ---" << endl;
 			cout << "Please select the solution method:" << endl;
@@ -123,7 +124,7 @@ void Numerical_calculating() {
 			if (method < 1 || method >8)
 			{
 #ifdef CHINESE_VERSION
-				cout << "´íÎó£º³¬³öË÷Òý" << endl;
+				cout << "é”™è¯¯ï¼šè¶…å‡ºç´¢å¼•" << endl;
 #else
 				cout << "Error: Out of index range." << endl;
 #endif
@@ -166,14 +167,14 @@ void Numerical_calculating() {
 			Iteration_method* im = NULL;
 			int method;
 #ifdef CHINESE_VERSION
-			cout << "\n--- Çó½âÏßÐÔ·½³Ì×é Ax=b ---" << endl;
-			cout << "ÇëÑ¡ÔñÇó½â·½·¨£º" << endl;
-			cout << "1 ÑÅ¿Ë±Èµü´ú·¨" << endl;
-			cout << "2 ¸ßË¹-ÈüµÂ¶ûµü´ú·¨" << endl;
-			cout << "3 Öð´Î³¬ËÉ³Úµü´ú·¨" << endl;
-			cout << "4 ×îËÙÏÂ½µ·¨" << endl;
-			cout << "5 ¹²éîÌÝ¶È·¨" << endl;
-			cout << "6 ¹ãÒå¼«Ð¡²ÐÓàËã·¨" << endl;
+			cout << "\n--- æ±‚è§£çº¿æ€§æ–¹ç¨‹ç»„ Ax=b ---" << endl;
+			cout << "è¯·é€‰æ‹©æ±‚è§£æ–¹æ³•ï¼š" << endl;
+			cout << "1 é›…å…‹æ¯”è¿­ä»£æ³•" << endl;
+			cout << "2 é«˜æ–¯-èµ›å¾·å°”è¿­ä»£æ³•" << endl;
+			cout << "3 é€æ¬¡è¶…æ¾å¼›è¿­ä»£æ³•" << endl;
+			cout << "4 æœ€é€Ÿä¸‹é™æ³•" << endl;
+			cout << "5 å…±è½­æ¢¯åº¦æ³•" << endl;
+			cout << "6 å¹¿ä¹‰æžå°æ®‹ä½™ç®—æ³•" << endl;
 #else
 			cout << "\n--- To solve linear equations Ax=b ---" << endl;
 			cout << "Please select the solution method:" << endl;
@@ -188,7 +189,7 @@ void Numerical_calculating() {
 			if (method < 1 || method >6)
 			{
 #ifdef CHINESE_VERSION
-				cout << "´íÎó£º³¬³öË÷Òý" << endl;
+				cout << "é”™è¯¯ï¼šè¶…å‡ºç´¢å¼•" << endl;
 #else
 				cout << "Error: Out of index range." << endl;
 #endif
@@ -225,11 +226,11 @@ void Numerical_calculating() {
 			Interpolation* ipn = NULL;
 			int method;
 #ifdef CHINESE_VERSION
-			cout << "\n--- ²åÖµ·¨ ---" << endl;
-			cout << "ÇëÑ¡Ôñ²åÖµ·½·¨£º" << endl;
-			cout << "1 Å£¶Ù²åÖµ" << endl;
-			cout << "2 °£¶ûÃ×ÌØ²åÖµ£¨Å£¶ÙÐÍ£©" << endl;
-			cout << "3 Èý´ÎÑùÌõ²åÖµ" << endl;
+			cout << "\n--- æ’å€¼æ³• ---" << endl;
+			cout << "è¯·é€‰æ‹©æ’å€¼æ–¹æ³•ï¼š" << endl;
+			cout << "1 ç‰›é¡¿æ’å€¼" << endl;
+			cout << "2 åŸƒå°”ç±³ç‰¹æ’å€¼ï¼ˆç‰›é¡¿åž‹ï¼‰" << endl;
+			cout << "3 ä¸‰æ¬¡æ ·æ¡æ’å€¼" << endl;
 #else
 			cout << "\n--- Interpolation ---" << endl;
 			cout << "Please select the interpolation method:" << endl;
@@ -241,7 +242,7 @@ void Numerical_calculating() {
 			if (method < 1 || method >3)
 			{
 #ifdef CHINESE_VERSION
-				cout << "´íÎó£º³¬³öË÷Òý" << endl;
+				cout << "é”™è¯¯ï¼šè¶…å‡ºç´¢å¼•" << endl;
 #else
 				cout << "Error: Out of index range." << endl;
 #endif
@@ -270,10 +271,10 @@ void Numerical_calculating() {
 			optimal_approx* oa = NULL;
 			int method;
 #ifdef CHINESE_VERSION
-			cout << "\n--- º¯Êý×îÓÅ±Æ½ü ---" << endl;
-			cout << "ÇëÑ¡Ôñ±Æ½ü·½·¨£º" << endl;
-			cout << "1 ×îÓÅÆ½·½±Æ½ü" << endl;
-			cout << "2 ½üËÆ×îÓÅÒ»ÖÂ±Æ½ü" << endl;
+			cout << "\n--- å‡½æ•°æœ€ä¼˜é€¼è¿‘ ---" << endl;
+			cout << "è¯·é€‰æ‹©é€¼è¿‘æ–¹æ³•ï¼š" << endl;
+			cout << "1 æœ€ä¼˜å¹³æ–¹é€¼è¿‘" << endl;
+			cout << "2 è¿‘ä¼¼æœ€ä¼˜ä¸€è‡´é€¼è¿‘" << endl;
 #else
 			cout << "\n--- Optimal approximation of function ---" << endl;
 			cout << "Please select the method:" << endl;
@@ -283,7 +284,7 @@ void Numerical_calculating() {
 			method = in_int();
 			if (method < 1 || method>2) {
 #ifdef CHINESE_VERSION
-				cout << "´íÎó£º³¬³öË÷Òý" << endl;
+				cout << "é”™è¯¯ï¼šè¶…å‡ºç´¢å¼•" << endl;
 #else
 				cout << "Error: Out of index range." << endl;
 #endif
@@ -308,10 +309,10 @@ void Numerical_calculating() {
 			Int_Diff* ig = NULL;
 			int method;
 #ifdef CHINESE_VERSION
-			cout << "\n--- ÊýÖµ»ý·ÖÓëÊýÖµÎ¢·Ö ---" << endl;
-			cout << "ÇëÑ¡Ôñ»ý·Ö/Î¢·Ö·½·¨£º" << endl;
-			cout << "1 Áú±´¸ñ»ý·Ö" << endl;
-			cout << "2 ÍâÍÆ·¨Çóµ¼" << endl;
+			cout << "\n--- æ•°å€¼ç§¯åˆ†ä¸Žæ•°å€¼å¾®åˆ† ---" << endl;
+			cout << "è¯·é€‰æ‹©ç§¯åˆ†/å¾®åˆ†æ–¹æ³•ï¼š" << endl;
+			cout << "1 é¾™è´æ ¼ç§¯åˆ†" << endl;
+			cout << "2 å¤–æŽ¨æ³•æ±‚å¯¼" << endl;
 #else
 			cout << "\n--- Numerical integration and differentiation ---" << endl;
 			cout << "Please select the method:" << endl;
@@ -322,7 +323,7 @@ void Numerical_calculating() {
 			if (method < 1 || method >2)
 			{
 #ifdef CHINESE_VERSION
-				cout << "´íÎó£º³¬³öË÷Òý" << endl;
+				cout << "é”™è¯¯ï¼šè¶…å‡ºç´¢å¼•" << endl;
 #else
 				cout << "Error: Out of index range." << endl;
 #endif
@@ -349,19 +350,19 @@ void Numerical_calculating() {
 			nl_eqs* neqs = NULL;
 			int method;
 #ifdef CHINESE_VERSION
-			cout << "\n--- ·ÇÏßÐÔ·½³Ì£¨×é£© ---" << endl;
-			cout << "ÇëÑ¡ÔñÇó½â·½·¨£º" << endl;
-			cout << "--- ·ÇÏßÐÔ·½³Ì ---" << endl;
-			cout << "1 ¼òµ¥µü´ú·¨" << endl;
-			cout << "2 Å£¶Ù·¨" << endl;
-			cout << "3 ÏÒ¸î·¨" << endl;
-			cout << "4 ËÉ³Ú¼ÓËÙ·¨" << endl;
-			cout << "5 °¬ÌØ¿Ï¼ÓËÙ·¨£¨Ë¹ÌØ·ÒÉ­£©" << endl;
-			cout << "--- ·ÇÏßÐÔ·½³Ì×é ---" << endl;
-			cout << "6 ¼òµ¥µü´ú·¨" << endl;
-			cout << "7 Å£¶Ù·¨" << endl;
-			cout << "8 ÏÒ¸î·¨" << endl;
-			cout << "9 ²¼ÂåÒÁµÇ·¨" << endl;
+			cout << "\n--- éžçº¿æ€§æ–¹ç¨‹ï¼ˆç»„ï¼‰ ---" << endl;
+			cout << "è¯·é€‰æ‹©æ±‚è§£æ–¹æ³•ï¼š" << endl;
+			cout << "--- éžçº¿æ€§æ–¹ç¨‹ ---" << endl;
+			cout << "1 ç®€å•è¿­ä»£æ³•" << endl;
+			cout << "2 ç‰›é¡¿æ³•" << endl;
+			cout << "3 å¼¦å‰²æ³•" << endl;
+			cout << "4 æ¾å¼›åŠ é€Ÿæ³•" << endl;
+			cout << "5 è‰¾ç‰¹è‚¯åŠ é€Ÿæ³•ï¼ˆæ–¯ç‰¹èŠ¬æ£®ï¼‰" << endl;
+			cout << "--- éžçº¿æ€§æ–¹ç¨‹ç»„ ---" << endl;
+			cout << "6 ç®€å•è¿­ä»£æ³•" << endl;
+			cout << "7 ç‰›é¡¿æ³•" << endl;
+			cout << "8 å¼¦å‰²æ³•" << endl;
+			cout << "9 å¸ƒæ´›ä¼Šç™»æ³•" << endl;
 #else
 			cout << "\n--- Nonlinear equation(s) ---" << endl;
 			cout << "Please select the method:" << endl;
@@ -380,7 +381,7 @@ void Numerical_calculating() {
 			method = in_int();
 			if (method < 1 || method>9) {
 #ifdef CHINESE_VERSION
-				cout << "´íÎó£º³¬³öË÷Òý" << endl;
+				cout << "é”™è¯¯ï¼šè¶…å‡ºç´¢å¼•" << endl;
 #else
 				cout << "Error: Out of index range." << endl;
 #endif
@@ -433,9 +434,9 @@ void Numerical_calculating() {
 			Eigen_val_vec* evv = NULL;
 			int method;
 #ifdef CHINESE_VERSION
-			cout << "\n--- ¾ØÕóÌØÕ÷ÖµÓëÌØÕ÷ÏòÁ¿ ---" << endl;
-			cout << "1 ³ËÃÝ·¨" << endl;
-			cout << "2 ·´ÃÝ·¨" << endl;
+			cout << "\n--- çŸ©é˜µç‰¹å¾å€¼ä¸Žç‰¹å¾å‘é‡ ---" << endl;
+			cout << "1 ä¹˜å¹‚æ³•" << endl;
+			cout << "2 åå¹‚æ³•" << endl;
 #else
 			cout << "\n--- Eigenvalue and eigenvector of matrix ---" << endl;
 			cout << "1.Power method" << endl;
@@ -444,7 +445,7 @@ void Numerical_calculating() {
 			method = in_int();
 			if (method < 1 || method>2) {
 #ifdef CHINESE_VERSION
-				cout << "´íÎó£º³¬³öË÷Òý" << endl;
+				cout << "é”™è¯¯ï¼šè¶…å‡ºç´¢å¼•" << endl;
 #else
 				cout << "Error: Out of index range." << endl;
 #endif
@@ -471,6 +472,8 @@ void Numerical_calculating() {
 }
 
 int main() {
+	system("chcp 65001 > nul");
+	cout << uppercase;
 	int c_flag = 1;
 	do{
 		cout.precision(15);
@@ -479,9 +482,9 @@ int main() {
 		}
 		catch (int err) {
 #ifdef CHINESE_VERSION
-			if (err == 0) cout << "\n³ÌÐòÔËÐÐÖÐÓöµ½ÁËÒ»´¦´íÎó" << endl;
-			else if (err == 1) cout << "\nÊäÈëÊý¾Ý³ö´í" << endl;
-			cout << "\nÊÇ·ñÖØÐÂ¿ªÊ¼£¿£¨1 = ÊÇ , 0 = ·ñ£©" << endl;
+			if (err == 0) cout << "\nç¨‹åºè¿è¡Œä¸­é‡åˆ°äº†ä¸€å¤„é”™è¯¯" << endl;
+			else if (err == 1) cout << "\nè¾“å…¥æ•°æ®å‡ºé”™" << endl;
+			cout << "\næ˜¯å¦é‡æ–°å¼€å§‹ï¼Ÿï¼ˆ1 = æ˜¯ , 0 = å¦ï¼‰" << endl;
 #else
 			if (err == 0) cout << "\nAn error occurred in the program running." << endl;
 			else if (err == 1) cout << "\nAn error occurred about the given data." << endl;
@@ -491,14 +494,14 @@ int main() {
 			continue;
 		}
 #ifdef CHINESE_VERSION
-		cout << "\nÊÇ·ñ¼ÌÐø£¿£¨1 = ÊÇ , 0 = ·ñ£©" << endl;
+		cout << "\næ˜¯å¦ç»§ç»­ï¼Ÿï¼ˆ1 = æ˜¯ , 0 = å¦ï¼‰" << endl;
 #else
 		cout << "\nWant to continue? (1 = yes , 0 = no)" << endl;
 #endif
 		c_flag = in_int();
 	}while(c_flag);
 #ifdef CHINESE_VERSION
-	cout << "\n¸ÐÐ»Ê¹ÓÃ" << endl;
+	cout << "\næ„Ÿè°¢ä½¿ç”¨" << endl;
 #else
 	cout << "\nThanks for using." << endl;
 #endif

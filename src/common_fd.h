@@ -5,6 +5,7 @@
 #define cube(x) ((x)*(x)*(x))
 
 #define CHINESE_VERSION
+#define WEB_VISUALIZATION
 
 #include <sstream>
 #include <vector>
@@ -14,12 +15,11 @@ int strtoint(std::string s);
 int in_int();
 int calc_fac(int k);
 double calc_fac(double k);
-double vecnorm1(double* xx, int nn);
-double vecnorm2(double* xx, int nn);
-double vecnorm2(std::vector<double> xx);
-double vecnorminf(double* xx, int nn);
-double matnorm1(double** mm, int nn);
-double matnorminf(double** mm, int nn);
+double vecnorm1(const std::vector<double>& xx);
+double vecnorm2(const std::vector<double>& xx);
+double vecnorminf(const std::vector<double>& xx);
+double matnorm1(const std::vector<std::vector<double>>& mm);
+double matnorminf(const std::vector<std::vector<double>>& mm);
 std::vector<std::vector<double>> mat_inverse(std::vector<std::vector<double>>);
 std::vector<std::vector<double>> mat_multi(std::vector<std::vector<double>>, std::vector<std::vector<double>>);
 std::vector<double> mat_multi_vec(std::vector<std::vector<double>>, std::vector<double>);

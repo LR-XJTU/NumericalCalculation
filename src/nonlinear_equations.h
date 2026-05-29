@@ -19,6 +19,7 @@ protected:
 	int counter;
 public:
 	nl_eq();
+	virtual ~nl_eq() = default;
 	void input_fx();
 	void input_x();
 	void input_max_eps();
@@ -80,6 +81,7 @@ protected:
 	int counter;
 public:
 	nl_eqs();
+	virtual ~nl_eqs() = default;
 	void input_fx();
 	void input_x();
 	void input_max_eps();

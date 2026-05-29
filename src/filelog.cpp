@@ -24,7 +24,7 @@ void filelog::init(const char* fn) {
 		test.close();
 		cout << '\n' << filename;
 #ifdef CHINESE_VERSION
-		cout << " ÒÑ¾­´æÔÚ£¬¸²¸Ç»¹ÊÇ¼ÌÐøÐ´Èë£¿ (1 = ¸²¸Ç , 2 = ¼ÌÐøÐ´Èë)" << endl;
+		cout << " å·²ç»å­˜åœ¨ï¼Œè¦†ç›–è¿˜æ˜¯ç»§ç»­å†™å…¥ï¼Ÿ (1 = è¦†ç›– , 2 = ç»§ç»­å†™å…¥)" << endl;
 #else
 		cout << " already exists. Overwrite it or continue at the end? (1 = overwrite , 2 = continue)" << endl;
 #endif
@@ -41,6 +41,7 @@ void filelog::init(const char* fn) {
 		flog = new fstream(filename, ios::out);
 	}
 	flog->precision(15);
+	(*flog) << uppercase;
 	if (filetype == FILE_TXT) (*flog) << "\n===================================================================\n";
 	init_flag = true;
 }
@@ -49,6 +50,7 @@ void filelog::judge_type() {
 	string str = filename;
 	if (str.find(".txt") != str.npos) filetype = FILE_TXT;
 	else if (str.find(".m") != str.npos) filetype = FILE_M;
+	else if (str.find(".html") != str.npos) filetype = FILE_HTML;
 }
 
 void filelog::set_width(int wid) {
@@ -104,31 +106,19 @@ filelog& filelog::operator<<(const int x) {
 	return *this;
 }
 
-filelog& filelog::operator<<(const int* arr) {
-	for (int i = 0; i < m; i++) (*flog) << "\t" << arr[i] << "\n";
-	(*flog) << flush;
-	return *this;
-}
-
 filelog& filelog::operator<<(const double x) {
 	(*flog) << x;
 	(*flog) << flush;
 	return *this;
 }
 
-filelog& filelog::operator<<(const double* arr) {
+filelog& filelog::operator<<(const vector<double>& arr) {
 	for (int i = 0; i < m; i++) (*flog) << "\t" << arr[i] << "\n";
 	(*flog) << flush;
 	return *this;
 }
 
-filelog& filelog::operator<<(const vector<double> arr) {
-	for (int i = 0; i < m; i++) (*flog) << "\t" << arr[i] << "\n";
-	(*flog) << flush;
-	return *this;
-}
-
-filelog& filelog::operator<<(const double* const* mat) {
+filelog& filelog::operator<<(const std::vector<std::vector<double>>& mat) {
 	set_left_right(true);
 	for (int i = 0; i < m; i++) {
 		(*flog) << "\t";
